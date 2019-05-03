@@ -20,6 +20,8 @@ namespace PaymentPlanCalculator
 
         public void Form1_Load(object sender, EventArgs e)
         {
+            //Review Program
+
             /****************************************** //
             /*             DEFINE VARIABLES             //
             /****************************************** */
