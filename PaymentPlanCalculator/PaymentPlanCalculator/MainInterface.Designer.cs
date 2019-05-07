@@ -58,12 +58,6 @@
             this.chkPPA = new System.Windows.Forms.CheckBox();
             this.slideSIFpercentage = new System.Windows.Forms.TrackBar();
             this.lblPercentSymbol = new System.Windows.Forms.Label();
-            this.lblTotalPaymentCount = new System.Windows.Forms.Label();
-            this.lblTtlPay = new System.Windows.Forms.Label();
-            this.lblRemainder = new System.Windows.Forms.Label();
-            this.lblRemainingBalanceNotification = new System.Windows.Forms.Label();
-            this.lblInstallmentAmt = new System.Windows.Forms.Label();
-            this.lblPMTSREM = new System.Windows.Forms.Label();
             this.lblRemainingPmtCount = new System.Windows.Forms.Label();
             this.lblPCR = new System.Windows.Forms.Label();
             this.lblRemainingBal = new System.Windows.Forms.Label();
@@ -74,6 +68,12 @@
             this.lblSettlementRate = new System.Windows.Forms.Label();
             this.lblCurrentBal = new System.Windows.Forms.Label();
             this.pnlPPA = new System.Windows.Forms.Panel();
+            this.lblPMTSREM = new System.Windows.Forms.Label();
+            this.lblInstallmentAmt = new System.Windows.Forms.Label();
+            this.lblRemainingBalanceNotification = new System.Windows.Forms.Label();
+            this.lblRemainder = new System.Windows.Forms.Label();
+            this.lblTtlPay = new System.Windows.Forms.Label();
+            this.lblTotalPaymentCount = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
@@ -307,6 +307,7 @@
             this.txtDownPayment.Size = new System.Drawing.Size(125, 29);
             this.txtDownPayment.TabIndex = 26;
             this.txtDownPayment.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
+            this.txtDownPayment.Leave += new System.EventHandler(this.TxtDownPayment_Leave);
             // 
             // txtBalanceInput
             // 
@@ -316,6 +317,7 @@
             this.txtBalanceInput.Name = "txtBalanceInput";
             this.txtBalanceInput.Size = new System.Drawing.Size(125, 29);
             this.txtBalanceInput.TabIndex = 25;
+            this.txtBalanceInput.Leave += new System.EventHandler(this.TxtBalanceInput_Leave);
             // 
             // label16
             // 
@@ -429,67 +431,6 @@
             this.lblPercentSymbol.TabIndex = 15;
             this.lblPercentSymbol.Text = "%:";
             // 
-            // lblTotalPaymentCount
-            // 
-            this.lblTotalPaymentCount.AutoSize = true;
-            this.lblTotalPaymentCount.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalPaymentCount.Location = new System.Drawing.Point(124, 42);
-            this.lblTotalPaymentCount.Name = "lblTotalPaymentCount";
-            this.lblTotalPaymentCount.Size = new System.Drawing.Size(16, 21);
-            this.lblTotalPaymentCount.TabIndex = 14;
-            this.lblTotalPaymentCount.Text = "1";
-            // 
-            // lblTtlPay
-            // 
-            this.lblTtlPay.AutoSize = true;
-            this.lblTtlPay.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTtlPay.Location = new System.Drawing.Point(3, 42);
-            this.lblTtlPay.Name = "lblTtlPay";
-            this.lblTtlPay.Size = new System.Drawing.Size(123, 21);
-            this.lblTtlPay.TabIndex = 13;
-            this.lblTtlPay.Text = "Total Payments:";
-            // 
-            // lblRemainder
-            // 
-            this.lblRemainder.AutoSize = true;
-            this.lblRemainder.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemainder.Location = new System.Drawing.Point(163, 21);
-            this.lblRemainder.Name = "lblRemainder";
-            this.lblRemainder.Size = new System.Drawing.Size(41, 21);
-            this.lblRemainder.TabIndex = 12;
-            this.lblRemainder.Text = "0.00";
-            this.lblRemainder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblRemainingBalanceNotification
-            // 
-            this.lblRemainingBalanceNotification.AutoSize = true;
-            this.lblRemainingBalanceNotification.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemainingBalanceNotification.Location = new System.Drawing.Point(3, 21);
-            this.lblRemainingBalanceNotification.Name = "lblRemainingBalanceNotification";
-            this.lblRemainingBalanceNotification.Size = new System.Drawing.Size(114, 21);
-            this.lblRemainingBalanceNotification.TabIndex = 11;
-            this.lblRemainingBalanceNotification.Text = "Final Payment:";
-            // 
-            // lblInstallmentAmt
-            // 
-            this.lblInstallmentAmt.AutoSize = true;
-            this.lblInstallmentAmt.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInstallmentAmt.Location = new System.Drawing.Point(163, 0);
-            this.lblInstallmentAmt.Name = "lblInstallmentAmt";
-            this.lblInstallmentAmt.Size = new System.Drawing.Size(41, 21);
-            this.lblInstallmentAmt.TabIndex = 10;
-            this.lblInstallmentAmt.Text = "0.00";
-            // 
-            // lblPMTSREM
-            // 
-            this.lblPMTSREM.AutoSize = true;
-            this.lblPMTSREM.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPMTSREM.Location = new System.Drawing.Point(3, 0);
-            this.lblPMTSREM.Name = "lblPMTSREM";
-            this.lblPMTSREM.Size = new System.Drawing.Size(158, 21);
-            this.lblPMTSREM.TabIndex = 9;
-            this.lblPMTSREM.Text = "Installment Amount:";
-            // 
             // lblRemainingPmtCount
             // 
             this.lblRemainingPmtCount.AutoSize = true;
@@ -595,6 +536,67 @@
             this.pnlPPA.Name = "pnlPPA";
             this.pnlPPA.Size = new System.Drawing.Size(300, 75);
             this.pnlPPA.TabIndex = 41;
+            // 
+            // lblPMTSREM
+            // 
+            this.lblPMTSREM.AutoSize = true;
+            this.lblPMTSREM.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPMTSREM.Location = new System.Drawing.Point(3, 0);
+            this.lblPMTSREM.Name = "lblPMTSREM";
+            this.lblPMTSREM.Size = new System.Drawing.Size(158, 21);
+            this.lblPMTSREM.TabIndex = 9;
+            this.lblPMTSREM.Text = "Installment Amount:";
+            // 
+            // lblInstallmentAmt
+            // 
+            this.lblInstallmentAmt.AutoSize = true;
+            this.lblInstallmentAmt.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstallmentAmt.Location = new System.Drawing.Point(163, 0);
+            this.lblInstallmentAmt.Name = "lblInstallmentAmt";
+            this.lblInstallmentAmt.Size = new System.Drawing.Size(41, 21);
+            this.lblInstallmentAmt.TabIndex = 10;
+            this.lblInstallmentAmt.Text = "0.00";
+            // 
+            // lblRemainingBalanceNotification
+            // 
+            this.lblRemainingBalanceNotification.AutoSize = true;
+            this.lblRemainingBalanceNotification.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRemainingBalanceNotification.Location = new System.Drawing.Point(3, 21);
+            this.lblRemainingBalanceNotification.Name = "lblRemainingBalanceNotification";
+            this.lblRemainingBalanceNotification.Size = new System.Drawing.Size(114, 21);
+            this.lblRemainingBalanceNotification.TabIndex = 11;
+            this.lblRemainingBalanceNotification.Text = "Final Payment:";
+            // 
+            // lblRemainder
+            // 
+            this.lblRemainder.AutoSize = true;
+            this.lblRemainder.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRemainder.Location = new System.Drawing.Point(163, 21);
+            this.lblRemainder.Name = "lblRemainder";
+            this.lblRemainder.Size = new System.Drawing.Size(41, 21);
+            this.lblRemainder.TabIndex = 12;
+            this.lblRemainder.Text = "0.00";
+            this.lblRemainder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblTtlPay
+            // 
+            this.lblTtlPay.AutoSize = true;
+            this.lblTtlPay.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTtlPay.Location = new System.Drawing.Point(3, 42);
+            this.lblTtlPay.Name = "lblTtlPay";
+            this.lblTtlPay.Size = new System.Drawing.Size(123, 21);
+            this.lblTtlPay.TabIndex = 13;
+            this.lblTtlPay.Text = "Total Payments:";
+            // 
+            // lblTotalPaymentCount
+            // 
+            this.lblTotalPaymentCount.AutoSize = true;
+            this.lblTotalPaymentCount.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalPaymentCount.Location = new System.Drawing.Point(124, 42);
+            this.lblTotalPaymentCount.Name = "lblTotalPaymentCount";
+            this.lblTotalPaymentCount.Size = new System.Drawing.Size(16, 21);
+            this.lblTotalPaymentCount.TabIndex = 14;
+            this.lblTotalPaymentCount.Text = "1";
             // 
             // paymentPlanCalculator
             // 

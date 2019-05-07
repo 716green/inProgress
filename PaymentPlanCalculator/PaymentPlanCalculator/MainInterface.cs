@@ -238,6 +238,9 @@ namespace PaymentPlanCalculator
             }
         }
 
+        /****************************************************** //
+        /*     Change UI Text based on Number of Payments       //
+        /****************************************************** */
         public void LblRemainingPmtCount_TextChanged(object sender, EventArgs e)
         {
             if (lblRemainingPmtCount.Text == "1")
@@ -248,6 +251,21 @@ namespace PaymentPlanCalculator
             {
                 lblRMG.Text = "Payments";
             }
+        }
+
+        /****************************************************** //
+        /*      Format Balance Input to 2 Decimal Places        //
+        /****************************************************** */
+        public void TxtBalanceInput_Leave(object sender, EventArgs e)
+        {
+            decimal formattedBalInput = Convert.ToDecimal(txtBalanceInput.Text);
+            txtBalanceInput.Text = String.Format("{0:00}", formattedBalInput.ToString("N"));
+        }
+
+        public void TxtDownPayment_Leave(object sender, EventArgs e)
+        {
+            decimal formattedDPInput = Convert.ToDecimal(txtDownPayment.Text);
+            txtDownPayment.Text = String.Format("{0:00}", formattedDPInput.ToString("N"));
         }
     }
 }
