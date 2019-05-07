@@ -44,25 +44,23 @@
             this.lblDollarSign5 = new System.Windows.Forms.Label();
             this.lblDollarSign4 = new System.Windows.Forms.Label();
             this.dropDownPayCycle = new System.Windows.Forms.ComboBox();
-            this.lblDollarSign3 = new System.Windows.Forms.Label();
-            this.lblDollarSign2 = new System.Windows.Forms.Label();
             this.lblRMG = new System.Windows.Forms.Label();
             this.sliderRemainingPmtCount = new System.Windows.Forms.TrackBar();
             this.lblDollarSign = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtDownPayment = new System.Windows.Forms.TextBox();
             this.txtBalanceInput = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblOneHundo = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.chkSIF = new System.Windows.Forms.CheckBox();
+            this.chkSettlement = new System.Windows.Forms.CheckBox();
+            this.chkPPA = new System.Windows.Forms.CheckBox();
             this.slideSIFpercentage = new System.Windows.Forms.TrackBar();
-            this.lblPercentDollar = new System.Windows.Forms.Label();
+            this.lblPercentSymbol = new System.Windows.Forms.Label();
             this.lblTotalPaymentCount = new System.Windows.Forms.Label();
             this.lblTtlPay = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lblRemainder = new System.Windows.Forms.Label();
             this.lblRemainingBalanceNotification = new System.Windows.Forms.Label();
             this.lblInstallmentAmt = new System.Windows.Forms.Label();
             this.lblPMTSREM = new System.Windows.Forms.Label();
@@ -71,14 +69,16 @@
             this.lblRemainingBal = new System.Windows.Forms.Label();
             this.lblRemBal = new System.Windows.Forms.Label();
             this.lblDownPmt = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblSifBalance = new System.Windows.Forms.Label();
             this.lblSIFpercent = new System.Windows.Forms.Label();
             this.lblSettlementRate = new System.Windows.Forms.Label();
             this.lblCurrentBal = new System.Windows.Forms.Label();
+            this.pnlPPA = new System.Windows.Forms.Panel();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.slideSIFpercentage)).BeginInit();
+            this.pnlPPA.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip
@@ -128,37 +128,30 @@
             this.pnlDataEntry.Controls.Add(this.lblDollarSign5);
             this.pnlDataEntry.Controls.Add(this.lblDollarSign4);
             this.pnlDataEntry.Controls.Add(this.dropDownPayCycle);
-            this.pnlDataEntry.Controls.Add(this.lblDollarSign3);
-            this.pnlDataEntry.Controls.Add(this.lblDollarSign2);
             this.pnlDataEntry.Controls.Add(this.lblRMG);
             this.pnlDataEntry.Controls.Add(this.sliderRemainingPmtCount);
             this.pnlDataEntry.Controls.Add(this.lblDollarSign);
-            this.pnlDataEntry.Controls.Add(this.textBox1);
+            this.pnlDataEntry.Controls.Add(this.txtDownPayment);
             this.pnlDataEntry.Controls.Add(this.txtBalanceInput);
             this.pnlDataEntry.Controls.Add(this.label16);
             this.pnlDataEntry.Controls.Add(this.label3);
             this.pnlDataEntry.Controls.Add(this.label2);
             this.pnlDataEntry.Controls.Add(this.label1);
             this.pnlDataEntry.Controls.Add(this.lblOneHundo);
-            this.pnlDataEntry.Controls.Add(this.checkBox1);
-            this.pnlDataEntry.Controls.Add(this.chkSIF);
+            this.pnlDataEntry.Controls.Add(this.chkSettlement);
+            this.pnlDataEntry.Controls.Add(this.chkPPA);
             this.pnlDataEntry.Controls.Add(this.slideSIFpercentage);
-            this.pnlDataEntry.Controls.Add(this.lblPercentDollar);
-            this.pnlDataEntry.Controls.Add(this.lblTotalPaymentCount);
-            this.pnlDataEntry.Controls.Add(this.lblTtlPay);
-            this.pnlDataEntry.Controls.Add(this.label13);
-            this.pnlDataEntry.Controls.Add(this.lblRemainingBalanceNotification);
-            this.pnlDataEntry.Controls.Add(this.lblInstallmentAmt);
-            this.pnlDataEntry.Controls.Add(this.lblPMTSREM);
+            this.pnlDataEntry.Controls.Add(this.lblPercentSymbol);
             this.pnlDataEntry.Controls.Add(this.lblRemainingPmtCount);
             this.pnlDataEntry.Controls.Add(this.lblPCR);
             this.pnlDataEntry.Controls.Add(this.lblRemainingBal);
             this.pnlDataEntry.Controls.Add(this.lblRemBal);
             this.pnlDataEntry.Controls.Add(this.lblDownPmt);
-            this.pnlDataEntry.Controls.Add(this.label4);
+            this.pnlDataEntry.Controls.Add(this.lblSifBalance);
             this.pnlDataEntry.Controls.Add(this.lblSIFpercent);
             this.pnlDataEntry.Controls.Add(this.lblSettlementRate);
             this.pnlDataEntry.Controls.Add(this.lblCurrentBal);
+            this.pnlDataEntry.Controls.Add(this.pnlPPA);
             this.pnlDataEntry.Location = new System.Drawing.Point(12, 29);
             this.pnlDataEntry.Name = "pnlDataEntry";
             this.pnlDataEntry.Size = new System.Drawing.Size(1278, 503);
@@ -168,7 +161,7 @@
             // 
             this.lblCardType.AutoSize = true;
             this.lblCardType.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCardType.Location = new System.Drawing.Point(264, 399);
+            this.lblCardType.Location = new System.Drawing.Point(264, 403);
             this.lblCardType.Name = "lblCardType";
             this.lblCardType.Size = new System.Drawing.Size(0, 21);
             this.lblCardType.TabIndex = 40;
@@ -177,7 +170,7 @@
             // 
             this.lblCardValid.AutoSize = true;
             this.lblCardValid.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCardValid.Location = new System.Drawing.Point(109, 427);
+            this.lblCardValid.Location = new System.Drawing.Point(109, 431);
             this.lblCardValid.Name = "lblCardValid";
             this.lblCardValid.Size = new System.Drawing.Size(52, 21);
             this.lblCardValid.TabIndex = 39;
@@ -186,7 +179,7 @@
             // btnValidate
             // 
             this.btnValidate.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnValidate.Location = new System.Drawing.Point(8, 389);
+            this.btnValidate.Location = new System.Drawing.Point(8, 393);
             this.btnValidate.Name = "btnValidate";
             this.btnValidate.Size = new System.Drawing.Size(254, 31);
             this.btnValidate.TabIndex = 38;
@@ -198,7 +191,7 @@
             // 
             this.lblCreditCardNumber.AutoSize = true;
             this.lblCreditCardNumber.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCreditCardNumber.Location = new System.Drawing.Point(4, 323);
+            this.lblCreditCardNumber.Location = new System.Drawing.Point(4, 327);
             this.lblCreditCardNumber.Name = "lblCreditCardNumber";
             this.lblCreditCardNumber.Size = new System.Drawing.Size(204, 21);
             this.lblCreditCardNumber.TabIndex = 37;
@@ -208,7 +201,7 @@
             // 
             this.txtCreditCardNumber.AllowDrop = true;
             this.txtCreditCardNumber.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold);
-            this.txtCreditCardNumber.Location = new System.Drawing.Point(8, 346);
+            this.txtCreditCardNumber.Location = new System.Drawing.Point(8, 350);
             this.txtCreditCardNumber.MaxLength = 20;
             this.txtCreditCardNumber.Name = "txtCreditCardNumber";
             this.txtCreditCardNumber.Size = new System.Drawing.Size(254, 36);
@@ -266,41 +259,21 @@
             "SEMI-MONTHLY",
             "MONTHLY",
             "NOT ON A SCHEDULE"});
-            this.dropDownPayCycle.Location = new System.Drawing.Point(6, 282);
+            this.dropDownPayCycle.Location = new System.Drawing.Point(6, 286);
             this.dropDownPayCycle.Name = "dropDownPayCycle";
             this.dropDownPayCycle.Size = new System.Drawing.Size(256, 38);
             this.dropDownPayCycle.TabIndex = 32;
             this.dropDownPayCycle.Text = "PAY CYCLE";
             // 
-            // lblDollarSign3
-            // 
-            this.lblDollarSign3.AutoSize = true;
-            this.lblDollarSign3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDollarSign3.Location = new System.Drawing.Point(152, 237);
-            this.lblDollarSign3.Name = "lblDollarSign3";
-            this.lblDollarSign3.Size = new System.Drawing.Size(19, 21);
-            this.lblDollarSign3.TabIndex = 31;
-            this.lblDollarSign3.Text = "$";
-            // 
-            // lblDollarSign2
-            // 
-            this.lblDollarSign2.AutoSize = true;
-            this.lblDollarSign2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDollarSign2.Location = new System.Drawing.Point(111, 216);
-            this.lblDollarSign2.Name = "lblDollarSign2";
-            this.lblDollarSign2.Size = new System.Drawing.Size(19, 21);
-            this.lblDollarSign2.TabIndex = 30;
-            this.lblDollarSign2.Text = "$";
-            // 
             // lblRMG
             // 
             this.lblRMG.AutoSize = true;
             this.lblRMG.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRMG.Location = new System.Drawing.Point(224, 143);
+            this.lblRMG.Location = new System.Drawing.Point(177, 143);
             this.lblRMG.Name = "lblRMG";
-            this.lblRMG.Size = new System.Drawing.Size(87, 21);
+            this.lblRMG.Size = new System.Drawing.Size(73, 21);
             this.lblRMG.TabIndex = 29;
-            this.lblRMG.Text = "Remaining";
+            this.lblRMG.Text = "Payment";
             // 
             // sliderRemainingPmtCount
             // 
@@ -312,6 +285,8 @@
             this.sliderRemainingPmtCount.Size = new System.Drawing.Size(303, 45);
             this.sliderRemainingPmtCount.TabIndex = 28;
             this.sliderRemainingPmtCount.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.sliderRemainingPmtCount.Value = 1;
+            this.sliderRemainingPmtCount.ValueChanged += new System.EventHandler(this.SliderRemainingPmtCount_ValueChanged);
             // 
             // lblDollarSign
             // 
@@ -323,20 +298,21 @@
             this.lblDollarSign.TabIndex = 27;
             this.lblDollarSign.Text = "$";
             // 
-            // textBox1
+            // txtDownPayment
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(156, 86);
-            this.textBox1.MaxLength = 6;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(125, 29);
-            this.textBox1.TabIndex = 26;
+            this.txtDownPayment.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDownPayment.Location = new System.Drawing.Point(156, 86);
+            this.txtDownPayment.MaxLength = 6;
+            this.txtDownPayment.Name = "txtDownPayment";
+            this.txtDownPayment.Size = new System.Drawing.Size(125, 29);
+            this.txtDownPayment.TabIndex = 26;
+            this.txtDownPayment.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
             // txtBalanceInput
             // 
             this.txtBalanceInput.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBalanceInput.Location = new System.Drawing.Point(156, 5);
-            this.txtBalanceInput.MaxLength = 6;
+            this.txtBalanceInput.MaxLength = 10;
             this.txtBalanceInput.Name = "txtBalanceInput";
             this.txtBalanceInput.Size = new System.Drawing.Size(125, 29);
             this.txtBalanceInput.TabIndex = 25;
@@ -406,27 +382,27 @@
             this.lblOneHundo.TabIndex = 20;
             this.lblOneHundo.Text = "100%";
             // 
-            // checkBox1
+            // chkSettlement
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(287, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(110, 25);
-            this.checkBox1.TabIndex = 19;
-            this.checkBox1.Text = "Settlement";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkSettlement.AutoSize = true;
+            this.chkSettlement.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkSettlement.Location = new System.Drawing.Point(287, 3);
+            this.chkSettlement.Name = "chkSettlement";
+            this.chkSettlement.Size = new System.Drawing.Size(110, 25);
+            this.chkSettlement.TabIndex = 19;
+            this.chkSettlement.Text = "Settlement";
+            this.chkSettlement.UseVisualStyleBackColor = true;
             // 
-            // chkSIF
+            // chkPPA
             // 
-            this.chkSIF.AutoSize = true;
-            this.chkSIF.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkSIF.Location = new System.Drawing.Point(8, 61);
-            this.chkSIF.Name = "chkSIF";
-            this.chkSIF.Size = new System.Drawing.Size(126, 25);
-            this.chkSIF.TabIndex = 18;
-            this.chkSIF.Text = "Payment Plan";
-            this.chkSIF.UseVisualStyleBackColor = true;
+            this.chkPPA.AutoSize = true;
+            this.chkPPA.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkPPA.Location = new System.Drawing.Point(8, 61);
+            this.chkPPA.Name = "chkPPA";
+            this.chkPPA.Size = new System.Drawing.Size(126, 25);
+            this.chkPPA.TabIndex = 18;
+            this.chkPPA.Text = "Payment Plan";
+            this.chkPPA.UseVisualStyleBackColor = true;
             // 
             // slideSIFpercentage
             // 
@@ -440,22 +416,24 @@
             this.slideSIFpercentage.TabIndex = 16;
             this.slideSIFpercentage.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.slideSIFpercentage.Value = 100;
+            this.slideSIFpercentage.ValueChanged += new System.EventHandler(this.SlideSIFpercentage_ValueChanged_1);
+            this.slideSIFpercentage.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SlideSIFpercentage_MouseDown);
             // 
-            // lblPercentDollar
+            // lblPercentSymbol
             // 
-            this.lblPercentDollar.AutoSize = true;
-            this.lblPercentDollar.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPercentDollar.Location = new System.Drawing.Point(165, 37);
-            this.lblPercentDollar.Name = "lblPercentDollar";
-            this.lblPercentDollar.Size = new System.Drawing.Size(52, 21);
-            this.lblPercentDollar.TabIndex = 15;
-            this.lblPercentDollar.Text = "%:    $";
+            this.lblPercentSymbol.AutoSize = true;
+            this.lblPercentSymbol.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPercentSymbol.Location = new System.Drawing.Point(165, 37);
+            this.lblPercentSymbol.Name = "lblPercentSymbol";
+            this.lblPercentSymbol.Size = new System.Drawing.Size(27, 21);
+            this.lblPercentSymbol.TabIndex = 15;
+            this.lblPercentSymbol.Text = "%:";
             // 
             // lblTotalPaymentCount
             // 
             this.lblTotalPaymentCount.AutoSize = true;
             this.lblTotalPaymentCount.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalPaymentCount.Location = new System.Drawing.Point(125, 258);
+            this.lblTotalPaymentCount.Location = new System.Drawing.Point(124, 42);
             this.lblTotalPaymentCount.Name = "lblTotalPaymentCount";
             this.lblTotalPaymentCount.Size = new System.Drawing.Size(16, 21);
             this.lblTotalPaymentCount.TabIndex = 14;
@@ -465,38 +443,38 @@
             // 
             this.lblTtlPay.AutoSize = true;
             this.lblTtlPay.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTtlPay.Location = new System.Drawing.Point(4, 258);
+            this.lblTtlPay.Location = new System.Drawing.Point(3, 42);
             this.lblTtlPay.Name = "lblTtlPay";
             this.lblTtlPay.Size = new System.Drawing.Size(123, 21);
             this.lblTtlPay.TabIndex = 13;
             this.lblTtlPay.Text = "Total Payments:";
             // 
-            // label13
+            // lblRemainder
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(172, 237);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(41, 21);
-            this.label13.TabIndex = 12;
-            this.label13.Text = "0.00";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblRemainder.AutoSize = true;
+            this.lblRemainder.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRemainder.Location = new System.Drawing.Point(163, 21);
+            this.lblRemainder.Name = "lblRemainder";
+            this.lblRemainder.Size = new System.Drawing.Size(41, 21);
+            this.lblRemainder.TabIndex = 12;
+            this.lblRemainder.Text = "0.00";
+            this.lblRemainder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblRemainingBalanceNotification
             // 
             this.lblRemainingBalanceNotification.AutoSize = true;
             this.lblRemainingBalanceNotification.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemainingBalanceNotification.Location = new System.Drawing.Point(4, 237);
+            this.lblRemainingBalanceNotification.Location = new System.Drawing.Point(3, 21);
             this.lblRemainingBalanceNotification.Name = "lblRemainingBalanceNotification";
-            this.lblRemainingBalanceNotification.Size = new System.Drawing.Size(151, 21);
+            this.lblRemainingBalanceNotification.Size = new System.Drawing.Size(114, 21);
             this.lblRemainingBalanceNotification.TabIndex = 11;
-            this.lblRemainingBalanceNotification.Text = "Balance Remaining:";
+            this.lblRemainingBalanceNotification.Text = "Final Payment:";
             // 
             // lblInstallmentAmt
             // 
             this.lblInstallmentAmt.AutoSize = true;
             this.lblInstallmentAmt.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInstallmentAmt.Location = new System.Drawing.Point(125, 216);
+            this.lblInstallmentAmt.Location = new System.Drawing.Point(163, 0);
             this.lblInstallmentAmt.Name = "lblInstallmentAmt";
             this.lblInstallmentAmt.Size = new System.Drawing.Size(41, 21);
             this.lblInstallmentAmt.TabIndex = 10;
@@ -506,21 +484,22 @@
             // 
             this.lblPMTSREM.AutoSize = true;
             this.lblPMTSREM.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPMTSREM.Location = new System.Drawing.Point(4, 216);
+            this.lblPMTSREM.Location = new System.Drawing.Point(3, 0);
             this.lblPMTSREM.Name = "lblPMTSREM";
-            this.lblPMTSREM.Size = new System.Drawing.Size(105, 21);
+            this.lblPMTSREM.Size = new System.Drawing.Size(158, 21);
             this.lblPMTSREM.TabIndex = 9;
-            this.lblPMTSREM.Text = "Payments of:";
+            this.lblPMTSREM.Text = "Installment Amount:";
             // 
             // lblRemainingPmtCount
             // 
             this.lblRemainingPmtCount.AutoSize = true;
             this.lblRemainingPmtCount.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemainingPmtCount.Location = new System.Drawing.Point(199, 143);
+            this.lblRemainingPmtCount.Location = new System.Drawing.Point(152, 143);
             this.lblRemainingPmtCount.Name = "lblRemainingPmtCount";
-            this.lblRemainingPmtCount.Size = new System.Drawing.Size(19, 21);
+            this.lblRemainingPmtCount.Size = new System.Drawing.Size(16, 21);
             this.lblRemainingPmtCount.TabIndex = 8;
-            this.lblRemainingPmtCount.Text = "0";
+            this.lblRemainingPmtCount.Text = "1";
+            this.lblRemainingPmtCount.TextChanged += new System.EventHandler(this.LblRemainingPmtCount_TextChanged);
             // 
             // lblPCR
             // 
@@ -528,9 +507,9 @@
             this.lblPCR.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPCR.Location = new System.Drawing.Point(4, 143);
             this.lblPCR.Name = "lblPCR";
-            this.lblPCR.Size = new System.Drawing.Size(189, 21);
+            this.lblPCR.Size = new System.Drawing.Size(143, 21);
             this.lblPCR.TabIndex = 7;
-            this.lblPCR.Text = "Payment Count Request:";
+            this.lblPCR.Text = "Installment Count:";
             // 
             // lblRemainingBal
             // 
@@ -563,16 +542,16 @@
             this.lblDownPmt.TabIndex = 4;
             this.lblDownPmt.Text = "Down Payment:";
             // 
-            // label4
+            // lblSifBalance
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(213, 37);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 21);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "0.00";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblSifBalance.AutoSize = true;
+            this.lblSifBalance.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSifBalance.Location = new System.Drawing.Point(213, 37);
+            this.lblSifBalance.Name = "lblSifBalance";
+            this.lblSifBalance.Size = new System.Drawing.Size(41, 21);
+            this.lblSifBalance.TabIndex = 3;
+            this.lblSifBalance.Text = "0.00";
+            this.lblSifBalance.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblSIFpercent
             // 
@@ -604,6 +583,19 @@
             this.lblCurrentBal.TabIndex = 0;
             this.lblCurrentBal.Text = "Current Balance:";
             // 
+            // pnlPPA
+            // 
+            this.pnlPPA.Controls.Add(this.lblPMTSREM);
+            this.pnlPPA.Controls.Add(this.lblInstallmentAmt);
+            this.pnlPPA.Controls.Add(this.lblRemainingBalanceNotification);
+            this.pnlPPA.Controls.Add(this.lblRemainder);
+            this.pnlPPA.Controls.Add(this.lblTtlPay);
+            this.pnlPPA.Controls.Add(this.lblTotalPaymentCount);
+            this.pnlPPA.Location = new System.Drawing.Point(2, 209);
+            this.pnlPPA.Name = "pnlPPA";
+            this.pnlPPA.Size = new System.Drawing.Size(300, 75);
+            this.pnlPPA.TabIndex = 41;
+            // 
             // paymentPlanCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -622,6 +614,8 @@
             this.pnlDataEntry.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.slideSIFpercentage)).EndInit();
+            this.pnlPPA.ResumeLayout(false);
+            this.pnlPPA.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -635,10 +629,9 @@
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         public System.Windows.Forms.TrackBar slideSIFpercentage;
-        private System.Windows.Forms.Label lblPercentDollar;
+        private System.Windows.Forms.Label lblPercentSymbol;
         private System.Windows.Forms.Label lblTtlPay;
         private System.Windows.Forms.Label lblRemainingBalanceNotification;
-        private System.Windows.Forms.Label lblPMTSREM;
         private System.Windows.Forms.Label lblPCR;
         private System.Windows.Forms.Label lblRemBal;
         private System.Windows.Forms.Label lblDownPmt;
@@ -650,21 +643,19 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblOneHundo;
-        public System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.TextBox txtDownPayment;
         private System.Windows.Forms.Label lblDollarSign;
         public System.Windows.Forms.Label lblRemainingPmtCount;
         public System.Windows.Forms.Label lblRMG;
         public System.Windows.Forms.TrackBar sliderRemainingPmtCount;
         public System.Windows.Forms.Label lblInstallmentAmt;
-        private System.Windows.Forms.Label lblDollarSign2;
-        public System.Windows.Forms.Label label13;
+        public System.Windows.Forms.Label lblRemainder;
         public System.Windows.Forms.Label lblRemainingBal;
-        private System.Windows.Forms.Label lblDollarSign3;
         public System.Windows.Forms.Label lblTotalPaymentCount;
-        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.Label lblSifBalance;
         public System.Windows.Forms.Label lblSIFpercent;
-        public System.Windows.Forms.CheckBox checkBox1;
-        public System.Windows.Forms.CheckBox chkSIF;
+        public System.Windows.Forms.CheckBox chkSettlement;
+        public System.Windows.Forms.CheckBox chkPPA;
         private System.Windows.Forms.Label lblDollarSign5;
         private System.Windows.Forms.Label lblDollarSign4;
         public System.Windows.Forms.ComboBox dropDownPayCycle;
@@ -675,6 +666,8 @@
         private System.Windows.Forms.Button btnValidate;
         public System.Windows.Forms.Label lblCardValid;
         public System.Windows.Forms.Label lblCardType;
+        private System.Windows.Forms.Panel pnlPPA;
+        public System.Windows.Forms.Label lblPMTSREM;
     }
 }
 

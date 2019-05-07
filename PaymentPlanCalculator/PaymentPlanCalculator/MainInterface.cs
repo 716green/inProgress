@@ -130,14 +130,124 @@ namespace PaymentPlanCalculator
             string creditCardNumber = txtCreditCardNumber.Text;
             txtCreditCardNumber.Text = Regex.Replace(creditCardNumber, @"[^0-9]", "");
             //Test StringToArray Method:
-            StringToArray(creditCardNumber); //This can be deleted
         }
 
-        //This is not in use yet and can still be refined or deleted
-        public void StringToArray(string breakApart)
+
+        /********************************************* //
+        /*             Calculate Settlement            //
+        /********************************************* */
+        public void SlideSIFpercentage_ValueChanged_1(object sender, EventArgs e)
         {
-            char[] brokenApart = breakApart.ToCharArray();
-            rtxtNotate.Text = breakApart;
+            if (slideSIFpercentage.Value < 100)
+            {
+                chkSettlement.Checked = true;
+            }
+            else
+            {
+                chkSettlement.Checked = false;
+            }
+
+            // Takes the User Input current balance (AGAIN) and sets the curBalNum variable as a 'decimal' type
+
+            if (Convert.ToDecimal(txtBalanceInput.Text) < 0)
+            {
+                slideSIFpercentage.Value = 100;
+                txtBalanceInput.Text = "0.00";
+                string alertError = "Enter a balance first";
+                string alertTitle = "Balance is Blank";
+                MessageBox.Show(alertError, alertTitle);
+                string curBal = "0";
+            }
+            else
+            {
+                string curBal = txtBalanceInput.Text;
+                decimal curBalNum = Convert.ToDecimal(curBal);
+                // Define 2 variables, sifPercent (actual decimal value as percentage) and sifPercentNumber (Convert to string for label on UI)
+                decimal sifPercentNumber = slideSIFpercentage.Value;//converting decimal to int seems to work
+                decimal sifPercent = (sifPercentNumber / 100);
+                lblSIFpercent.Text = Convert.ToString(sifPercentNumber);
+                // Set the SIF balance formatted as USD
+                decimal settlementAmount = (curBalNum * sifPercent);
+                lblSifBalance.Text = (settlementAmount).ToString("C");
+            }
+
+            
+
+        }
+
+        /****************************************************** //
+        /*    Fix Null Value Balance Error on Mouse Click       //
+        /****************************************************** */
+        public void SlideSIFpercentage_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (txtBalanceInput.Text == "")
+            {
+                txtBalanceInput.Text = "0.00";
+            }
+            else
+            {
+                decimal curBalNum = Convert.ToDecimal(txtBalanceInput.Text);
+            }
+
+        }
+
+        /****************************************************** //
+        /*    Calc Remaining Balance based on SIF Checkbox      //
+        /****************************************************** */
+        public void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+            decimal currentBalance = Convert.ToDecimal(txtBalanceInput.Text);
+            decimal downPayment = Convert.ToDecimal(txtDownPayment.Text);
+            decimal settlementAmount = Convert.ToDecimal(txtBalanceInput.Text) * ((Convert.ToDecimal(slideSIFpercentage.Value) / 100));
+            decimal sifAfterDownPayment = settlementAmount - downPayment;
+            decimal pmtAfterDownPayent = currentBalance - downPayment;
+            if (chkSettlement.Checked == true)
+            {
+                lblRemainingBal.Text = sifAfterDownPayment.ToString();
+            }
+            else if (chkSettlement.Checked == false)
+            {
+                lblRemainingBal.Text = pmtAfterDownPayent.ToString();
+            }
+            else
+            {
+                txtDownPayment.Text = "0.00";
+                txtBalanceInput.Text = currentBalance.ToString();
+                lblRemainingBal.Text = txtBalanceInput.Text;
+            }
+        }
+
+        public void SliderRemainingPmtCount_ValueChanged(object sender, EventArgs e)
+        {
+            double remainingBalance = Convert.ToDouble(lblRemainingBal.Text);
+            double remainingPaymentCountRequest = sliderRemainingPmtCount.Value;
+            lblRemainingPmtCount.Text = sliderRemainingPmtCount.Value.ToString();
+            double installmentAmount = remainingBalance / remainingPaymentCountRequest;
+            double installmentRemainder = ((remainingBalance % remainingPaymentCountRequest) / 100) + installmentAmount;
+            lblInstallmentAmt.Text = installmentAmount.ToString("C");
+            lblRemainder.Text = installmentRemainder.ToString("C");
+            if (sliderRemainingPmtCount.Value > 0)
+            {
+                chkPPA.Checked = true;
+                pnlPPA.Visible = true;
+            }
+            else
+            {
+                chkPPA.Checked = false;
+                pnlPPA.Visible = false;
+            }
+        }
+
+        public void LblRemainingPmtCount_TextChanged(object sender, EventArgs e)
+        {
+            if (lblRemainingPmtCount.Text == "1")
+            {
+                lblRMG.Text = "Payment";
+            }
+            else
+            {
+                lblRMG.Text = "Payments";
+            }
         }
     }
 }
