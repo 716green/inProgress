@@ -262,6 +262,9 @@ namespace PaymentPlanCalculator
             txtBalanceInput.Text = String.Format("{0:00}", formattedBalInput.ToString("N"));
         }
 
+        /****************************************************** //
+        /*    Format Down Payment Input to 2 Decimal Places     //
+        /****************************************************** */
         public void TxtDownPayment_Leave(object sender, EventArgs e)
         {
             decimal formattedDPInput = Convert.ToDecimal(txtDownPayment.Text);
