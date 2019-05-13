@@ -74,11 +74,13 @@
             this.lblRemainder = new System.Windows.Forms.Label();
             this.lblTtlPay = new System.Windows.Forms.Label();
             this.lblTotalPaymentCount = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.slideSIFpercentage)).BeginInit();
             this.pnlPPA.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip
@@ -123,8 +125,6 @@
             this.pnlDataEntry.Controls.Add(this.btnValidate);
             this.pnlDataEntry.Controls.Add(this.lblCreditCardNumber);
             this.pnlDataEntry.Controls.Add(this.txtCreditCardNumber);
-            this.pnlDataEntry.Controls.Add(this.rtxtNotate);
-            this.pnlDataEntry.Controls.Add(this.monthCalendar1);
             this.pnlDataEntry.Controls.Add(this.lblDollarSign5);
             this.pnlDataEntry.Controls.Add(this.lblDollarSign4);
             this.pnlDataEntry.Controls.Add(this.dropDownPayCycle);
@@ -154,7 +154,7 @@
             this.pnlDataEntry.Controls.Add(this.pnlPPA);
             this.pnlDataEntry.Location = new System.Drawing.Point(12, 29);
             this.pnlDataEntry.Name = "pnlDataEntry";
-            this.pnlDataEntry.Size = new System.Drawing.Size(1278, 503);
+            this.pnlDataEntry.Size = new System.Drawing.Size(397, 503);
             this.pnlDataEntry.TabIndex = 1;
             // 
             // lblCardType
@@ -210,20 +210,20 @@
             // 
             // rtxtNotate
             // 
-            this.rtxtNotate.Location = new System.Drawing.Point(403, 320);
+            this.rtxtNotate.Location = new System.Drawing.Point(11, 320);
             this.rtxtNotate.Name = "rtxtNotate";
-            this.rtxtNotate.Size = new System.Drawing.Size(684, 175);
+            this.rtxtNotate.Size = new System.Drawing.Size(479, 175);
             this.rtxtNotate.TabIndex = 2;
             this.rtxtNotate.Text = "";
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(2, 2);
+            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(3, 2);
             this.monthCalendar1.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
             this.monthCalendar1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.monthCalendar1.Location = new System.Drawing.Point(403, 5);
+            this.monthCalendar1.Location = new System.Drawing.Point(5, 6);
             this.monthCalendar1.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
-            this.monthCalendar1.MaxSelectionCount = 120;
+            this.monthCalendar1.MaxSelectionCount = 365;
             this.monthCalendar1.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.ShowWeekNumbers = true;
@@ -306,6 +306,7 @@
             this.txtDownPayment.Name = "txtDownPayment";
             this.txtDownPayment.Size = new System.Drawing.Size(125, 29);
             this.txtDownPayment.TabIndex = 26;
+            this.txtDownPayment.Text = "0.00";
             this.txtDownPayment.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             this.txtDownPayment.Leave += new System.EventHandler(this.TxtDownPayment_Leave);
             // 
@@ -317,6 +318,7 @@
             this.txtBalanceInput.Name = "txtBalanceInput";
             this.txtBalanceInput.Size = new System.Drawing.Size(125, 29);
             this.txtBalanceInput.TabIndex = 25;
+            this.txtBalanceInput.Text = "0.00";
             this.txtBalanceInput.Leave += new System.EventHandler(this.TxtBalanceInput_Leave);
             // 
             // label16
@@ -598,11 +600,21 @@
             this.lblTotalPaymentCount.TabIndex = 14;
             this.lblTotalPaymentCount.Text = "1";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.rtxtNotate);
+            this.panel1.Controls.Add(this.monthCalendar1);
+            this.panel1.Location = new System.Drawing.Point(416, 28);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(874, 504);
+            this.panel1.TabIndex = 36;
+            // 
             // paymentPlanCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1302, 544);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlDataEntry);
             this.Controls.Add(this.toolStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -618,6 +630,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.slideSIFpercentage)).EndInit();
             this.pnlPPA.ResumeLayout(false);
             this.pnlPPA.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -670,6 +683,7 @@
         public System.Windows.Forms.Label lblCardType;
         private System.Windows.Forms.Panel pnlPPA;
         public System.Windows.Forms.Label lblPMTSREM;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
