@@ -13,6 +13,14 @@ namespace PaymentPlanCalculator
 {
     public partial class paymentPlanCalculator : Form
     {
+        decimal startingBalance;
+        bool paymentPlan;
+        bool settlementOffered;
+        decimal settlementBalance;
+        decimal downPaymentAmount;
+
+
+
         public paymentPlanCalculator()
         {
             InitializeComponent();
