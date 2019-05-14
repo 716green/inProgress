@@ -13,6 +13,7 @@ namespace PaymentPlanCalculator
 {
     public partial class paymentPlanCalculator : Form
     {
+        //testCommit01
         //count payments
         int countDownPayment;
         int countInstallment;
