@@ -39,8 +39,6 @@
             this.btnValidate = new System.Windows.Forms.Button();
             this.lblCreditCardNumber = new System.Windows.Forms.Label();
             this.txtCreditCardNumber = new System.Windows.Forms.TextBox();
-            this.rtxtNotate = new System.Windows.Forms.RichTextBox();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.lblDollarSign5 = new System.Windows.Forms.Label();
             this.lblDollarSign4 = new System.Windows.Forms.Label();
             this.dropDownPayCycle = new System.Windows.Forms.ComboBox();
@@ -74,6 +72,8 @@
             this.lblRemainder = new System.Windows.Forms.Label();
             this.lblTtlPay = new System.Windows.Forms.Label();
             this.lblTotalPaymentCount = new System.Windows.Forms.Label();
+            this.rtxtNotate = new System.Windows.Forms.RichTextBox();
+            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
@@ -207,27 +207,6 @@
             this.txtCreditCardNumber.Size = new System.Drawing.Size(254, 36);
             this.txtCreditCardNumber.TabIndex = 36;
             this.txtCreditCardNumber.TextChanged += new System.EventHandler(this.TxtCreditCardNumber_TextChanged);
-            // 
-            // rtxtNotate
-            // 
-            this.rtxtNotate.Location = new System.Drawing.Point(11, 320);
-            this.rtxtNotate.Name = "rtxtNotate";
-            this.rtxtNotate.Size = new System.Drawing.Size(479, 175);
-            this.rtxtNotate.TabIndex = 2;
-            this.rtxtNotate.Text = "";
-            // 
-            // monthCalendar1
-            // 
-            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(3, 2);
-            this.monthCalendar1.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
-            this.monthCalendar1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.monthCalendar1.Location = new System.Drawing.Point(5, 6);
-            this.monthCalendar1.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
-            this.monthCalendar1.MaxSelectionCount = 365;
-            this.monthCalendar1.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.ShowWeekNumbers = true;
-            this.monthCalendar1.TabIndex = 35;
             // 
             // lblDollarSign5
             // 
@@ -599,6 +578,26 @@
             this.lblTotalPaymentCount.Size = new System.Drawing.Size(16, 21);
             this.lblTotalPaymentCount.TabIndex = 14;
             this.lblTotalPaymentCount.Text = "1";
+            // 
+            // rtxtNotate
+            // 
+            this.rtxtNotate.Location = new System.Drawing.Point(11, 320);
+            this.rtxtNotate.Name = "rtxtNotate";
+            this.rtxtNotate.Size = new System.Drawing.Size(479, 175);
+            this.rtxtNotate.TabIndex = 2;
+            this.rtxtNotate.Text = "";
+            // 
+            // monthCalendar1
+            // 
+            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(3, 2);
+            this.monthCalendar1.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
+            this.monthCalendar1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.monthCalendar1.Location = new System.Drawing.Point(5, 6);
+            this.monthCalendar1.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
+            this.monthCalendar1.MaxSelectionCount = 365;
+            this.monthCalendar1.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
+            this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.TabIndex = 35;
             // 
             // panel1
             // 
