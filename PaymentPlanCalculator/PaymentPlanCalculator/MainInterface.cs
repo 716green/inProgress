@@ -13,6 +13,11 @@ namespace PaymentPlanCalculator
 {
     public partial class paymentPlanCalculator : Form
     {
+        //count payments
+        int countDownPayment;
+        int countInstallment;
+
+
         decimal startingBalance;
         bool paymentPlan;
         bool settlementOffered;
@@ -137,7 +142,10 @@ namespace PaymentPlanCalculator
         {
             string creditCardNumber = txtCreditCardNumber.Text;
             txtCreditCardNumber.Text = Regex.Replace(creditCardNumber, @"[^0-9]", "");
-            //Test StringToArray Method:
+            // After Space Cursor to End of TxtBox
+            // Keep the cursor at the end (prevent snapping to beginning)
+            txtCreditCardNumber.Select(txtCreditCardNumber.Text.Length + 1, 0);
+            
         }
 
 
@@ -244,6 +252,7 @@ namespace PaymentPlanCalculator
                 chkPPA.Checked = false;
                 pnlPPA.Visible = false;
             }
+            //paymentCount = sliderRemainingPmtCount.Value;
         }
 
         /****************************************************** //
@@ -277,6 +286,28 @@ namespace PaymentPlanCalculator
         {
             decimal formattedDPInput = Convert.ToDecimal(txtDownPayment.Text);
             txtDownPayment.Text = String.Format("{0:00}", formattedDPInput.ToString("N"));
+        }
+
+        /****************************************************** //
+        /*    Select all characters when textbox cliched        //
+        /****************************************************** */
+
+        public void TxtBalanceInput_MouseClick(object sender, MouseEventArgs e)
+        {
+            //highlight full number when single clicked
+            txtBalanceInput.Select(0, txtBalanceInput.Text.Length);
+        }
+
+        public void TxtDownPayment_Click(object sender, EventArgs e)
+        {
+            //highlight full number when single clicked
+            txtDownPayment.Select(0, txtDownPayment.Text.Length);
+        }
+
+        public void TxtCVV_Click(object sender, EventArgs e)
+        {
+            //highlight full number when single clicked
+            txtCVV.Select(0, txtCVV.Text.Length);
         }
     }
 }

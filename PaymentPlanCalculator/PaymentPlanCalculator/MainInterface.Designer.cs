@@ -34,6 +34,9 @@
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlDataEntry = new System.Windows.Forms.Panel();
+            this.cboxExpYear = new System.Windows.Forms.ComboBox();
+            this.cboxExpMonth = new System.Windows.Forms.ComboBox();
+            this.txtCVV = new System.Windows.Forms.TextBox();
             this.lblCardType = new System.Windows.Forms.Label();
             this.lblCardValid = new System.Windows.Forms.Label();
             this.btnValidate = new System.Windows.Forms.Button();
@@ -120,6 +123,9 @@
             // pnlDataEntry
             // 
             this.pnlDataEntry.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnlDataEntry.Controls.Add(this.cboxExpYear);
+            this.pnlDataEntry.Controls.Add(this.cboxExpMonth);
+            this.pnlDataEntry.Controls.Add(this.txtCVV);
             this.pnlDataEntry.Controls.Add(this.lblCardType);
             this.pnlDataEntry.Controls.Add(this.lblCardValid);
             this.pnlDataEntry.Controls.Add(this.btnValidate);
@@ -157,6 +163,75 @@
             this.pnlDataEntry.Size = new System.Drawing.Size(397, 503);
             this.pnlDataEntry.TabIndex = 1;
             // 
+            // cboxExpYear
+            // 
+            this.cboxExpYear.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxExpYear.FormattingEnabled = true;
+            this.cboxExpYear.Items.AddRange(new object[] {
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023",
+            "2024",
+            "2025",
+            "2026",
+            "2027",
+            "2028",
+            "2029",
+            "2030",
+            "2031",
+            "2032",
+            "2033",
+            "2034",
+            "2035",
+            "2036",
+            "2037",
+            "2038",
+            "2039",
+            "2040"});
+            this.cboxExpYear.Location = new System.Drawing.Point(142, 461);
+            this.cboxExpYear.Name = "cboxExpYear";
+            this.cboxExpYear.Size = new System.Drawing.Size(77, 38);
+            this.cboxExpYear.TabIndex = 44;
+            this.cboxExpYear.Text = "YYYY";
+            // 
+            // cboxExpMonth
+            // 
+            this.cboxExpMonth.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxExpMonth.FormattingEnabled = true;
+            this.cboxExpMonth.Items.AddRange(new object[] {
+            "01 - JAN",
+            "02 - FEB",
+            "03 - MAR",
+            "04 - APR",
+            "05 - MAY",
+            "06 - JUNE",
+            "07 - JULY",
+            "08 - AUG",
+            "09 - SEP",
+            "10 - OCT",
+            "11 - NOV",
+            "12 - DEC"});
+            this.cboxExpMonth.Location = new System.Drawing.Point(9, 461);
+            this.cboxExpMonth.Name = "cboxExpMonth";
+            this.cboxExpMonth.Size = new System.Drawing.Size(121, 38);
+            this.cboxExpMonth.TabIndex = 43;
+            this.cboxExpMonth.Text = "Exp MM";
+            // 
+            // txtCVV
+            // 
+            this.txtCVV.AllowDrop = true;
+            this.txtCVV.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold);
+            this.txtCVV.Location = new System.Drawing.Point(231, 463);
+            this.txtCVV.MaxLength = 4;
+            this.txtCVV.Name = "txtCVV";
+            this.txtCVV.Size = new System.Drawing.Size(79, 36);
+            this.txtCVV.TabIndex = 42;
+            this.txtCVV.Text = "CVV";
+            this.txtCVV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCVV.Click += new System.EventHandler(this.TxtCVV_Click);
+            // 
             // lblCardType
             // 
             this.lblCardType.AutoSize = true;
@@ -191,7 +266,7 @@
             // 
             this.lblCreditCardNumber.AutoSize = true;
             this.lblCreditCardNumber.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCreditCardNumber.Location = new System.Drawing.Point(4, 327);
+            this.lblCreditCardNumber.Location = new System.Drawing.Point(5, 326);
             this.lblCreditCardNumber.Name = "lblCreditCardNumber";
             this.lblCreditCardNumber.Size = new System.Drawing.Size(204, 21);
             this.lblCreditCardNumber.TabIndex = 37;
@@ -286,6 +361,7 @@
             this.txtDownPayment.Size = new System.Drawing.Size(125, 29);
             this.txtDownPayment.TabIndex = 26;
             this.txtDownPayment.Text = "0.00";
+            this.txtDownPayment.Click += new System.EventHandler(this.TxtDownPayment_Click);
             this.txtDownPayment.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             this.txtDownPayment.Leave += new System.EventHandler(this.TxtDownPayment_Leave);
             // 
@@ -298,6 +374,7 @@
             this.txtBalanceInput.Size = new System.Drawing.Size(125, 29);
             this.txtBalanceInput.TabIndex = 25;
             this.txtBalanceInput.Text = "0.00";
+            this.txtBalanceInput.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TxtBalanceInput_MouseClick);
             this.txtBalanceInput.Leave += new System.EventHandler(this.TxtBalanceInput_Leave);
             // 
             // label16
@@ -612,6 +689,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1302, 544);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlDataEntry);
@@ -683,6 +761,9 @@
         private System.Windows.Forms.Panel pnlPPA;
         public System.Windows.Forms.Label lblPMTSREM;
         private System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.TextBox txtCVV;
+        public System.Windows.Forms.ComboBox cboxExpMonth;
+        public System.Windows.Forms.ComboBox cboxExpYear;
     }
 }
 
