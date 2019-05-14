@@ -663,6 +663,7 @@
             this.rtxtNotate.Size = new System.Drawing.Size(479, 175);
             this.rtxtNotate.TabIndex = 2;
             this.rtxtNotate.Text = "";
+            this.rtxtNotate.TextChanged += new System.EventHandler(this.RtxtNotate_TextChanged);
             // 
             // monthCalendar1
             // 

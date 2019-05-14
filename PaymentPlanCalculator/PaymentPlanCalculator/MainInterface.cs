@@ -13,7 +13,21 @@ namespace PaymentPlanCalculator
 {
     public partial class paymentPlanCalculator : Form
     {
-        //testCommit01
+        // Create array to test for invalid characters (invalidChars)
+        public readonly string[] invalidChars = { " ", "`", "-", "!", "#", "$", "%", "&", "(", ")", "*", "/", ":", ";", "@", "[", "\\", "]", "^", "_",
+            "{", "|", "}", "~", "+", "<", "=", ">", "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G", "h", "H", "i", "I", "j",
+            "J", "k", "K", "l", "L", "m", "M", "n", "N", "o", "O", "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U", "v", "V", "w", "W", "x", "X", "y", "Y", "z", "Z" };
+        public string RemoveNonNumeric(string input)
+        {
+            // 80 invalid characters, 80 indexes in array
+            for (int i = 0; i < 80; i++) // i represents index for invalidChars
+            {
+                input = input.Replace(invalidChars[i], "");
+            }
+            return input;
+            
+        }
+        
         //count payments
         int countDownPayment;
         int countInstallment;
@@ -213,11 +227,30 @@ namespace PaymentPlanCalculator
         /****************************************************** */
         public void TextBox1_TextChanged(object sender, EventArgs e)
         {
+            /************************************************** //
+            /*    Allow UserInput in Down Payment Text Box      //
+            /************************************************** */
+
+            // Uses method to prevent non-numeric which crashes app
+            txtDownPayment.Text = RemoveNonNumeric(txtDownPayment.Text);
+            // Move cursor to far right 
+            txtDownPayment.Select(txtDownPayment.Text.Length, 0);
+
+            // Test for blank field and replace with $0.00
+            if (txtDownPayment.Text == "")
+            {
+                txtDownPayment.Text = "0.00";
+            }
+
+            /************************************************** //
+            /*    Calculates Math for Down Payment and SIF      //
+            /************************************************** */
             decimal currentBalance = Convert.ToDecimal(txtBalanceInput.Text);
             decimal downPayment = Convert.ToDecimal(txtDownPayment.Text);
             decimal settlementAmount = Convert.ToDecimal(txtBalanceInput.Text) * ((Convert.ToDecimal(slideSIFpercentage.Value) / 100));
             decimal sifAfterDownPayment = settlementAmount - downPayment;
             decimal pmtAfterDownPayent = currentBalance - downPayment;
+            // These statements are mostly for error handling for checkboxes
             if (chkSettlement.Checked == true)
             {
                 lblRemainingBal.Text = sifAfterDownPayment.ToString();
@@ -234,6 +267,9 @@ namespace PaymentPlanCalculator
             }
         }
 
+        /****************************************************** //
+        /*    Calculate PPA Based on Installment Slider         //
+        /****************************************************** */
         public void SliderRemainingPmtCount_ValueChanged(object sender, EventArgs e)
         {
             double remainingBalance = Convert.ToDouble(lblRemainingBal.Text);
@@ -241,8 +277,10 @@ namespace PaymentPlanCalculator
             lblRemainingPmtCount.Text = sliderRemainingPmtCount.Value.ToString();
             double installmentAmount = remainingBalance / remainingPaymentCountRequest;
             double installmentRemainder = ((remainingBalance % remainingPaymentCountRequest) / 100) + installmentAmount;
-            lblInstallmentAmt.Text = installmentAmount.ToString("C");
+            lblInstallmentAmt.Text = installmentAmount.ToString("C"); // ToString("C") converts to currency
             lblRemainder.Text = installmentRemainder.ToString("C");
+
+            // Show or hide PPA info based on if PPA exists as set
             if (sliderRemainingPmtCount.Value > 0)
             {
                 chkPPA.Checked = true;
@@ -253,7 +291,6 @@ namespace PaymentPlanCalculator
                 chkPPA.Checked = false;
                 pnlPPA.Visible = false;
             }
-            //paymentCount = sliderRemainingPmtCount.Value;
         }
 
         /****************************************************** //
@@ -261,12 +298,14 @@ namespace PaymentPlanCalculator
         /****************************************************** */
         public void LblRemainingPmtCount_TextChanged(object sender, EventArgs e)
         {
+            // Set label for Payment(s) to singular for 1 payment for correct grammar
             if (lblRemainingPmtCount.Text == "1")
             {
                 lblRMG.Text = "Payment";
             }
             else
             {
+                // Makes 0, 2-11 all plural
                 lblRMG.Text = "Payments";
             }
         }
@@ -276,8 +315,16 @@ namespace PaymentPlanCalculator
         /****************************************************** */
         public void TxtBalanceInput_Leave(object sender, EventArgs e)
         {
-            decimal formattedBalInput = Convert.ToDecimal(txtBalanceInput.Text);
-            txtBalanceInput.Text = String.Format("{0:00}", formattedBalInput.ToString("N"));
+            if (txtBalanceInput.Text == "")
+            {
+                txtBalanceInput.Text = "0.00";
+            }
+            else
+            {
+                decimal formattedBalInput = Convert.ToDecimal(txtBalanceInput.Text);
+                // ToString("N") converts to number to 2 decimal places according to Format syntax
+                txtBalanceInput.Text = String.Format("{0:00}", formattedBalInput.ToString("N"));
+            }
         }
 
         /****************************************************** //
@@ -290,25 +337,37 @@ namespace PaymentPlanCalculator
         }
 
         /****************************************************** //
-        /*    Select all characters when textbox cliched        //
+        /*    Select all characters when textbox clicked        //
         /****************************************************** */
 
         public void TxtBalanceInput_MouseClick(object sender, MouseEventArgs e)
         {
-            //highlight full number when single clicked
+            // Highlight full number when single clicked
+            // Calculates length to locate starting point and how much to highlight
+            // Balance Input
             txtBalanceInput.Select(0, txtBalanceInput.Text.Length);
         }
 
         public void TxtDownPayment_Click(object sender, EventArgs e)
         {
-            //highlight full number when single clicked
+            // Highlight full number when single clicked
+            // Down Payment
             txtDownPayment.Select(0, txtDownPayment.Text.Length);
         }
 
         public void TxtCVV_Click(object sender, EventArgs e)
         {
-            //highlight full number when single clicked
+            // Highlight full number when single clicked
+            // CVV Input
             txtCVV.Select(0, txtCVV.Text.Length);
+        }
+
+        // WORKING EXAMPLE FOR NUMERIC VALIDATION IN RICH TEXT BOX -- Can be commented out or deleted at any time
+        // this can be deleted after it is referenced elsewhere -- Remember to delete the corresponding code on the back-end if removed
+        public void RtxtNotate_TextChanged(object sender, EventArgs e)
+        {
+            rtxtNotate.Text = RemoveNonNumeric(rtxtNotate.Text); // Pure use of RemoveNonNumeric Method (in real time) prevents spaces, allows commas and decimals
+            rtxtNotate.Select(rtxtNotate.Text.Length, 0); // Move cursor to far right 
         }
     }
 }
