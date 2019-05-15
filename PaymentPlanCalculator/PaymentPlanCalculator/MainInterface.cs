@@ -14,20 +14,28 @@ namespace PaymentPlanCalculator
     public partial class paymentPlanCalculator : Form
     {
         // Create array to test for invalid characters (invalidChars)
-        public readonly string[] invalidChars = { " ", "`", "-", "!", "#", "$", "%", "&", "(", ")", "*", "/", ":", ";", "@", "[", "\\", "]", "^", "_",
-            "{", "|", "}", "~", "+", "<", "=", ">", "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G", "h", "H", "i", "I", "j",
-            "J", "k", "K", "l", "L", "m", "M", "n", "N", "o", "O", "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U", "v", "V", "w", "W", "x", "X", "y", "Y", "z", "Z" };
+        public readonly string[] invalidChars = { " ", "`", "-", "!", "#", "$", "%", "&", "(", ")", "*", "/", ":", ";", "@", "[", "\\", "]", "^", "_", "{", "|", "}", "~", "+",
+            "<", "=", ">", "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G", "h", "H", "i", "I", "j", "J", "k", "K", "l", "L", "m", "M", "n", "N", "o", "O",
+            "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U", "v", "V", "w", "W", "x", "X", "y", "Y", "z", "Z", "\"", "\'", "?" };
         public string RemoveNonNumeric(string input)
         {
             // 80 invalid characters, 80 indexes in array
-            for (int i = 0; i < 80; i++) // i represents index for invalidChars
+            for (int i = 0; i < 83; i++) // i represents index for invalidChars
             {
                 input = input.Replace(invalidChars[i], "");
             }
             return input;
             
         }
-        
+
+        //Attempting to use to prevent more than 1 period from being used
+        // Copied from docs.microsoft.com (hurry up and learn regex)
+        public static bool IsValidCurrency(string currencyValue)
+        {
+            string pattern = @"\p{Sc}+\s*\d+";
+            return Regex.IsMatch(currencyValue, pattern);
+        }
+
         //count payments
         int countDownPayment;
         int countInstallment;
@@ -201,13 +209,10 @@ namespace PaymentPlanCalculator
                 decimal settlementAmount = (curBalNum * sifPercent);
                 lblSifBalance.Text = (settlementAmount).ToString("C");
             }
-
-            
-
         }
 
         /****************************************************** //
-        /*    Fix Null Value Balance Error on Mouse Click       //
+        /*   Fixes Null Value Balance Error on Mouse Click      //
         /****************************************************** */
         public void SlideSIFpercentage_MouseDown(object sender, MouseEventArgs e)
         {
@@ -223,13 +228,21 @@ namespace PaymentPlanCalculator
         }
 
         /****************************************************** //
+         *              Current Balance Textbox                 *
+         *          Validate Inputs to Prevent Crashing         *
+        /****************************************************** */
+
+        /****************************************************** //
         /*    Calc Remaining Balance based on SIF Checkbox      //
         /****************************************************** */
-        public void TextBox1_TextChanged(object sender, EventArgs e)
+        public void TextBox1_TextChanged(object sender, EventArgs e) // Current Balance Textbox
         {
             /************************************************** //
             /*    Allow UserInput in Down Payment Text Box      //
             /************************************************** */
+
+            // Prevents first character being entered from being '.' or ','
+            txtDownPayment.Text = txtDownPayment.Text.TrimStart('.', ',');
 
             // Uses method to prevent non-numeric which crashes app
             txtDownPayment.Text = RemoveNonNumeric(txtDownPayment.Text);
@@ -240,6 +253,10 @@ namespace PaymentPlanCalculator
             if (txtDownPayment.Text == "")
             {
                 txtDownPayment.Text = "0.00";
+            }
+            if (txtDownPayment.Text == "0.00")
+            {
+                txtDownPayment.SelectAll();
             }
 
             /************************************************** //
@@ -368,6 +385,46 @@ namespace PaymentPlanCalculator
         {
             rtxtNotate.Text = RemoveNonNumeric(rtxtNotate.Text); // Pure use of RemoveNonNumeric Method (in real time) prevents spaces, allows commas and decimals
             rtxtNotate.Select(rtxtNotate.Text.Length, 0); // Move cursor to far right 
+        }
+
+        /****************************************************** //
+         *              Current Balance Textbox                 *
+         *          Validate Inputs to Prevent Crashing         *
+        /****************************************************** */
+        public void TxtBalanceInput_TextChanged(object sender, EventArgs e) // Current Balance Textbox
+        {
+            txtBalanceInput.Text = RemoveNonNumeric(txtBalanceInput.Text); // Pure use of RemoveNonNumeric Method (in real time) prevents spaces, allows commas and decimals
+            txtBalanceInput.Select(txtBalanceInput.Text.Length, 0); // Move cursor to far right
+
+            if (txtBalanceInput.Text == "")
+            {
+                txtBalanceInput.Text = "0.00";
+            }
+
+            // Keep 0.00 highlighted when it is the value of the TextBox
+            if (txtBalanceInput.Text == "0.00")
+            {
+                txtBalanceInput.SelectAll();
+            }
+
+            // Prevents first character being entered from being '.'
+            txtBalanceInput.Text = txtBalanceInput.Text.TrimStart('.', ',');
+
+            /*
+            //keeps balance stuck at 0.00, scrap this:
+            if (IsValidCurrency(txtBalanceInput.Text) == false)
+            {
+                txtBalanceInput.Text = "0.00";
+            }
+            */
+
+            /* WORKING ON THIS BEFORE SAVE
+            //ensure no more than 1 period, placing on hold to try regex method
+            if (txtBalanceInput.Text.Contains("."))
+            {
+
+            }
+            */
         }
     }
 }

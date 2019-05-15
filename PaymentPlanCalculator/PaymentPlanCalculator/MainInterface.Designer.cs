@@ -356,7 +356,7 @@
             // 
             this.txtDownPayment.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDownPayment.Location = new System.Drawing.Point(156, 86);
-            this.txtDownPayment.MaxLength = 6;
+            this.txtDownPayment.MaxLength = 12;
             this.txtDownPayment.Name = "txtDownPayment";
             this.txtDownPayment.Size = new System.Drawing.Size(125, 29);
             this.txtDownPayment.TabIndex = 26;
@@ -369,12 +369,13 @@
             // 
             this.txtBalanceInput.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBalanceInput.Location = new System.Drawing.Point(156, 5);
-            this.txtBalanceInput.MaxLength = 10;
+            this.txtBalanceInput.MaxLength = 12;
             this.txtBalanceInput.Name = "txtBalanceInput";
             this.txtBalanceInput.Size = new System.Drawing.Size(125, 29);
             this.txtBalanceInput.TabIndex = 25;
             this.txtBalanceInput.Text = "0.00";
             this.txtBalanceInput.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TxtBalanceInput_MouseClick);
+            this.txtBalanceInput.TextChanged += new System.EventHandler(this.TxtBalanceInput_TextChanged);
             this.txtBalanceInput.Leave += new System.EventHandler(this.TxtBalanceInput_Leave);
             // 
             // label16
