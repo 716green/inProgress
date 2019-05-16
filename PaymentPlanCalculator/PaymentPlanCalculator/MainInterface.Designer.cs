@@ -78,6 +78,7 @@
             this.rtxtNotate = new System.Windows.Forms.RichTextBox();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblPaymentCount = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
@@ -680,12 +681,23 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblPaymentCount);
             this.panel1.Controls.Add(this.rtxtNotate);
             this.panel1.Controls.Add(this.monthCalendar1);
             this.panel1.Location = new System.Drawing.Point(416, 28);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(874, 504);
             this.panel1.TabIndex = 36;
+            // 
+            // lblPaymentCount
+            // 
+            this.lblPaymentCount.AutoSize = true;
+            this.lblPaymentCount.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPaymentCount.Location = new System.Drawing.Point(810, 9);
+            this.lblPaymentCount.Name = "lblPaymentCount";
+            this.lblPaymentCount.Size = new System.Drawing.Size(28, 32);
+            this.lblPaymentCount.TabIndex = 36;
+            this.lblPaymentCount.Text = "0";
             // 
             // paymentPlanCalculator
             // 
@@ -710,6 +722,7 @@
             this.pnlPPA.ResumeLayout(false);
             this.pnlPPA.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -766,6 +779,7 @@
         public System.Windows.Forms.TextBox txtCVV;
         public System.Windows.Forms.ComboBox cboxExpMonth;
         public System.Windows.Forms.ComboBox cboxExpYear;
+        private System.Windows.Forms.Label lblPaymentCount;
     }
 }
 

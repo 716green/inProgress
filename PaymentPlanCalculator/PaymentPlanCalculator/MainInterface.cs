@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+/* Removed Using Statements
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
+using System.Threading.Tasks;
+
+Research to learn about each one*/
 
 namespace PaymentPlanCalculator
 {
@@ -28,6 +32,7 @@ namespace PaymentPlanCalculator
             
         }
 
+        //HAS NOT BEEN USED YET, COME BACK TO THIS
         //Attempting to use to prevent more than 1 period from being used
         // Copied from docs.microsoft.com (hurry up and learn regex)
         public static bool IsValidCurrency(string currencyValue)
@@ -36,17 +41,12 @@ namespace PaymentPlanCalculator
             return Regex.IsMatch(currencyValue, pattern);
         }
 
-        //count payments
-        int countDownPayment;
-        int countInstallment;
+        /********************************************** *
+         *               Count Payments                 *
+         *          Variables to count payments         *
+         * *******************************************  */
 
-
-        decimal startingBalance;
-        bool paymentPlan;
-        bool settlementOffered;
-        decimal settlementBalance;
-        decimal downPaymentAmount;
-
+        //THIS NEEDS TO BE CREATED
 
 
         public paymentPlanCalculator()
@@ -56,32 +56,6 @@ namespace PaymentPlanCalculator
 
         public void Form1_Load(object sender, EventArgs e)
         {
-            //Review Program Test
-
-            /****************************************** //
-            /*             DEFINE VARIABLES             //
-            /****************************************** */
-            decimal curBal = 0;
-            bool sifOffer = false;
-            bool pmtPlan = false;
-            decimal sifPercent = 1;
-            decimal sifBal = curBal * (sifPercent * 100);
-            decimal downPmt = 0; // if downPmt != 0, totalCount = totalCount + 1
-            decimal remainingBal = sifBal - downPmt;
-            //at this point, remainingBal is the current balance
-            decimal pmtCountRequest = 0;
-            decimal pmtCountRemainder = 0; // remainingBal % pmtCountRequest
-            bool hasRemainder = false;
-            decimal installmentCount = 1; // if/else if/ else statement with(downPmt, pmtCountRequest, hasRemainder)
-            decimal installmentAmt = 0; // remainingBal / pmtCountRequest
-            decimal finalPmt = remainingBal - (installmentCount * installmentAmt);
-            //final payment with modulus % ?;
-            decimal totalCount = 0;
-            string[] payCycleArray = { "Weekly", "Bi-Weekly", "Semi-Monthly", "Monthly", "Other" };
-            string payCycle = payCycleArray[0];
-            //string creditCardNumber = txtCreditCardNumber.Text; //remove if problematic
-            DateTime startDate = DateTime.Today; //DateTime.Today.ToString("dd-MM-yyyy");
-                                                 //DateTime[] paymentDates = { var payment1, payment2, payment3, payment4, payment5, payment6, payment7, payment8, payment9, payment10, payment11, payment12, };
 
         }
 
@@ -168,9 +142,7 @@ namespace PaymentPlanCalculator
             // After Space Cursor to End of TxtBox
             // Keep the cursor at the end (prevent snapping to beginning)
             txtCreditCardNumber.Select(txtCreditCardNumber.Text.Length + 1, 0);
-            
         }
-
 
         /********************************************* //
         /*             Calculate Settlement            //
@@ -195,7 +167,7 @@ namespace PaymentPlanCalculator
                 string alertError = "Enter a balance first";
                 string alertTitle = "Balance is Blank";
                 MessageBox.Show(alertError, alertTitle);
-                string curBal = "0";
+                //string curBal = "0"; //can probably be deleted
             }
             else
             {
@@ -387,10 +359,10 @@ namespace PaymentPlanCalculator
             rtxtNotate.Select(rtxtNotate.Text.Length, 0); // Move cursor to far right 
         }
 
-        /****************************************************** //
+        /****************************************************** *
          *              Current Balance Textbox                 *
          *          Validate Inputs to Prevent Crashing         *
-        /****************************************************** */
+         * ***************************************************  */
         public void TxtBalanceInput_TextChanged(object sender, EventArgs e) // Current Balance Textbox
         {
             txtBalanceInput.Text = RemoveNonNumeric(txtBalanceInput.Text); // Pure use of RemoveNonNumeric Method (in real time) prevents spaces, allows commas and decimals
@@ -407,24 +379,8 @@ namespace PaymentPlanCalculator
                 txtBalanceInput.SelectAll();
             }
 
-            // Prevents first character being entered from being '.'
+            // Prevents first character being entered from being period or comma
             txtBalanceInput.Text = txtBalanceInput.Text.TrimStart('.', ',');
-
-            /*
-            //keeps balance stuck at 0.00, scrap this:
-            if (IsValidCurrency(txtBalanceInput.Text) == false)
-            {
-                txtBalanceInput.Text = "0.00";
-            }
-            */
-
-            /* WORKING ON THIS BEFORE SAVE
-            //ensure no more than 1 period, placing on hold to try regex method
-            if (txtBalanceInput.Text.Contains("."))
-            {
-
-            }
-            */
         }
     }
 }
