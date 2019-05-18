@@ -41,7 +41,7 @@ namespace PaymentPlanCalculator
             return Regex.IsMatch(currencyValue, pattern);
         }
 
-        /********************************************** *
+        /* ******************************************** *
          *               Count Payments                 *
          *          Variables to count payments         *
          * *******************************************  */
@@ -59,9 +59,42 @@ namespace PaymentPlanCalculator
 
         }
 
-        /********************************************************* //
-        /*             Luhn Method for CC Verification             //
-        /********************************************************* */
+        /* ****************************************** *
+         *             Count all Payments             *
+         * ****************************************** */
+        public void PaymentCount()
+        {
+            double totalPaymentCount = 0; // This will be the 'Master Variable' in this Method
+
+            // Double acting like a bool, 0 = False, 1 = True
+            double currentBalanceCount;
+            if (txtBalanceInput.Text != "0.00")
+            {
+                currentBalanceCount = 1;
+            }
+            else if (Convert.ToDouble(txtBalanceInput.Text) == 0)
+            {
+                currentBalanceCount = 0;
+            }
+            else
+            {
+                currentBalanceCount = 1; // This should never be used
+            }
+
+            /* WORKING ON THIS
+            // Add 1 to totalPaymentCount if currentBalanceCount = 1
+            totalPaymentCount += currentBalanceCount;
+            
+            double downPaymentCount;
+            double totalPayments = currentBalanceCount + downPaymentCount + sliderRemainingPmtCount.Value;
+            lblTtlPay.Text = totalPayments.ToString();
+            lblTotalPaymentCount.Text = totalPayments.ToString();
+            */
+        }
+
+        /* ******************************************************* *
+         *             Luhn Method for CC Verification             *
+         * ******************************************************* */
         public static bool Luhn(string digits)
         {
             return digits.All(char.IsDigit) && digits.Reverse()
@@ -72,9 +105,9 @@ namespace PaymentPlanCalculator
                 ).Sum() % 10 == 0;
         }
 
-        /********************************************** //
-        /*             Card Type Validation             //
-        /********************************************** */
+        /* ****************************************** *
+         *             Card Type Validation           *
+         * ****************************************** */
         public void CardType(string cardType)
         {
             if (txtCreditCardNumber.Text.Length > 0)
@@ -113,9 +146,9 @@ namespace PaymentPlanCalculator
             lblCardType.Text = cardType;
         }
 
-        /********************************************** //
-        /*             Test Card Validation             //
-        /********************************************** */
+        /* ******************************************** *
+         *             Test Card Validation             *
+         * ******************************************** */
         public void Button1_Click(object sender, EventArgs e)
         {
             string creditCardNumber = txtCreditCardNumber.Text;
@@ -144,9 +177,9 @@ namespace PaymentPlanCalculator
             txtCreditCardNumber.Select(txtCreditCardNumber.Text.Length + 1, 0);
         }
 
-        /********************************************* //
-        /*             Calculate Settlement            //
-        /********************************************* */
+        /* ******************************************* *
+         *             Calculate Settlement            *
+         ********************************************* */
         public void SlideSIFpercentage_ValueChanged_1(object sender, EventArgs e)
         {
             if (slideSIFpercentage.Value < 100)
@@ -183,9 +216,9 @@ namespace PaymentPlanCalculator
             }
         }
 
-        /****************************************************** //
-        /*   Fixes Null Value Balance Error on Mouse Click      //
-        /****************************************************** */
+        /****************************************************** *
+         *   Fixes Null Value Balance Error on Mouse Click      *
+         * **************************************************** */
         public void SlideSIFpercentage_MouseDown(object sender, MouseEventArgs e)
         {
             if (txtBalanceInput.Text == "")
@@ -199,19 +232,19 @@ namespace PaymentPlanCalculator
 
         }
 
-        /****************************************************** //
+        /* **************************************************** *
          *              Current Balance Textbox                 *
          *          Validate Inputs to Prevent Crashing         *
-        /****************************************************** */
+         ****************************************************** */
 
-        /****************************************************** //
-        /*    Calc Remaining Balance based on SIF Checkbox      //
-        /****************************************************** */
+        /* **************************************************** *
+         *    Calc Remaining Balance based on SIF Checkbox      *
+         * **************************************************** */
         public void TextBox1_TextChanged(object sender, EventArgs e) // Current Balance Textbox
         {
-            /************************************************** //
-            /*    Allow UserInput in Down Payment Text Box      //
-            /************************************************** */
+            /* ************************************************ *
+             *    Allow UserInput in Down Payment Text Box      *
+             * ************************************************ */
 
             // Prevents first character being entered from being '.' or ','
             txtDownPayment.Text = txtDownPayment.Text.TrimStart('.', ',');
@@ -231,9 +264,9 @@ namespace PaymentPlanCalculator
                 txtDownPayment.SelectAll();
             }
 
-            /************************************************** //
-            /*    Calculates Math for Down Payment and SIF      //
-            /************************************************** */
+            /* ************************************************ *
+             *    Calculates Math for Down Payment and SIF      *
+             ************************************************** */
             decimal currentBalance = Convert.ToDecimal(txtBalanceInput.Text);
             decimal downPayment = Convert.ToDecimal(txtDownPayment.Text);
             decimal settlementAmount = Convert.ToDecimal(txtBalanceInput.Text) * ((Convert.ToDecimal(slideSIFpercentage.Value) / 100));
@@ -256,9 +289,9 @@ namespace PaymentPlanCalculator
             }
         }
 
-        /****************************************************** //
-        /*    Calculate PPA Based on Installment Slider         //
-        /****************************************************** */
+        /* *************************************************** *
+         *    Calculate PPA Based on Installment Slider        *
+         * *************************************************** */
         public void SliderRemainingPmtCount_ValueChanged(object sender, EventArgs e)
         {
             double remainingBalance = Convert.ToDouble(lblRemainingBal.Text);
@@ -282,9 +315,9 @@ namespace PaymentPlanCalculator
             }
         }
 
-        /****************************************************** //
-        /*     Change UI Text based on Number of Payments       //
-        /****************************************************** */
+        /* **************************************************** *
+         *     Change UI Text based on Number of Payments       *
+         * **************************************************** */
         public void LblRemainingPmtCount_TextChanged(object sender, EventArgs e)
         {
             // Set label for Payment(s) to singular for 1 payment for correct grammar
@@ -299,9 +332,9 @@ namespace PaymentPlanCalculator
             }
         }
 
-        /****************************************************** //
-        /*      Format Balance Input to 2 Decimal Places        //
-        /****************************************************** */
+        /* ***************************************************** *
+         *      Format Balance Input to 2 Decimal Places         *
+         * ***************************************************** */
         public void TxtBalanceInput_Leave(object sender, EventArgs e)
         {
             if (txtBalanceInput.Text == "")
@@ -316,18 +349,18 @@ namespace PaymentPlanCalculator
             }
         }
 
-        /****************************************************** //
-        /*    Format Down Payment Input to 2 Decimal Places     //
-        /****************************************************** */
+        /* **************************************************** *
+         *    Format Down Payment Input to 2 Decimal Places     *
+         ****************************************************** */
         public void TxtDownPayment_Leave(object sender, EventArgs e)
         {
             decimal formattedDPInput = Convert.ToDecimal(txtDownPayment.Text);
             txtDownPayment.Text = String.Format("{0:00}", formattedDPInput.ToString("N"));
         }
 
-        /****************************************************** //
-        /*    Select all characters when textbox clicked        //
-        /****************************************************** */
+        /* ***************************************************** *
+         *    Select all characters when textbox clicked         *
+         * ***************************************************** */
 
         public void TxtBalanceInput_MouseClick(object sender, MouseEventArgs e)
         {
@@ -359,10 +392,10 @@ namespace PaymentPlanCalculator
             rtxtNotate.Select(rtxtNotate.Text.Length, 0); // Move cursor to far right 
         }
 
-        /****************************************************** *
+        /* **************************************************** *
          *              Current Balance Textbox                 *
          *          Validate Inputs to Prevent Crashing         *
-         * ***************************************************  */
+         * **************************************************** */
         public void TxtBalanceInput_TextChanged(object sender, EventArgs e) // Current Balance Textbox
         {
             txtBalanceInput.Text = RemoveNonNumeric(txtBalanceInput.Text); // Pure use of RemoveNonNumeric Method (in real time) prevents spaces, allows commas and decimals
