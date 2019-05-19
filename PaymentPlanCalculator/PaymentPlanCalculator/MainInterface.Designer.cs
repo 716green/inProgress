@@ -78,7 +78,6 @@
             this.rtxtNotate = new System.Windows.Forms.RichTextBox();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblPaymentCount = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
@@ -89,11 +88,12 @@
             // 
             // toolStrip
             // 
+            this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButton1});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(1302, 25);
+            this.toolStrip.Size = new System.Drawing.Size(1369, 25);
             this.toolStrip.TabIndex = 0;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -662,17 +662,16 @@
             // 
             this.rtxtNotate.Location = new System.Drawing.Point(11, 320);
             this.rtxtNotate.Name = "rtxtNotate";
-            this.rtxtNotate.Size = new System.Drawing.Size(479, 175);
+            this.rtxtNotate.Size = new System.Drawing.Size(615, 175);
             this.rtxtNotate.TabIndex = 2;
             this.rtxtNotate.Text = "";
-            this.rtxtNotate.TextChanged += new System.EventHandler(this.RtxtNotate_TextChanged);
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(3, 2);
+            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(4, 2);
             this.monthCalendar1.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
             this.monthCalendar1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.monthCalendar1.Location = new System.Drawing.Point(5, 6);
+            this.monthCalendar1.Location = new System.Drawing.Point(9, 9);
             this.monthCalendar1.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
             this.monthCalendar1.MaxSelectionCount = 365;
             this.monthCalendar1.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
@@ -681,30 +680,19 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.lblPaymentCount);
             this.panel1.Controls.Add(this.rtxtNotate);
             this.panel1.Controls.Add(this.monthCalendar1);
             this.panel1.Location = new System.Drawing.Point(416, 28);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(874, 504);
+            this.panel1.Size = new System.Drawing.Size(941, 504);
             this.panel1.TabIndex = 36;
-            // 
-            // lblPaymentCount
-            // 
-            this.lblPaymentCount.AutoSize = true;
-            this.lblPaymentCount.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPaymentCount.Location = new System.Drawing.Point(810, 9);
-            this.lblPaymentCount.Name = "lblPaymentCount";
-            this.lblPaymentCount.Size = new System.Drawing.Size(28, 32);
-            this.lblPaymentCount.TabIndex = 36;
-            this.lblPaymentCount.Text = "0";
             // 
             // paymentPlanCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1302, 544);
+            this.ClientSize = new System.Drawing.Size(1369, 544);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlDataEntry);
             this.Controls.Add(this.toolStrip);
@@ -722,7 +710,6 @@
             this.pnlPPA.ResumeLayout(false);
             this.pnlPPA.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -779,7 +766,6 @@
         public System.Windows.Forms.TextBox txtCVV;
         public System.Windows.Forms.ComboBox cboxExpMonth;
         public System.Windows.Forms.ComboBox cboxExpYear;
-        private System.Windows.Forms.Label lblPaymentCount;
     }
 }
 

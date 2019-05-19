@@ -41,13 +41,6 @@ namespace PaymentPlanCalculator
             return Regex.IsMatch(currencyValue, pattern);
         }
 
-        /* ******************************************** *
-         *               Count Payments                 *
-         *          Variables to count payments         *
-         * *******************************************  */
-
-        //THIS NEEDS TO BE CREATED
-
 
         public paymentPlanCalculator()
         {
@@ -62,34 +55,50 @@ namespace PaymentPlanCalculator
         /* ****************************************** *
          *             Count all Payments             *
          * ****************************************** */
+        
+        //CREATE RULE TO ACCOUNT FOR PAYMENT COUNT SLIDER BEING SET TO 0 PAYMENTS
+
         public void PaymentCount()
         {
             double totalPaymentCount = 0; // This will be the 'Master Variable' in this Method
 
-            // Double acting like a bool, 0 = False, 1 = True
-            double currentBalanceCount;
-            if (txtBalanceInput.Text != "0.00")
+            /* ****************************************** *
+             *          Down Payment Calculation          *
+             * ****************************************** */
+
+            // Test if there is a down payment and then add to the total paymeent count
+
+            // Is there a down payment to use for the calculation?
+            // -Yes? downPaymentCount is 1
+            // -No? downPaymentCount is 0
+
+            double downPaymentCount;
+            if (txtDownPayment.Text != "0.00")
             {
-                currentBalanceCount = 1;
+                downPaymentCount = 1;
             }
-            else if (Convert.ToDouble(txtBalanceInput.Text) == 0)
+            else if (Convert.ToDouble(txtDownPayment.Text) == 0)
             {
-                currentBalanceCount = 0;
+                downPaymentCount = 0;
             }
             else
             {
-                currentBalanceCount = 1; // This should never be used
+                downPaymentCount = 1; // This should never be used
             }
 
-            /* WORKING ON THIS
-            // Add 1 to totalPaymentCount if currentBalanceCount = 1
-            totalPaymentCount += currentBalanceCount;
-            
-            double downPaymentCount;
-            double totalPayments = currentBalanceCount + downPaymentCount + sliderRemainingPmtCount.Value;
-            lblTtlPay.Text = totalPayments.ToString();
-            lblTotalPaymentCount.Text = totalPayments.ToString();
-            */
+            // Add 1 to totalPaymentCount if downPaymentCount = 1
+            if (downPaymentCount == 1)
+            {
+                totalPaymentCount += downPaymentCount;
+            }
+            else
+            {
+                totalPaymentCount += downPaymentCount; // This should never be used
+            }
+
+            // Calculate total payment count
+            totalPaymentCount =+ downPaymentCount + sliderRemainingPmtCount.Value;
+            lblTotalPaymentCount.Text = totalPaymentCount.ToString(); // Method works
         }
 
         /* ******************************************************* *
@@ -166,6 +175,58 @@ namespace PaymentPlanCalculator
                 lblCardValid.ForeColor = Color.Red;
                 lblCardValid.Text = "INVALID!";
             }
+
+            //FOR TESTING PURPOSES- CLICKING VALIDATE RUNS CALCULATE PAYMENT COUNT METHOD
+            PaymentCount();
+
+            /* ****************** *
+             *   NOTATE ACCOUNT   *
+             * ****************** */
+            string notationOverview = $"Dbtr owes {txtBalanceInput.Text:C}";
+
+            if (chkSettlement.Checked == true)
+            {
+                notationOverview += $"\n{slideSIFpercentage.Value}% SIF authorized";
+            }
+            else
+            {
+                notationOverview += $"\nno SIF authorized";
+            }
+            if (chkPPA.Checked == true)
+            {
+                notationOverview += $"\nPPA Authorized over {lblTotalPaymentCount.Text} payments";
+            }
+            else
+            {
+                notationOverview += $"\nto be paid in 1 payment ";
+
+                if (slideSIFpercentage.Value == 100)
+                {
+                    notationOverview += $"for balance in full of {txtBalanceInput.Text:C}";
+                }
+                else
+                {
+                    notationOverview += $"for {slideSIFpercentage.Value}% SIF of {lblSifBalance:C}";
+                }
+            }
+            if (txtDownPayment.Text != "0.00")
+            {
+                notationOverview += $"\nDown payment of {txtDownPayment.Text:C} to leave a remaining balance of {lblRemainingBal.Text:C}" +
+                    $"\nover {sliderRemainingPmtCount.Value - 1} payments of {lblInstallmentAmt:C} and 1 " +
+                    //$"\nover {(Convert.ToDouble(lblTotalPaymentCount.Text) - 1).ToString()} payments of {lblInstallmentAmt:C} and 1 " +
+                    $"final payment of {lblRemainder.Text:C}";
+            }
+            else
+            {
+                notationOverview += $"\nover { (Convert.ToDouble(lblTotalPaymentCount.Text) - 1).ToString()} payments of { lblInstallmentAmt: C} " +
+                $"and 1 final payment of {lblRemainder.Text:C}";
+            }
+            if (txtCreditCardNumber.Text != "")
+            {
+                notationOverview += $"\nDbtr is using {lblCardType.Text} card. Card number is {txtCreditCardNumber.Text}";
+            }
+            rtxtNotate.Text = notationOverview;
+            
         }
 
         public void TxtCreditCardNumber_TextChanged(object sender, EventArgs e)
@@ -386,11 +447,14 @@ namespace PaymentPlanCalculator
 
         // WORKING EXAMPLE FOR NUMERIC VALIDATION IN RICH TEXT BOX -- Can be commented out or deleted at any time
         // this can be deleted after it is referenced elsewhere -- Remember to delete the corresponding code on the back-end if removed
+        
+        /*
         public void RtxtNotate_TextChanged(object sender, EventArgs e)
         {
             rtxtNotate.Text = RemoveNonNumeric(rtxtNotate.Text); // Pure use of RemoveNonNumeric Method (in real time) prevents spaces, allows commas and decimals
             rtxtNotate.Select(rtxtNotate.Text.Length, 0); // Move cursor to far right 
         }
+        */
 
         /* **************************************************** *
          *              Current Balance Textbox                 *
