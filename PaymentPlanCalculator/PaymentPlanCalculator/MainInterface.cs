@@ -212,13 +212,12 @@ namespace PaymentPlanCalculator
             if (txtDownPayment.Text != "0.00")
             {
                 notationOverview += $"\nDown payment of {txtDownPayment.Text:C} to leave a remaining balance of {lblRemainingBal.Text:C}" +
-                    $"\nover {sliderRemainingPmtCount.Value - 1} payments of {lblInstallmentAmt:C} and 1 " +
-                    //$"\nover {(Convert.ToDouble(lblTotalPaymentCount.Text) - 1).ToString()} payments of {lblInstallmentAmt:C} and 1 " +
+                    $"\nover {(sliderRemainingPmtCount.Value - 1)} payments of {lblInstallmentAmt.Text:C} and 1 " +
                     $"final payment of {lblRemainder.Text:C}";
             }
             else
             {
-                notationOverview += $"\nover { (Convert.ToDouble(lblTotalPaymentCount.Text) - 1).ToString()} payments of { lblInstallmentAmt: C} " +
+                notationOverview += $"\nover { (Convert.ToDouble(lblTotalPaymentCount.Text) - 1)} payments of { lblInstallmentAmt.Text:C} " +
                 $"and 1 final payment of {lblRemainder.Text:C}";
             }
             if (txtCreditCardNumber.Text != "")
