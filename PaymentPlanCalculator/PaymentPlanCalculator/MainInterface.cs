@@ -187,6 +187,7 @@ namespace PaymentPlanCalculator
             // Current Balance
             string notationOverview = $"Dbtr owes ${txtBalanceInput.Text:C}";
 
+            // // Debtor owes $1,234.56
 
             // Account Notation
             // SIF Yes/No
@@ -194,28 +195,40 @@ namespace PaymentPlanCalculator
             {
                 notationOverview += $"\n{slideSIFpercentage.Value}% SIF authorized";
             }
-            else // State that there is no SIG authorized
+            else // State that there is no SIF authorized
             {
                 notationOverview += $"\nno SIF authorized";
             }
+
+            // // 75% SIF authorized
+            // // no SIF authorized
+
             // Account Notation
             // PPA Yes/No
             if (chkPPA.Checked == true) // If PPA Box is checked, add PPA info to notation
             {
                 notationOverview += $"\nPPA Authorized over {lblTotalPaymentCount.Text} payments";
             }
+
+            // // PPA Authorized over 3 payments
+            
             else // If no PPA, decide if it is BIF or SIF and notate as such (Nested IF/ELSE)
             {
                 notationOverview += $"\nto be paid in 1 payment "; // No PPA means 1 payment
 
+                // // to be paid in 1 payment
+
                 if (slideSIFpercentage.Value == 100) // If settlement is 100%, state balance in full
                 {
-                    notationOverview += $"for balance in full of {txtBalanceInput.Text:C}";
+                    notationOverview += $"for balance in full of ${txtBalanceInput.Text:C}";
                 }
                 else // If SIF = true, state SIF amount
                 {
                     notationOverview += $"for {slideSIFpercentage.Value}% SIF of {lblSifBalance:C}";
                 }
+
+                // // for the balance in full of $1,234.56
+                // // for 75%
             }
             // Account Notation
             // Down Payment Yes/No
@@ -503,7 +516,6 @@ namespace PaymentPlanCalculator
             {
                 txtBalanceInput.SelectAll();
             }
-
             // Prevents first character being entered from being period or comma
             txtBalanceInput.Text = txtBalanceInput.Text.TrimStart('.', ',');
         }
