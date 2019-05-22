@@ -182,43 +182,72 @@ namespace PaymentPlanCalculator
             /* ****************** *
              *   NOTATE ACCOUNT   *
              * ****************** */
-            string notationOverview = $"Dbtr owes {txtBalanceInput.Text:C}";
+             
+            // Account Notation
+            // Current Balance
+            string notationOverview = $"Dbtr owes ${txtBalanceInput.Text:C}";
 
-            if (chkSettlement.Checked == true)
+
+            // Account Notation
+            // SIF Yes/No
+            if (chkSettlement.Checked == true) // If SIF box is checked, add SIF info to notation
             {
                 notationOverview += $"\n{slideSIFpercentage.Value}% SIF authorized";
             }
-            else
+            else // State that there is no SIG authorized
             {
                 notationOverview += $"\nno SIF authorized";
             }
-            if (chkPPA.Checked == true)
+            // Account Notation
+            // PPA Yes/No
+            if (chkPPA.Checked == true) // If PPA Box is checked, add PPA info to notation
             {
                 notationOverview += $"\nPPA Authorized over {lblTotalPaymentCount.Text} payments";
             }
-            else
+            else // If no PPA, decide if it is BIF or SIF and notate as such (Nested IF/ELSE)
             {
-                notationOverview += $"\nto be paid in 1 payment ";
+                notationOverview += $"\nto be paid in 1 payment "; // No PPA means 1 payment
 
-                if (slideSIFpercentage.Value == 100)
+                if (slideSIFpercentage.Value == 100) // If settlement is 100%, state balance in full
                 {
                     notationOverview += $"for balance in full of {txtBalanceInput.Text:C}";
                 }
-                else
+                else // If SIF = true, state SIF amount
                 {
                     notationOverview += $"for {slideSIFpercentage.Value}% SIF of {lblSifBalance:C}";
                 }
             }
-            if (txtDownPayment.Text != "0.00")
+            // Account Notation
+            // Down Payment Yes/No
+            if (txtDownPayment.Text != "0.00") // If there is a down payment then (Follow nested tree to check if installment = remainder amount)
+                
+                // Yes, down payment (nested statement)
             {
-                notationOverview += $"\nDown payment of {txtDownPayment.Text:C} to leave a remaining balance of {lblRemainingBal.Text:C}" +
+                if (lblInstallmentAmt.Text != lblRemainder.Text) // If installment and remainder are different, display notation as follows:
+                {
+                    notationOverview += $"\nDown payment of ${txtDownPayment.Text:C} to leave a remaining balance of ${lblRemainingBal.Text:C}" +
                     $"\nover {(sliderRemainingPmtCount.Value - 1)} payments of {lblInstallmentAmt.Text:C} and 1 " +
                     $"final payment of {lblRemainder.Text:C}";
+                }
+                else // If installment and remainder are the same, display notation as follows:
+                {
+                    notationOverview += $"\nDown payment of ${txtDownPayment.Text:C} to leave a remaining balance of ${lblRemainingBal.Text:C}" +
+                    $"\nover {sliderRemainingPmtCount.Value} payments of {lblInstallmentAmt.Text:C}";
+                }
+                
             }
-            else
+            else //ADD IF/ELSE STATEMENT to prevent duplicate installment and remainder payment amounts
             {
-                notationOverview += $"\nover { (Convert.ToDouble(lblTotalPaymentCount.Text) - 1)} payments of { lblInstallmentAmt.Text:C} " +
-                $"and 1 final payment of {lblRemainder.Text:C}";
+                if (lblInstallmentAmt.Text != lblRemainder.Text) // If installment and remainder are different, display notation as follows:
+                {
+                    notationOverview += $"\nover { (Convert.ToDouble(lblTotalPaymentCount.Text) - 1)} payments of {lblInstallmentAmt.Text:C} " +
+                    $"and 1 final payment of {lblRemainder.Text:C}";
+                }
+                else // If installment and remaainder are the same
+                {
+                    notationOverview += $"\nover {Convert.ToDouble(lblTotalPaymentCount.Text)} payments of {lblInstallmentAmt.Text:C} ";
+                }
+                
             }
             if (txtCreditCardNumber.Text != "")
             {
@@ -335,16 +364,16 @@ namespace PaymentPlanCalculator
             // These statements are mostly for error handling for checkboxes
             if (chkSettlement.Checked == true)
             {
-                lblRemainingBal.Text = sifAfterDownPayment.ToString();
+                lblRemainingBal.Text = sifAfterDownPayment.ToString("N");
             }
             else if (chkSettlement.Checked == false)
             {
-                lblRemainingBal.Text = pmtAfterDownPayent.ToString();
+                lblRemainingBal.Text = pmtAfterDownPayent.ToString("N");
             }
             else
             {
                 txtDownPayment.Text = "0.00";
-                txtBalanceInput.Text = currentBalance.ToString();
+                txtBalanceInput.Text = currentBalance.ToString("C");
                 lblRemainingBal.Text = txtBalanceInput.Text;
             }
         }
