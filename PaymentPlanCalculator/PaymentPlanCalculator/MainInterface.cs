@@ -31,6 +31,10 @@ namespace PaymentPlanCalculator
             return input;
         }
 
+        /*
+         * I NEED TO INTEGRATE SETTLEMENT INTO PPA CALCULATIONS
+         */
+
         //TESTING METHOD TO TEST FOR 2 PERIODS - NOT IN USE
         //Attempting to use to prevent more than 1 period from being used
         // Copied from docs.microsoft.com (hurry up and learn regex)
@@ -50,16 +54,40 @@ namespace PaymentPlanCalculator
 
         } // COLLAPSED (For Now)
 
+        public void CalculateSIF()
+        {
+            // Calculate Settlement
+            lblSifBalance.Text = (Convert.ToDouble(txtBalanceInput.Text) * (slideSIFpercentage.Value * 0.01)).ToString("C");
+        }
+
         public void CalculateInstallmentPayments()
         {
-            double remainingBalance = Convert.ToDouble(lblRemainingBal.Text);
-            double remainingPaymentCountRequest = sliderRemainingPmtCount.Value;
-            lblRemainingPmtCount.Text = sliderRemainingPmtCount.Value.ToString();
-            double installmentAmount = remainingBalance / remainingPaymentCountRequest;
-            // The remainder is not being calculated correctly - FIX THIS:
-            double installmentRemainder = ((remainingBalance % remainingPaymentCountRequest) / 100) + installmentAmount;
+            decimal currentBalance = Convert.ToDecimal(txtBalanceInput.Text); // Current Balance
+            decimal settlementBalance = Convert.ToDecimal(Convert.ToString(currentBalance).Replace("$", ""));
+            decimal downPayment = Convert.ToDecimal(txtDownPayment.Text); // Down Payment
+            decimal installmentCount = sliderRemainingPmtCount.Value; // Installment Count
+            decimal balanceAfterDP = settlementBalance - downPayment; // Balance After Down Payment
+            decimal installmentAmount; // Define Installment Amount Variable
+            if (installmentCount > 0) // Prevent divide by Zero error
+            {
+                installmentAmount = Math.Round((balanceAfterDP / installmentCount), 2); // Installment Amount
+            }
+            else
+            {
+                installmentAmount = 0; // Installment amount for 0 installments
+            }
+            // Calculate Final Payment
+            decimal remainderPayment = Math.Round((balanceAfterDP - (installmentAmount * (installmentCount - 1))), 2); // Final Payment (Remainder)
+            // Using Rich Text box as a 'Console' for debugging
+            rtxtNotate.Text = ($"Current Balance: {currentBalance.ToString("C")}" +
+                $"\nDown Payment: {downPayment.ToString("C")}" +
+                $"\nInstallment Count: {installmentCount.ToString()}" +
+                $"\nInstallment Amount: {installmentAmount.ToString("C")}" +
+                $"\nRemainder: {remainderPayment.ToString("C")}" +
+                $"\n");
+            // Installment labels to formatted numbers            
             lblInstallmentAmt.Text = installmentAmount.ToString("C"); // ToString("C") converts to currency
-            lblRemainder.Text = installmentRemainder.ToString("C");
+            lblRemainder.Text = remainderPayment.ToString("C");
         }
 
         public void TestForRemainder()
@@ -128,7 +156,6 @@ namespace PaymentPlanCalculator
             {
                 txtDownPayment.Text = "0.00";
             }
-            
         }
 
         /* ******************************************** *
@@ -425,6 +452,7 @@ namespace PaymentPlanCalculator
             TestForPPA();
             CalculateNotations();
             TestForRemainder();
+            CalculateSIF();
         }
 
         public void TxtCreditCardNumber_TextChanged(object sender, EventArgs e)
@@ -438,9 +466,17 @@ namespace PaymentPlanCalculator
 
         /* ******************************************* *
          *             Calculate Settlement            *
-         ********************************************* */
+         * ******************************************* */
         public void SlideSIFpercentage_ValueChanged_1(object sender, EventArgs e)
         {
+            CalculateSIF();
+            CalculateInstallmentPayments();
+            CalculateRemainingBalance();
+            PaymentCount();
+            TestForPPA();
+            CalculateNotations();
+            TestForRemainder();
+
             if (slideSIFpercentage.Value < 100)
             {
                 chkSettlement.Checked = true;
@@ -499,6 +535,7 @@ namespace PaymentPlanCalculator
          * **************************************************** */
         public void TextBox1_TextChanged(object sender, EventArgs e) // Current Balance Textbox
         {
+            CalculateSIF();
             /* ************************************************ *
              *    Allow UserInput in Down Payment Text Box      *
              * ************************************************ */
@@ -536,6 +573,8 @@ namespace PaymentPlanCalculator
             CalculateInstallmentPayments();
             TestForPPA();
             TestForRemainder();
+            CalculateSIF();
+            lblRemainingPmtCount.Text = sliderRemainingPmtCount.Value.ToString(); // Set installment count to slider value
 
             // Show or hide PPA info based on if PPA exists as set
             if (sliderRemainingPmtCount.Value > 0)
@@ -597,10 +636,10 @@ namespace PaymentPlanCalculator
                     txtBalanceInput.Text = "0.00";
                     //throw;
                 }
-                
             }
             CalculateRemainingBalance();
             CalculateInstallmentPayments();
+            CalculateSIF();
         }
 
         /* **************************************************** *
@@ -684,6 +723,26 @@ namespace PaymentPlanCalculator
             }
             // Prevents first character being entered from being period or comma
             txtBalanceInput.Text = txtBalanceInput.Text.TrimStart('.', ',');
+        }
+
+        private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            /*
+            txtBalanceInput.Clear();
+            txtDownPayment.Clear();
+            txtCreditCardNumber.Clear();
+            txtCVV.Clear();
+            sliderRemainingPmtCount.Value = 1;
+            slideSIFpercentage.Value = 100;
+            rtxtNotate.Clear();
+            lblSIFpercent.Text = "100";
+            lblSifBalance.Text = "0.00";
+            lblInstallmentAmt.Text = "0.00";
+            lblRemainder.Text = "0.00";
+            lblTotalPaymentCount.Text = "1";
+            */
+            Application.Restart();
+            Environment.Exit(0);
         }
     }
 }
