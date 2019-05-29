@@ -54,16 +54,51 @@ namespace PaymentPlanCalculator
 
         } // COLLAPSED (For Now)
 
+        public void UpdateAll() // Method of all other methods (not sure if this works)
+        {
+            CalculateRemainingBalance();
+            CalculateInstallmentPayments();
+            TestForPPA();
+            TestForRemainder();
+            CalculateSIF();
+            DisplayPPAInfo();
+            PaymentCount();
+            CalculateNotations();
+        }
+
         public void CalculateSIF()
         {
             // Calculate Settlement
             lblSifBalance.Text = (Convert.ToDouble(txtBalanceInput.Text) * (slideSIFpercentage.Value * 0.01)).ToString("C");
         }
 
+        public void DisplayPPAInfo()
+        {
+            lblRemainingPmtCount.Text = sliderRemainingPmtCount.Value.ToString(); // Set installment count to slider value
+                                                                                  // Show or hide PPA info based on if PPA exists as set
+            if (sliderRemainingPmtCount.Value > 0)
+            {
+                pnlPPA.Visible = true;
+            }
+            else
+            {
+                chkPPA.Checked = false;
+                pnlPPA.Visible = false;
+            }
+
+            if (txtDownPayment.Text == "0.00")
+            {
+                lblTotalPaymentCount.Text = sliderRemainingPmtCount.Value.ToString();
+            }
+            else
+            {
+                lblTotalPaymentCount.Text = (sliderRemainingPmtCount.Value + 1).ToString();
+            }
+        }
         public void CalculateInstallmentPayments()
         {
             decimal currentBalance = Convert.ToDecimal(txtBalanceInput.Text); // Current Balance
-            decimal settlementBalance = Convert.ToDecimal(Convert.ToString(currentBalance).Replace("$", ""));
+            decimal settlementBalance = Convert.ToDecimal(Convert.ToString(currentBalance).Replace("$", "")) * (Convert.ToDecimal(slideSIFpercentage.Value) / 100);
             decimal downPayment = Convert.ToDecimal(txtDownPayment.Text); // Down Payment
             decimal installmentCount = sliderRemainingPmtCount.Value; // Installment Count
             decimal balanceAfterDP = settlementBalance - downPayment; // Balance After Down Payment
@@ -79,7 +114,8 @@ namespace PaymentPlanCalculator
             // Calculate Final Payment
             decimal remainderPayment = Math.Round((balanceAfterDP - (installmentAmount * (installmentCount - 1))), 2); // Final Payment (Remainder)
             // Using Rich Text box as a 'Console' for debugging
-            rtxtNotate.Text = ($"Current Balance: {currentBalance.ToString("C")}" +
+            rtxtNotate.Text = ($"Balance: {currentBalance.ToString("C")}" +
+                $"\nSettlement Balance: {settlementBalance.ToString("C")}" +
                 $"\nDown Payment: {downPayment.ToString("C")}" +
                 $"\nInstallment Count: {installmentCount.ToString()}" +
                 $"\nInstallment Amount: {installmentAmount.ToString("C")}" +
@@ -574,27 +610,10 @@ namespace PaymentPlanCalculator
             TestForPPA();
             TestForRemainder();
             CalculateSIF();
-            lblRemainingPmtCount.Text = sliderRemainingPmtCount.Value.ToString(); // Set installment count to slider value
-
-            // Show or hide PPA info based on if PPA exists as set
-            if (sliderRemainingPmtCount.Value > 0)
-            {
-                pnlPPA.Visible = true;
-            }
-            else
-            {
-                chkPPA.Checked = false;
-                pnlPPA.Visible = false;
-            }
-
-            if (txtDownPayment.Text == "0.00")
-            {
-                lblTotalPaymentCount.Text = sliderRemainingPmtCount.Value.ToString();
-            }
-            else
-            {
-                lblTotalPaymentCount.Text = (sliderRemainingPmtCount.Value + 1).ToString();
-            }
+            
+            DisplayPPAInfo();
+            
+            
         }
 
         /* **************************************************** *
