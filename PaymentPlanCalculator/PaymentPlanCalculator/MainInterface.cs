@@ -5,13 +5,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-/* Removed Using Statements
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using System.Threading.Tasks;
-
-Research to learn about each one*/
 
 namespace PaymentPlanCalculator
 {
@@ -57,13 +50,13 @@ namespace PaymentPlanCalculator
         public void UpdateAll() // Method of all other methods (not sure if this works)
         {
             CalculateRemainingBalance();
-            CalculateInstallmentPayments();
             TestForPPA();
             TestForRemainder();
             CalculateSIF();
             DisplayPPAInfo();
             PaymentCount();
             CalculateNotations();
+            CalculateInstallmentPayments();
         }
 
         public void CalculateSIF()
@@ -117,6 +110,7 @@ namespace PaymentPlanCalculator
             rtxtNotate.Text = ($"Balance: {currentBalance.ToString("C")}" +
                 $"\nSettlement Balance: {settlementBalance.ToString("C")}" +
                 $"\nDown Payment: {downPayment.ToString("C")}" +
+                $"\nRemaining Due: {balanceAfterDP.ToString("C")}" +
                 $"\nInstallment Count: {installmentCount.ToString()}" +
                 $"\nInstallment Amount: {installmentAmount.ToString("C")}" +
                 $"\nRemainder: {remainderPayment.ToString("C")}" +
@@ -484,11 +478,7 @@ namespace PaymentPlanCalculator
 
             //FOR TESTING PURPOSES- clicking validate calculates payments and prints notations
             //THESE 'CALL TO METHODS' may need to be moved
-            PaymentCount();
-            TestForPPA();
-            CalculateNotations();
-            TestForRemainder();
-            CalculateSIF();
+            UpdateAll();
         }
 
         public void TxtCreditCardNumber_TextChanged(object sender, EventArgs e)
@@ -505,14 +495,7 @@ namespace PaymentPlanCalculator
          * ******************************************* */
         public void SlideSIFpercentage_ValueChanged_1(object sender, EventArgs e)
         {
-            CalculateSIF();
-            CalculateInstallmentPayments();
-            CalculateRemainingBalance();
-            PaymentCount();
-            TestForPPA();
-            CalculateNotations();
-            TestForRemainder();
-
+            UpdateAll();
             if (slideSIFpercentage.Value < 100)
             {
                 chkSettlement.Checked = true;
@@ -571,7 +554,8 @@ namespace PaymentPlanCalculator
          * **************************************************** */
         public void TextBox1_TextChanged(object sender, EventArgs e) // Current Balance Textbox
         {
-            CalculateSIF();
+            UpdateAll();
+            //CalculateSIF();
             /* ************************************************ *
              *    Allow UserInput in Down Payment Text Box      *
              * ************************************************ */
@@ -597,7 +581,7 @@ namespace PaymentPlanCalculator
             /* ************************************************ *
              *    Calculates Math for Down Payment and SIF      *
              * ************************************************ */
-            CalculateRemainingBalance();
+            //CalculateRemainingBalance();
         }
 
         /* *************************************************** *
@@ -605,15 +589,7 @@ namespace PaymentPlanCalculator
          * *************************************************** */
         public void SliderRemainingPmtCount_ValueChanged(object sender, EventArgs e)
         {
-            CalculateRemainingBalance();
-            CalculateInstallmentPayments();
-            TestForPPA();
-            TestForRemainder();
-            CalculateSIF();
-            
-            DisplayPPAInfo();
-            
-            
+            UpdateAll();
         }
 
         /* **************************************************** *
@@ -656,9 +632,7 @@ namespace PaymentPlanCalculator
                     //throw;
                 }
             }
-            CalculateRemainingBalance();
-            CalculateInstallmentPayments();
-            CalculateSIF();
+            UpdateAll();
         }
 
         /* **************************************************** *
@@ -679,9 +653,7 @@ namespace PaymentPlanCalculator
                 chkPPA.Checked = false;
                 lblTotalPaymentCount.Text = "1";
             }
-            CalculateRemainingBalance();
-            CalculateInstallmentPayments();
-            TestForPPA();
+            UpdateAll();
         }
 
         /* ***************************************************** *
@@ -762,6 +734,17 @@ namespace PaymentPlanCalculator
             */
             Application.Restart();
             Environment.Exit(0);
+        }
+
+        public void BtnCalculate_Click(object sender, EventArgs e)
+        {
+            string paymentOne = string.Format("{0:#.00}", Convert.ToDecimal(txtDownPayment.Text));
+
+            int row = 0;
+            dataGridPPA.Rows.Add();
+            row = dataGridPPA.Rows.Count - 2;
+            dataGridPPA["pmtDate", row].Value = monthCalendar1.SelectionStart.ToShortDateString();
+            dataGridPPA["pmtAmount", row].Value = txtDownPayment.Text;
         }
     }
 }

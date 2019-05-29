@@ -78,12 +78,19 @@
             this.rtxtNotate = new System.Windows.Forms.RichTextBox();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dataGridPPA = new System.Windows.Forms.DataGridView();
+            this.pnlPaymentPlan = new System.Windows.Forms.Panel();
+            this.pmtDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pmtAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnCalculate = new System.Windows.Forms.Button();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.slideSIFpercentage)).BeginInit();
             this.pnlPPA.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridPPA)).BeginInit();
+            this.pnlPaymentPlan.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip
@@ -93,7 +100,7 @@
             this.toolStripDropDownButton1});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(1369, 25);
+            this.toolStrip.Size = new System.Drawing.Size(1520, 25);
             this.toolStrip.TabIndex = 0;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -112,13 +119,13 @@
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.resetToolStripMenuItem.Text = "Save";
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
             // 
@@ -663,13 +670,13 @@
             // 
             this.rtxtNotate.Location = new System.Drawing.Point(11, 320);
             this.rtxtNotate.Name = "rtxtNotate";
-            this.rtxtNotate.Size = new System.Drawing.Size(615, 175);
+            this.rtxtNotate.Size = new System.Drawing.Size(546, 175);
             this.rtxtNotate.TabIndex = 2;
             this.rtxtNotate.Text = "";
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(4, 2);
+            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(3, 2);
             this.monthCalendar1.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
             this.monthCalendar1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.monthCalendar1.Location = new System.Drawing.Point(9, 9);
@@ -681,19 +688,64 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnCalculate);
             this.panel1.Controls.Add(this.rtxtNotate);
             this.panel1.Controls.Add(this.monthCalendar1);
             this.panel1.Location = new System.Drawing.Point(416, 28);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(941, 504);
+            this.panel1.Size = new System.Drawing.Size(707, 504);
             this.panel1.TabIndex = 36;
+            // 
+            // dataGridPPA
+            // 
+            this.dataGridPPA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridPPA.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.pmtDate,
+            this.pmtAmount});
+            this.dataGridPPA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridPPA.Location = new System.Drawing.Point(0, 0);
+            this.dataGridPPA.Name = "dataGridPPA";
+            this.dataGridPPA.Size = new System.Drawing.Size(378, 504);
+            this.dataGridPPA.TabIndex = 36;
+            // 
+            // pnlPaymentPlan
+            // 
+            this.pnlPaymentPlan.Controls.Add(this.dataGridPPA);
+            this.pnlPaymentPlan.Location = new System.Drawing.Point(1130, 28);
+            this.pnlPaymentPlan.Name = "pnlPaymentPlan";
+            this.pnlPaymentPlan.Size = new System.Drawing.Size(378, 504);
+            this.pnlPaymentPlan.TabIndex = 37;
+            // 
+            // pmtDate
+            // 
+            this.pmtDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pmtDate.HeaderText = "Date";
+            this.pmtDate.Name = "pmtDate";
+            // 
+            // pmtAmount
+            // 
+            this.pmtAmount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pmtAmount.HeaderText = "Amount";
+            this.pmtAmount.Name = "pmtAmount";
+            // 
+            // btnCalculate
+            // 
+            this.btnCalculate.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCalculate.Location = new System.Drawing.Point(564, 320);
+            this.btnCalculate.Name = "btnCalculate";
+            this.btnCalculate.Size = new System.Drawing.Size(134, 46);
+            this.btnCalculate.TabIndex = 36;
+            this.btnCalculate.Text = "Calculate";
+            this.btnCalculate.UseVisualStyleBackColor = true;
+            this.btnCalculate.Click += new System.EventHandler(this.BtnCalculate_Click);
             // 
             // paymentPlanCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1369, 544);
+            this.ClientSize = new System.Drawing.Size(1520, 544);
+            this.Controls.Add(this.pnlPaymentPlan);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlDataEntry);
             this.Controls.Add(this.toolStrip);
@@ -711,6 +763,8 @@
             this.pnlPPA.ResumeLayout(false);
             this.pnlPPA.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridPPA)).EndInit();
+            this.pnlPaymentPlan.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -767,6 +821,11 @@
         public System.Windows.Forms.TextBox txtCVV;
         public System.Windows.Forms.ComboBox cboxExpMonth;
         public System.Windows.Forms.ComboBox cboxExpYear;
+        private System.Windows.Forms.DataGridView dataGridPPA;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pmtDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pmtAmount;
+        private System.Windows.Forms.Panel pnlPaymentPlan;
+        private System.Windows.Forms.Button btnCalculate;
     }
 }
 
