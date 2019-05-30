@@ -736,15 +736,46 @@ namespace PaymentPlanCalculator
             Environment.Exit(0);
         }
 
+        
         public void BtnCalculate_Click(object sender, EventArgs e)
         {
-            string paymentOne = string.Format("{0:#.00}", Convert.ToDecimal(txtDownPayment.Text));
+            /* NEEDS SERIOUS WORK
+            //string paymentOne = string.Format("{0:#.00}", Convert.ToDecimal(txtDownPayment.Text));
 
-            int row = 0;
-            dataGridPPA.Rows.Add();
-            row = dataGridPPA.Rows.Count - 2;
-            dataGridPPA["pmtDate", row].Value = monthCalendar1.SelectionStart.ToShortDateString();
-            dataGridPPA["pmtAmount", row].Value = txtDownPayment.Text;
+            //int row = 0;
+            //dataGridPPA.Rows.Add();
+            //row = dataGridPPA.Rows.Count - 2;
+            //dataGridPPA["pmtDate", row].Value = monthCalendar1.SelectionStart.ToShortDateString();
+            //dataGridPPA["pmtAmount", row].Value = txtDownPayment.Text;
+
+
+            string[] payment1 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
+            string[] payment2 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
+            string[] payment3 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
+            string[] payment4 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
+            string[] payment5 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
+            string[] payment6 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
+            string[] payment7 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
+            string[] payment8 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
+            string[] payment9 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
+            string[] payment10 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
+            string[] payment11 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
+            string[] payment12 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
+
+
+
+            object[] payments = { payment1, payment2, payment3, payment4, payment5, payment6, payment7, payment8,
+                payment9, payment10, payment11, payment12};
+
+
+            for (int numberOfPayments = Convert.ToInt16(lblTotalPaymentCount.Text); dataGridPPA.RowCount <= numberOfPayments;)
+            {
+                for (int i = 0; i < numberOfPayments; i++)
+                {
+                    //dataGridPPA.Rows.Add(payments[numberOfPayments - dataGridPPA.RowCount]);
+                    dataGridPPA.Rows.Add(payments[i]);
+                }
+            } */
         }
     }
 }
