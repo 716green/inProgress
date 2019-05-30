@@ -736,46 +736,40 @@ namespace PaymentPlanCalculator
             Environment.Exit(0);
         }
 
-        
+        /* *********************** *
+         *   POPULATE DATA GRID    *
+         * *********************** */
         public void BtnCalculate_Click(object sender, EventArgs e)
         {
-            /* NEEDS SERIOUS WORK
-            //string paymentOne = string.Format("{0:#.00}", Convert.ToDecimal(txtDownPayment.Text));
 
-            //int row = 0;
-            //dataGridPPA.Rows.Add();
-            //row = dataGridPPA.Rows.Count - 2;
-            //dataGridPPA["pmtDate", row].Value = monthCalendar1.SelectionStart.ToShortDateString();
-            //dataGridPPA["pmtAmount", row].Value = txtDownPayment.Text;
+            // Pretty much done, test without down payment and other scenarios
+            int numberOfPayments = Convert.ToInt16(lblTotalPaymentCount.Text);
 
+            // ADD DOWN PAYMENT
+            dataGridPPA.Rows.Add();
+            dataGridPPA["pmtDate", 0].Value = monthCalendar1.SelectionStart.ToShortDateString();
+            ///dataGridPPA["pmtAmount", 0].Value = txtDownPayment.Text;
+            dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text);
 
-            string[] payment1 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
-            string[] payment2 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
-            string[] payment3 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
-            string[] payment4 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
-            string[] payment5 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
-            string[] payment6 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
-            string[] payment7 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
-            string[] payment8 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
-            string[] payment9 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
-            string[] payment10 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
-            string[] payment11 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
-            string[] payment12 = { monthCalendar1.SelectionStart.ToShortDateString(), txtDownPayment.Text };
-
-
-
-            object[] payments = { payment1, payment2, payment3, payment4, payment5, payment6, payment7, payment8,
-                payment9, payment10, payment11, payment12};
-
-
-            for (int numberOfPayments = Convert.ToInt16(lblTotalPaymentCount.Text); dataGridPPA.RowCount <= numberOfPayments;)
+            // FILL THE INSTALLMENT PAYMENTS
+            for (int ppaRow = 1; ppaRow < (numberOfPayments - 1); ppaRow++)
             {
-                for (int i = 0; i < numberOfPayments; i++)
-                {
-                    //dataGridPPA.Rows.Add(payments[numberOfPayments - dataGridPPA.RowCount]);
-                    dataGridPPA.Rows.Add(payments[i]);
-                }
-            } */
+                dataGridPPA.Rows.Add();
+                dataGridPPA["pmtDate", ppaRow].Value = monthCalendar1.SelectionStart.ToShortDateString();
+                dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text;
+            }
+
+            // FILL THE FINAL INSTALLMENT PAYMENT
+            dataGridPPA.Rows.Add();
+            dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = monthCalendar1.SelectionStart.ToShortDateString();
+            dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text;
+
+            // FILL THE SUM OF ALL THE ROWS (TEMPORARY FAKE SOLUTION)
+            dataGridPPA.Rows.Add();
+            dataGridPPA["pmtDate", numberOfPayments].Value = "TOTAL";
+            dataGridPPA["pmtAmount", numberOfPayments].Value = lblSifBalance.Text; // This is temporary while I actually write code to calculate this
+            //dataGridPPA.Rows["pmtDate", numberOfPayments]Font = new Font("Segoe UI", 12, FontStyle.Bold); // // // Trying to bold
+
         }
     }
 }
