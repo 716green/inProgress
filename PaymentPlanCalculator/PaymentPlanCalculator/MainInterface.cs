@@ -51,12 +51,12 @@ namespace PaymentPlanCalculator
         {
             CalculateRemainingBalance();
             TestForPPA();
-            TestForRemainder();
             CalculateSIF();
             DisplayPPAInfo();
             PaymentCount();
             CalculateNotations();
             CalculateInstallmentPayments();
+            TestForRemainder();
         }
 
         public void CalculateSIF()
@@ -122,26 +122,30 @@ namespace PaymentPlanCalculator
 
         public void TestForRemainder()
         {
-            if (Convert.ToDouble(lblTotalPaymentCount.Text) < 2)
+            if (Convert.ToDouble(lblTotalPaymentCount.Text) < 2) // If total payment count is less than 2
+            {
+                lblRemainingBalanceNotification.Visible = false; // Hide remainder labels
+                lblRemainder.Visible = false;
+            }
+            else if (lblRemainder.Text == lblInstallmentAmt.Text) // If installment and remainder are the same
+            {
+                lblRemainingBalanceNotification.Visible = false; // Hide remainder
+                lblRemainder.Visible = false;
+            }
+            else if (lblRemainder.Text != lblInstallmentAmt.Text) // If remainder does not match installment amount
+            {
+                lblRemainingBalanceNotification.Visible = true; // Show remainder
+                lblRemainder.Visible = true;
+            }
+            else if (Convert.ToDouble(lblRemainder.Text) == Convert.ToDouble(lblInstallmentAmt.Text))
             {
                 lblRemainingBalanceNotification.Visible = false;
                 lblRemainder.Visible = false;
             }
-            else if (lblRemainder.Text == lblInstallmentAmt.Text)
-            {
-                lblRemainingBalanceNotification.Visible = false;
-                lblRemainder.Visible = false;
-            }
-            else if (lblRemainder.Text != lblInstallmentAmt.Text)
+            else // This should never have to be used
             {
                 lblRemainingBalanceNotification.Visible = true;
                 lblRemainder.Visible = true;
-            }
-            else
-            {
-                // This should never have to be used
-                lblRemainingBalanceNotification.Visible = false;
-                lblRemainder.Visible = false;
             }
         }
 
@@ -481,6 +485,40 @@ namespace PaymentPlanCalculator
             UpdateAll();
         }
 
+        public void PopulateDataGrid()
+        {
+            dataGridPPA.Rows.Clear();
+            // Pretty much done, test without down payment and other scenarios
+            int numberOfPayments = Convert.ToInt16(lblTotalPaymentCount.Text);
+
+            // ADD DOWN PAYMENT
+            dataGridPPA.Rows.Add();
+            dataGridPPA["pmtDate", 0].Value = monthCalendar1.SelectionStart.ToShortDateString();
+            ///dataGridPPA["pmtAmount", 0].Value = txtDownPayment.Text;
+            dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text);
+
+            // FILL THE INSTALLMENT PAYMENTS
+            for (int ppaRow = 1; ppaRow < (numberOfPayments - 1); ppaRow++)
+            {
+                dataGridPPA.Rows.Add();
+                dataGridPPA["pmtDate", ppaRow].Value = monthCalendar1.SelectionStart.ToShortDateString();
+                dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text;
+            }
+
+            // FILL THE FINAL INSTALLMENT PAYMENT
+            dataGridPPA.Rows.Add();
+            dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = monthCalendar1.SelectionStart.ToShortDateString();
+            dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text;
+
+            // I think I want to do away with this:
+
+            // FILL THE SUM OF ALL THE ROWS (TEMPORARY FAKE SOLUTION)
+            dataGridPPA.Rows.Add();
+            dataGridPPA["pmtDate", numberOfPayments].Value = "TOTAL";
+            dataGridPPA["pmtAmount", numberOfPayments].Value = lblSifBalance.Text; // This is temporary while I actually write code to calculate this
+                                                                                   //dataGridPPA.Rows["pmtDate", numberOfPayments]Font = new Font("Segoe UI", 12, FontStyle.Bold); // // // Trying to bold
+        }
+
         public void TxtCreditCardNumber_TextChanged(object sender, EventArgs e)
         {
             string creditCardNumber = txtCreditCardNumber.Text;
@@ -741,34 +779,9 @@ namespace PaymentPlanCalculator
          * *********************** */
         public void BtnCalculate_Click(object sender, EventArgs e)
         {
+            PopulateDataGrid();
+            
 
-            // Pretty much done, test without down payment and other scenarios
-            int numberOfPayments = Convert.ToInt16(lblTotalPaymentCount.Text);
-
-            // ADD DOWN PAYMENT
-            dataGridPPA.Rows.Add();
-            dataGridPPA["pmtDate", 0].Value = monthCalendar1.SelectionStart.ToShortDateString();
-            ///dataGridPPA["pmtAmount", 0].Value = txtDownPayment.Text;
-            dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text);
-
-            // FILL THE INSTALLMENT PAYMENTS
-            for (int ppaRow = 1; ppaRow < (numberOfPayments - 1); ppaRow++)
-            {
-                dataGridPPA.Rows.Add();
-                dataGridPPA["pmtDate", ppaRow].Value = monthCalendar1.SelectionStart.ToShortDateString();
-                dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text;
-            }
-
-            // FILL THE FINAL INSTALLMENT PAYMENT
-            dataGridPPA.Rows.Add();
-            dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = monthCalendar1.SelectionStart.ToShortDateString();
-            dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text;
-
-            // FILL THE SUM OF ALL THE ROWS (TEMPORARY FAKE SOLUTION)
-            dataGridPPA.Rows.Add();
-            dataGridPPA["pmtDate", numberOfPayments].Value = "TOTAL";
-            dataGridPPA["pmtAmount", numberOfPayments].Value = lblSifBalance.Text; // This is temporary while I actually write code to calculate this
-            //dataGridPPA.Rows["pmtDate", numberOfPayments]Font = new Font("Segoe UI", 12, FontStyle.Bold); // // // Trying to bold
 
         }
     }
