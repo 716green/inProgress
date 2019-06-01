@@ -78,11 +78,11 @@
             this.rtxtNotate = new System.Windows.Forms.RichTextBox();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCalculate = new System.Windows.Forms.Button();
             this.dataGridPPA = new System.Windows.Forms.DataGridView();
-            this.pnlPaymentPlan = new System.Windows.Forms.Panel();
             this.pmtDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pmtAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnCalculate = new System.Windows.Forms.Button();
+            this.pnlPaymentPlan = new System.Windows.Forms.Panel();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
@@ -696,6 +696,17 @@
             this.panel1.Size = new System.Drawing.Size(707, 504);
             this.panel1.TabIndex = 36;
             // 
+            // btnCalculate
+            // 
+            this.btnCalculate.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCalculate.Location = new System.Drawing.Point(564, 320);
+            this.btnCalculate.Name = "btnCalculate";
+            this.btnCalculate.Size = new System.Drawing.Size(134, 46);
+            this.btnCalculate.TabIndex = 36;
+            this.btnCalculate.Text = "Calculate";
+            this.btnCalculate.UseVisualStyleBackColor = true;
+            this.btnCalculate.Click += new System.EventHandler(this.BtnCalculate_Click);
+            // 
             // dataGridPPA
             // 
             this.dataGridPPA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -705,16 +716,8 @@
             this.dataGridPPA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridPPA.Location = new System.Drawing.Point(0, 0);
             this.dataGridPPA.Name = "dataGridPPA";
-            this.dataGridPPA.Size = new System.Drawing.Size(378, 504);
+            this.dataGridPPA.Size = new System.Drawing.Size(378, 366);
             this.dataGridPPA.TabIndex = 36;
-            // 
-            // pnlPaymentPlan
-            // 
-            this.pnlPaymentPlan.Controls.Add(this.dataGridPPA);
-            this.pnlPaymentPlan.Location = new System.Drawing.Point(1130, 28);
-            this.pnlPaymentPlan.Name = "pnlPaymentPlan";
-            this.pnlPaymentPlan.Size = new System.Drawing.Size(378, 504);
-            this.pnlPaymentPlan.TabIndex = 37;
             // 
             // pmtDate
             // 
@@ -728,16 +731,13 @@
             this.pmtAmount.HeaderText = "Amount";
             this.pmtAmount.Name = "pmtAmount";
             // 
-            // btnCalculate
+            // pnlPaymentPlan
             // 
-            this.btnCalculate.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCalculate.Location = new System.Drawing.Point(564, 320);
-            this.btnCalculate.Name = "btnCalculate";
-            this.btnCalculate.Size = new System.Drawing.Size(134, 46);
-            this.btnCalculate.TabIndex = 36;
-            this.btnCalculate.Text = "Calculate";
-            this.btnCalculate.UseVisualStyleBackColor = true;
-            this.btnCalculate.Click += new System.EventHandler(this.BtnCalculate_Click);
+            this.pnlPaymentPlan.Controls.Add(this.dataGridPPA);
+            this.pnlPaymentPlan.Location = new System.Drawing.Point(1130, 28);
+            this.pnlPaymentPlan.Name = "pnlPaymentPlan";
+            this.pnlPaymentPlan.Size = new System.Drawing.Size(378, 366);
+            this.pnlPaymentPlan.TabIndex = 37;
             // 
             // paymentPlanCalculator
             // 

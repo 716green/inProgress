@@ -24,13 +24,6 @@ namespace PaymentPlanCalculator
             return input;
         }
 
-        /*
-         * I NEED TO INTEGRATE SETTLEMENT INTO PPA CALCULATIONS
-         */
-
-        //TESTING METHOD TO TEST FOR 2 PERIODS - NOT IN USE
-        //Attempting to use to prevent more than 1 period from being used
-        // Copied from docs.microsoft.com (hurry up and learn regex)
         public static bool IsValidCurrency(string currencyValue)
         {
             string pattern = @"\p{Sc}+\s*\d+";
@@ -64,6 +57,19 @@ namespace PaymentPlanCalculator
             // Calculate Settlement
             lblSifBalance.Text = (Convert.ToDouble(txtBalanceInput.Text) * (slideSIFpercentage.Value * 0.01)).ToString("C");
         }
+
+        /*
+        public string[] SetPPADates(string[] paymentDates)
+        {
+            /*
+            for (int i = 0; i < dataGridPPA.RowCount; i++)
+            {
+                string paymentOne = 
+            }
+            return new[] { monthCalendar1.SelectionStart.ToShortDateString(), monthCalendar1.SelectionStart.ToShortDateString() + 1, monthCalendar1.SelectionStart.ToShortDateString() + 2 };
+
+        }
+        */
 
         public void DisplayPPAInfo()
         {
@@ -491,33 +497,50 @@ namespace PaymentPlanCalculator
             // Pretty much done, test without down payment and other scenarios
             int numberOfPayments = Convert.ToInt16(lblTotalPaymentCount.Text);
 
-            // ADD DOWN PAYMENT
-            dataGridPPA.Rows.Add();
-            dataGridPPA["pmtDate", 0].Value = monthCalendar1.SelectionStart.ToShortDateString();
-            ///dataGridPPA["pmtAmount", 0].Value = txtDownPayment.Text;
-            dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text);
-
-            // FILL THE INSTALLMENT PAYMENTS
-            for (int ppaRow = 1; ppaRow < (numberOfPayments - 1); ppaRow++)
+            if (txtDownPayment.Text != "0.00" && lblInstallmentAmt.Text != "0.00") // If PPA has down payment and PPA
             {
                 dataGridPPA.Rows.Add();
-                dataGridPPA["pmtDate", ppaRow].Value = monthCalendar1.SelectionStart.ToShortDateString();
-                dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text;
+                dataGridPPA["pmtDate", 0].Value = monthCalendar1.SelectionStart.ToShortDateString();
+                dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text);
+                // FILL THE INSTALLMENT PAYMENTS
+                for (int ppaRow = 1; ppaRow < (numberOfPayments - 1); ppaRow++)
+                {
+                    dataGridPPA.Rows.Add();
+                    dataGridPPA["pmtDate", ppaRow].Value = monthCalendar1.SelectionStart.ToShortDateString();
+                    dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text;
+                }
+
+                // FILL THE FINAL INSTALLMENT PAYMENT
+                dataGridPPA.Rows.Add();
+                dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = monthCalendar1.SelectionStart.ToShortDateString();
+                dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text;
+            }
+            else
+            {
+                // ADD DOWN PAYMENT
+                dataGridPPA.Rows.Add();
+                dataGridPPA["pmtDate", 0].Value = monthCalendar1.SelectionStart.ToShortDateString();
+                dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text);
             }
 
-            // FILL THE FINAL INSTALLMENT PAYMENT
-            dataGridPPA.Rows.Add();
-            dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = monthCalendar1.SelectionStart.ToShortDateString();
-            dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text;
+
+
+            
+
+
+
 
             // I think I want to do away with this:
-
+            /*
             // FILL THE SUM OF ALL THE ROWS (TEMPORARY FAKE SOLUTION)
             dataGridPPA.Rows.Add();
             dataGridPPA["pmtDate", numberOfPayments].Value = "TOTAL";
             dataGridPPA["pmtAmount", numberOfPayments].Value = lblSifBalance.Text; // This is temporary while I actually write code to calculate this
                                                                                    //dataGridPPA.Rows["pmtDate", numberOfPayments]Font = new Font("Segoe UI", 12, FontStyle.Bold); // // // Trying to bold
+            */
         }
+
+
 
         public void TxtCreditCardNumber_TextChanged(object sender, EventArgs e)
         {
