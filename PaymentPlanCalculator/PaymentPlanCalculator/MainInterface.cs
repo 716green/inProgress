@@ -52,6 +52,45 @@ namespace PaymentPlanCalculator
             TestForRemainder();
         }
 
+        /* ********************************** *
+         *   WORKING ON PAYMENT DATE CREATION *
+         * ********************************** */
+        public void CalculatePaymentDates()
+        {
+            int payCycle;
+            if (dropDownPayCycle.Text == "WEEKLY")
+            {
+                payCycle = 7; 
+                DateTime downPaymentDate = monthCalendar1.SelectionStart;
+                DateTime installmentOne = downPaymentDate.AddDays(payCycle);
+            }
+            else if (dropDownPayCycle.Text == "BI-WEEKLY")
+            {
+                payCycle = 14;
+                DateTime downPaymentDate = monthCalendar1.SelectionStart;
+                DateTime installmentOne = downPaymentDate.AddDays(payCycle);
+            }
+            else if (dropDownPayCycle.Text == "SEMI-MONTHLY")
+            {
+                payCycle = 14;
+                DateTime downPaymentDate = monthCalendar1.SelectionStart;
+                DateTime installmentOne = downPaymentDate.AddDays(payCycle);
+            }
+            else if (dropDownPayCycle.Text == "MONTHLY")
+            {
+                payCycle = 30;
+                DateTime downPaymentDate = monthCalendar1.SelectionStart;
+                DateTime installmentOne = downPaymentDate.AddDays(payCycle);
+            }
+            else
+            {
+                // Not on a regular cycle
+            }
+            //string downPaymentDate = monthCalendar1.SelectionStart.ToShortDateString();
+            //string paymentTwo = monthCalendar1.SelectionStart.ToShortDateString();
+
+        }
+
         public void CalculateSIF()
         {
             // Calculate Settlement
