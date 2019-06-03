@@ -76,8 +76,11 @@
             this.lblTtlPay = new System.Windows.Forms.Label();
             this.lblTotalPaymentCount = new System.Windows.Forms.Label();
             this.rtxtNotate = new System.Windows.Forms.RichTextBox();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.monthCalendarDP = new System.Windows.Forms.MonthCalendar();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblInstallmentLabel = new System.Windows.Forms.Label();
+            this.monthCalendarInstallmentStart = new System.Windows.Forms.MonthCalendar();
+            this.label_downPaymentDate = new System.Windows.Forms.Label();
             this.btnCalculate = new System.Windows.Forms.Button();
             this.dataGridPPA = new System.Windows.Forms.DataGridView();
             this.pmtDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -119,13 +122,13 @@
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.resetToolStripMenuItem.Text = "Save";
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
             // 
@@ -202,7 +205,7 @@
             this.cboxExpYear.Location = new System.Drawing.Point(142, 461);
             this.cboxExpYear.Name = "cboxExpYear";
             this.cboxExpYear.Size = new System.Drawing.Size(77, 38);
-            this.cboxExpYear.TabIndex = 44;
+            this.cboxExpYear.TabIndex = 8;
             this.cboxExpYear.Text = "YYYY";
             // 
             // cboxExpMonth
@@ -225,7 +228,7 @@
             this.cboxExpMonth.Location = new System.Drawing.Point(9, 461);
             this.cboxExpMonth.Name = "cboxExpMonth";
             this.cboxExpMonth.Size = new System.Drawing.Size(121, 38);
-            this.cboxExpMonth.TabIndex = 43;
+            this.cboxExpMonth.TabIndex = 7;
             this.cboxExpMonth.Text = "Exp MM";
             // 
             // txtCVV
@@ -236,7 +239,7 @@
             this.txtCVV.MaxLength = 4;
             this.txtCVV.Name = "txtCVV";
             this.txtCVV.Size = new System.Drawing.Size(79, 36);
-            this.txtCVV.TabIndex = 42;
+            this.txtCVV.TabIndex = 9;
             this.txtCVV.Text = "CVV";
             this.txtCVV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCVV.Click += new System.EventHandler(this.TxtCVV_Click);
@@ -266,7 +269,7 @@
             this.btnValidate.Location = new System.Drawing.Point(8, 393);
             this.btnValidate.Name = "btnValidate";
             this.btnValidate.Size = new System.Drawing.Size(254, 31);
-            this.btnValidate.TabIndex = 38;
+            this.btnValidate.TabIndex = 6;
             this.btnValidate.Text = "VALIDATE";
             this.btnValidate.UseVisualStyleBackColor = true;
             this.btnValidate.Click += new System.EventHandler(this.Button1_Click);
@@ -289,7 +292,7 @@
             this.txtCreditCardNumber.MaxLength = 20;
             this.txtCreditCardNumber.Name = "txtCreditCardNumber";
             this.txtCreditCardNumber.Size = new System.Drawing.Size(254, 36);
-            this.txtCreditCardNumber.TabIndex = 36;
+            this.txtCreditCardNumber.TabIndex = 5;
             this.txtCreditCardNumber.TextChanged += new System.EventHandler(this.TxtCreditCardNumber_TextChanged);
             // 
             // lblDollarSign5
@@ -325,7 +328,7 @@
             this.dropDownPayCycle.Location = new System.Drawing.Point(6, 286);
             this.dropDownPayCycle.Name = "dropDownPayCycle";
             this.dropDownPayCycle.Size = new System.Drawing.Size(256, 38);
-            this.dropDownPayCycle.TabIndex = 32;
+            this.dropDownPayCycle.TabIndex = 4;
             this.dropDownPayCycle.Text = "PAY CYCLE";
             // 
             // lblRMG
@@ -346,7 +349,7 @@
             this.sliderRemainingPmtCount.Maximum = 11;
             this.sliderRemainingPmtCount.Name = "sliderRemainingPmtCount";
             this.sliderRemainingPmtCount.Size = new System.Drawing.Size(303, 45);
-            this.sliderRemainingPmtCount.TabIndex = 28;
+            this.sliderRemainingPmtCount.TabIndex = 2;
             this.sliderRemainingPmtCount.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.sliderRemainingPmtCount.Value = 1;
             this.sliderRemainingPmtCount.ValueChanged += new System.EventHandler(this.SliderRemainingPmtCount_ValueChanged);
@@ -368,7 +371,7 @@
             this.txtDownPayment.MaxLength = 12;
             this.txtDownPayment.Name = "txtDownPayment";
             this.txtDownPayment.Size = new System.Drawing.Size(125, 29);
-            this.txtDownPayment.TabIndex = 26;
+            this.txtDownPayment.TabIndex = 1;
             this.txtDownPayment.Text = "0.00";
             this.txtDownPayment.Click += new System.EventHandler(this.TxtDownPayment_Click);
             this.txtDownPayment.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
@@ -381,7 +384,7 @@
             this.txtBalanceInput.MaxLength = 12;
             this.txtBalanceInput.Name = "txtBalanceInput";
             this.txtBalanceInput.Size = new System.Drawing.Size(125, 29);
-            this.txtBalanceInput.TabIndex = 25;
+            this.txtBalanceInput.TabIndex = 0;
             this.txtBalanceInput.Text = "0.00";
             this.txtBalanceInput.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TxtBalanceInput_MouseClick);
             this.txtBalanceInput.TextChanged += new System.EventHandler(this.TxtBalanceInput_TextChanged);
@@ -455,6 +458,7 @@
             // chkSettlement
             // 
             this.chkSettlement.AutoSize = true;
+            this.chkSettlement.Enabled = false;
             this.chkSettlement.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSettlement.Location = new System.Drawing.Point(287, 3);
             this.chkSettlement.Name = "chkSettlement";
@@ -466,6 +470,7 @@
             // chkPPA
             // 
             this.chkPPA.AutoSize = true;
+            this.chkPPA.Enabled = false;
             this.chkPPA.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkPPA.Location = new System.Drawing.Point(8, 61);
             this.chkPPA.Name = "chkPPA";
@@ -483,7 +488,7 @@
             this.slideSIFpercentage.Name = "slideSIFpercentage";
             this.slideSIFpercentage.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.slideSIFpercentage.Size = new System.Drawing.Size(45, 475);
-            this.slideSIFpercentage.TabIndex = 16;
+            this.slideSIFpercentage.TabIndex = 3;
             this.slideSIFpercentage.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.slideSIFpercentage.Value = 100;
             this.slideSIFpercentage.ValueChanged += new System.EventHandler(this.SlideSIFpercentage_ValueChanged_1);
@@ -668,41 +673,79 @@
             // 
             // rtxtNotate
             // 
-            this.rtxtNotate.Location = new System.Drawing.Point(11, 320);
+            this.rtxtNotate.Location = new System.Drawing.Point(11, 351);
             this.rtxtNotate.Name = "rtxtNotate";
-            this.rtxtNotate.Size = new System.Drawing.Size(546, 175);
-            this.rtxtNotate.TabIndex = 2;
+            this.rtxtNotate.Size = new System.Drawing.Size(683, 144);
+            this.rtxtNotate.TabIndex = 1;
             this.rtxtNotate.Text = "";
             // 
-            // monthCalendar1
+            // monthCalendarDP
             // 
-            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(3, 2);
-            this.monthCalendar1.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
-            this.monthCalendar1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.monthCalendar1.Location = new System.Drawing.Point(9, 9);
-            this.monthCalendar1.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
-            this.monthCalendar1.MaxSelectionCount = 365;
-            this.monthCalendar1.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 35;
+            this.monthCalendarDP.CalendarDimensions = new System.Drawing.Size(1, 2);
+            this.monthCalendarDP.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
+            this.monthCalendarDP.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.monthCalendarDP.Location = new System.Drawing.Point(11, 38);
+            this.monthCalendarDP.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
+            this.monthCalendarDP.MaxSelectionCount = 365;
+            this.monthCalendarDP.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
+            this.monthCalendarDP.Name = "monthCalendarDP";
+            this.monthCalendarDP.TabIndex = 35;
+            this.monthCalendarDP.TabStop = false;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btnCalculate);
+            this.panel1.Controls.Add(this.lblInstallmentLabel);
+            this.panel1.Controls.Add(this.monthCalendarInstallmentStart);
+            this.panel1.Controls.Add(this.label_downPaymentDate);
             this.panel1.Controls.Add(this.rtxtNotate);
-            this.panel1.Controls.Add(this.monthCalendar1);
+            this.panel1.Controls.Add(this.monthCalendarDP);
             this.panel1.Location = new System.Drawing.Point(416, 28);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(707, 504);
             this.panel1.TabIndex = 36;
             // 
+            // lblInstallmentLabel
+            // 
+            this.lblInstallmentLabel.AutoSize = true;
+            this.lblInstallmentLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstallmentLabel.Location = new System.Drawing.Point(260, 9);
+            this.lblInstallmentLabel.Name = "lblInstallmentLabel";
+            this.lblInstallmentLabel.Size = new System.Drawing.Size(195, 25);
+            this.lblInstallmentLabel.TabIndex = 39;
+            this.lblInstallmentLabel.Text = "INSTALLMENT START";
+            this.lblInstallmentLabel.Visible = false;
+            // 
+            // monthCalendarInstallmentStart
+            // 
+            this.monthCalendarInstallmentStart.CalendarDimensions = new System.Drawing.Size(1, 2);
+            this.monthCalendarInstallmentStart.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
+            this.monthCalendarInstallmentStart.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.monthCalendarInstallmentStart.Location = new System.Drawing.Point(244, 38);
+            this.monthCalendarInstallmentStart.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
+            this.monthCalendarInstallmentStart.MaxSelectionCount = 365;
+            this.monthCalendarInstallmentStart.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
+            this.monthCalendarInstallmentStart.Name = "monthCalendarInstallmentStart";
+            this.monthCalendarInstallmentStart.TabIndex = 38;
+            this.monthCalendarInstallmentStart.TabStop = false;
+            this.monthCalendarInstallmentStart.Visible = false;
+            // 
+            // label_downPaymentDate
+            // 
+            this.label_downPaymentDate.AutoSize = true;
+            this.label_downPaymentDate.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_downPaymentDate.Location = new System.Drawing.Point(16, 9);
+            this.label_downPaymentDate.Name = "label_downPaymentDate";
+            this.label_downPaymentDate.Size = new System.Drawing.Size(215, 25);
+            this.label_downPaymentDate.TabIndex = 37;
+            this.label_downPaymentDate.Text = "DOWN PAYMENT DATE";
+            // 
             // btnCalculate
             // 
             this.btnCalculate.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCalculate.Location = new System.Drawing.Point(564, 320);
+            this.btnCalculate.Location = new System.Drawing.Point(1130, 379);
             this.btnCalculate.Name = "btnCalculate";
-            this.btnCalculate.Size = new System.Drawing.Size(134, 46);
-            this.btnCalculate.TabIndex = 36;
+            this.btnCalculate.Size = new System.Drawing.Size(378, 46);
+            this.btnCalculate.TabIndex = 0;
             this.btnCalculate.Text = "Calculate";
             this.btnCalculate.UseVisualStyleBackColor = true;
             this.btnCalculate.Click += new System.EventHandler(this.BtnCalculate_Click);
@@ -716,8 +759,9 @@
             this.dataGridPPA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridPPA.Location = new System.Drawing.Point(0, 0);
             this.dataGridPPA.Name = "dataGridPPA";
-            this.dataGridPPA.Size = new System.Drawing.Size(378, 366);
-            this.dataGridPPA.TabIndex = 36;
+            this.dataGridPPA.Size = new System.Drawing.Size(378, 341);
+            this.dataGridPPA.TabIndex = 0;
+            this.dataGridPPA.TabStop = false;
             // 
             // pmtDate
             // 
@@ -736,7 +780,7 @@
             this.pnlPaymentPlan.Controls.Add(this.dataGridPPA);
             this.pnlPaymentPlan.Location = new System.Drawing.Point(1130, 28);
             this.pnlPaymentPlan.Name = "pnlPaymentPlan";
-            this.pnlPaymentPlan.Size = new System.Drawing.Size(378, 366);
+            this.pnlPaymentPlan.Size = new System.Drawing.Size(378, 341);
             this.pnlPaymentPlan.TabIndex = 37;
             // 
             // paymentPlanCalculator
@@ -748,6 +792,7 @@
             this.Controls.Add(this.pnlPaymentPlan);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlDataEntry);
+            this.Controls.Add(this.btnCalculate);
             this.Controls.Add(this.toolStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -763,6 +808,7 @@
             this.pnlPPA.ResumeLayout(false);
             this.pnlPPA.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPPA)).EndInit();
             this.pnlPaymentPlan.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -808,7 +854,7 @@
         private System.Windows.Forms.Label lblDollarSign5;
         private System.Windows.Forms.Label lblDollarSign4;
         public System.Windows.Forms.ComboBox dropDownPayCycle;
-        public System.Windows.Forms.MonthCalendar monthCalendar1;
+        public System.Windows.Forms.MonthCalendar monthCalendarDP;
         private System.Windows.Forms.RichTextBox rtxtNotate;
         public System.Windows.Forms.TextBox txtCreditCardNumber;
         public System.Windows.Forms.Label lblCreditCardNumber;
@@ -826,6 +872,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn pmtAmount;
         private System.Windows.Forms.Panel pnlPaymentPlan;
         private System.Windows.Forms.Button btnCalculate;
+        private System.Windows.Forms.Label label_downPaymentDate;
+        private System.Windows.Forms.Label lblInstallmentLabel;
+        public System.Windows.Forms.MonthCalendar monthCalendarInstallmentStart;
     }
 }
 

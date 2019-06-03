@@ -1,10 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
+
+/* TO DO LIST...
+ * 
+ * 
+ * IMPLIMENT BIN NUMBER BANK INFORMATION
+ * IMPLIMENT HOLIDAY INFORMATION
+ * ADD VALIDATION CODE FOR CVV
+ */
 
 namespace PaymentPlanCalculator
 {
@@ -50,6 +59,7 @@ namespace PaymentPlanCalculator
             CalculateNotations();
             CalculateInstallmentPayments();
             TestForRemainder();
+            InstallmentCalendar();
         }
 
         /* ********************************** *
@@ -57,30 +67,37 @@ namespace PaymentPlanCalculator
          * ********************************** */
         public void CalculatePaymentDates()
         {
-            int payCycle;
+            int payCycle; // Initialize Integer for PayCycle Days
+            DateTime downPaymentDate = monthCalendarDP.SelectionStart;
+            /* ************************************************************************************************ *
+             *                      IN PROGRESS - CREATING INSTALLMENT DATES                                    *
+             * ************************************************************************************************ */
+
             if (dropDownPayCycle.Text == "WEEKLY")
             {
                 payCycle = 7; 
-                DateTime downPaymentDate = monthCalendar1.SelectionStart;
-                DateTime installmentOne = downPaymentDate.AddDays(payCycle);
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                string installmentOne = firstInstallmentDate.ToShortDateString();
+                DateTime secondInstallmentDate = firstInstallmentDate.AddDays(payCycle);
+                string installmentTwo = secondInstallmentDate.ToShortDateString();
             }
             else if (dropDownPayCycle.Text == "BI-WEEKLY")
             {
                 payCycle = 14;
-                DateTime downPaymentDate = monthCalendar1.SelectionStart;
-                DateTime installmentOne = downPaymentDate.AddDays(payCycle);
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                DateTime installmentOne = firstInstallmentDate.AddDays(payCycle);
             }
             else if (dropDownPayCycle.Text == "SEMI-MONTHLY")
             {
                 payCycle = 14;
-                DateTime downPaymentDate = monthCalendar1.SelectionStart;
-                DateTime installmentOne = downPaymentDate.AddDays(payCycle);
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                DateTime installmentOne = firstInstallmentDate.AddDays(payCycle);
             }
             else if (dropDownPayCycle.Text == "MONTHLY")
             {
                 payCycle = 30;
-                DateTime downPaymentDate = monthCalendar1.SelectionStart;
-                DateTime installmentOne = downPaymentDate.AddDays(payCycle);
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                DateTime installmentOne = firstInstallmentDate.AddDays(payCycle);
             }
             else
             {
@@ -88,29 +105,34 @@ namespace PaymentPlanCalculator
             }
             //string downPaymentDate = monthCalendar1.SelectionStart.ToShortDateString();
             //string paymentTwo = monthCalendar1.SelectionStart.ToShortDateString();
-
         }
 
-        public void CalculateSIF()
+        public void InstallmentCalendar() // Make the installment calendar visible or invisible
+        {
+            if (lblRemainingBal.Text == "0.00" )
+            {
+                monthCalendarInstallmentStart.Visible = false;
+                lblInstallmentLabel.Visible = false;
+            }
+            else if (lblRemainingBal.Text != "0.00" )
+            {
+                monthCalendarInstallmentStart.Visible = true;
+                lblInstallmentLabel.Visible = true;
+            }
+            else if (Convert.ToDouble(lblRemainingBal.Text) <= 0 || Convert.ToDouble(lblInstallmentAmt.Text) <= 0)
+            {
+                monthCalendarInstallmentStart.Visible = false;
+                lblInstallmentLabel.Visible = false;
+            }
+        }
+
+        public void CalculateSIF() // Calculate Settlement based on slider
         {
             // Calculate Settlement
             lblSifBalance.Text = (Convert.ToDouble(txtBalanceInput.Text) * (slideSIFpercentage.Value * 0.01)).ToString("C");
         }
 
-        /*
-        public string[] SetPPADates(string[] paymentDates)
-        {
-            /*
-            for (int i = 0; i < dataGridPPA.RowCount; i++)
-            {
-                string paymentOne = 
-            }
-            return new[] { monthCalendar1.SelectionStart.ToShortDateString(), monthCalendar1.SelectionStart.ToShortDateString() + 1, monthCalendar1.SelectionStart.ToShortDateString() + 2 };
-
-        }
-        */
-
-        public void DisplayPPAInfo()
+            public void DisplayPPAInfo()
         {
             lblRemainingPmtCount.Text = sliderRemainingPmtCount.Value.ToString(); // Set installment count to slider value
                                                                                   // Show or hide PPA info based on if PPA exists as set
@@ -205,7 +227,7 @@ namespace PaymentPlanCalculator
                 chkPPA.Checked = false;
             }
         }
-
+        
         public void CalculateRemainingBalance()
         {
             try
@@ -530,53 +552,96 @@ namespace PaymentPlanCalculator
             UpdateAll();
         }
 
-        public void PopulateDataGrid()
+        public void PopulateDataGrid() // THESE ALL NEED THE ADDRESSES TO ADD
         {
             dataGridPPA.Rows.Clear();
-            // Pretty much done, test without down payment and other scenarios
             int numberOfPayments = Convert.ToInt16(lblTotalPaymentCount.Text);
 
-            if (txtDownPayment.Text != "0.00" && lblInstallmentAmt.Text != "0.00") // If PPA has down payment and PPA
-            {
-                dataGridPPA.Rows.Add();
-                dataGridPPA["pmtDate", 0].Value = monthCalendar1.SelectionStart.ToShortDateString();
-                dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text);
-                // FILL THE INSTALLMENT PAYMENTS
-                for (int ppaRow = 1; ppaRow < (numberOfPayments - 1); ppaRow++)
-                {
-                    dataGridPPA.Rows.Add();
-                    dataGridPPA["pmtDate", ppaRow].Value = monthCalendar1.SelectionStart.ToShortDateString();
-                    dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text;
-                }
+            /* ************************* *
+             * With Down Payment and PPA *
+             * DP and PPA W/ or W/O SIF  *
+             * ************************* */
 
+            if (txtDownPayment.Text != "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value > 0) // If PPA has down payment and PPA
+            {
+                dataGridPPA.Rows.Add(); // Add row
+                dataGridPPA["pmtDate", 0].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // Which date is selected (set it to a string)
+                dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text); // Take payment amount in Down Payment and add to grid
+                // FILL THE INSTALLMENT PAYMENTS
+                for (int ppaRow = 1; ppaRow < (numberOfPayments - 1); ppaRow++) // Select second row
+                {
+                    dataGridPPA.Rows.Add(); // Add row
+                    dataGridPPA["pmtDate", ppaRow].Value = monthCalendarDP.SelectionStart.ToShortDateString(); //pick date to add to string
+                    dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text; // Set installment amount to sting
+                }
                 // FILL THE FINAL INSTALLMENT PAYMENT
-                dataGridPPA.Rows.Add();
-                dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = monthCalendar1.SelectionStart.ToShortDateString();
-                dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text;
+                dataGridPPA.Rows.Add(); // Add final row
+                dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // numberOfPayments - 1 sets final row
+                dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text; // Adds remainder amount (after date in previous row)
             }
-            else
+
+            /* *********************************** *
+             * Down Payment and then Final Payment *
+             * *********************************** */
+            else if (txtDownPayment.Text != "0.00" && sliderRemainingPmtCount.Value == 1) // If PPA has down payment and no PPA - DOWN PAYMENT and FINAL PAYMENT
             {
                 // ADD DOWN PAYMENT
-                dataGridPPA.Rows.Add();
-                dataGridPPA["pmtDate", 0].Value = monthCalendar1.SelectionStart.ToShortDateString();
-                dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text);
+                dataGridPPA.Rows.Add(); // Add row
+                dataGridPPA["pmtDate", 0].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // Set row 1 as first selection
+                dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text); // Set first payment (Down Payment)
+
+                // FILL THE FINAL INSTALLMENT PAYMENT
+                dataGridPPA.Rows.Add(); // Add final row
+                dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // numberOfPayments - 1 sets final row
+                dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = (Convert.ToDecimal(txtBalanceInput.Text) - Convert.ToDecimal(txtDownPayment.Text)).ToString("C");
             }
 
+            /* *********************************** *
+             * Down Payment and then Final Payment *
+             *           Slider at Zeros           *
+             * *********************************** */
+            else if (txtDownPayment.Text != "0.00" && sliderRemainingPmtCount.Value == 0) // If PPA With Slider of Zero
+            {
+                // ADD DOWN PAYMENT
+                dataGridPPA.Rows.Add(); // Add row
+                dataGridPPA["pmtDate", 0].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // Set row 1 as first selection
+                dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text); // Set first payment (Down Payment)
 
+                // FILL THE FINAL INSTALLMENT PAYMENT
+                dataGridPPA.Rows.Add(); // Add final row
+                dataGridPPA["pmtDate", 1].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // numberOfPayments - 1 sets final row
+                dataGridPPA["pmtAmount", 1].Value = ((Convert.ToDecimal(txtBalanceInput.Text) * (Convert.ToDecimal(slideSIFpercentage.Value) / 100))
+                    - Convert.ToDecimal(txtDownPayment.Text)).ToString("C"); //THROWS ERROR
+            }
 
-            
+            /* *********************************** *
+             *      No Down Payment, yes PPA       *
+             * *********************************** */
+            else if (txtDownPayment.Text == "0.00" && lblInstallmentAmt.Text != "0.00") // If PPA has down payment and PPA
+            {
+                // FILL THE INSTALLMENT PAYMENTS
+                for (int ppaRow = 0; ppaRow < (numberOfPayments - 1); ppaRow++) // Select second row
+                {
+                    dataGridPPA.Rows.Add(); // Add row
+                    dataGridPPA["pmtDate", ppaRow].Value = monthCalendarDP.SelectionStart.ToShortDateString(); //pick date to add to string
+                    dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text; // Set installment amount to sting
+                }
+                // FILL THE FINAL INSTALLMENT PAYMENT
+                dataGridPPA.Rows.Add(); // Add final row
+                dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // numberOfPayments - 1 sets final row
+                dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text; // Adds remainder amount (after date in previous row)
+            }
 
-
-
-
-            // I think I want to do away with this:
-            /*
-            // FILL THE SUM OF ALL THE ROWS (TEMPORARY FAKE SOLUTION)
-            dataGridPPA.Rows.Add();
-            dataGridPPA["pmtDate", numberOfPayments].Value = "TOTAL";
-            dataGridPPA["pmtAmount", numberOfPayments].Value = lblSifBalance.Text; // This is temporary while I actually write code to calculate this
-                                                                                   //dataGridPPA.Rows["pmtDate", numberOfPayments]Font = new Font("Segoe UI", 12, FontStyle.Bold); // // // Trying to bold
-            */
+            { // This can be minimized
+                // I think I want to do away with this:
+                /*
+                // FILL THE SUM OF ALL THE ROWS (TEMPORARY FAKE SOLUTION)
+                dataGridPPA.Rows.Add();
+                dataGridPPA["pmtDate", numberOfPayments].Value = "TOTAL";
+                dataGridPPA["pmtAmount", numberOfPayments].Value = lblSifBalance.Text; // This is temporary while I actually write code to calculate this
+                                                                                       //dataGridPPA.Rows["pmtDate", numberOfPayments]Font = new Font("Segoe UI", 12, FontStyle.Bold); // // // Trying to bold
+                */
+            }
         }
 
 
@@ -842,9 +907,77 @@ namespace PaymentPlanCalculator
         public void BtnCalculate_Click(object sender, EventArgs e)
         {
             PopulateDataGrid();
-            
+        }
 
+        /* **************************************************************************************************** *
+         *               TEST FOR HOLIDAYS - NOT YET IMPLIMENTED - ADD FUNCTIONALITY LATER ON                   *
+         * **************************************************************************************************** */
 
+        public static HashSet<DateTime> GetHolidays(int year)
+        {
+            HashSet<DateTime> holidays = new HashSet<DateTime>();
+
+            // New Years
+            DateTime newYearsDate = AdjustForWeekendHoliday(new DateTime(year, 1, 1));
+            holidays.Add(newYearsDate);
+
+            // Memorial Day -- last monday in May 
+            DateTime memorialDay = new DateTime(year, 5, 31);
+            DayOfWeek dayOfWeek = memorialDay.DayOfWeek;
+            while (dayOfWeek != DayOfWeek.Monday)
+            {
+                memorialDay = memorialDay.AddDays(-1);
+                dayOfWeek = memorialDay.DayOfWeek;
+            }
+            holidays.Add(memorialDay);
+
+            // Independence Day
+            DateTime independenceDay = AdjustForWeekendHoliday(new DateTime(year, 7, 4));
+            holidays.Add(independenceDay);
+
+            // Labor Day -- 1st Monday in September 
+            DateTime laborDay = new DateTime(year, 9, 1);
+            dayOfWeek = laborDay.DayOfWeek;
+            while (dayOfWeek != DayOfWeek.Monday)
+            {
+                laborDay = laborDay.AddDays(1);
+                dayOfWeek = laborDay.DayOfWeek;
+            }
+            holidays.Add(laborDay);
+
+            // Thanksgiving Day -- 4th Thursday in November 
+            var thanksgiving = (from day in Enumerable.Range(1, 30)
+                                where new DateTime(year, 11, day).DayOfWeek == DayOfWeek.Thursday
+                                select day).ElementAt(3);
+            DateTime thanksgivingDay = new DateTime(year, 11, thanksgiving);
+            holidays.Add(thanksgivingDay);
+
+            // Christmas Day 
+            DateTime christmasDay = AdjustForWeekendHoliday(new DateTime(year, 12, 25));
+            holidays.Add(christmasDay);
+
+            // Next year's new years check
+            DateTime nextYearNewYearsDate = AdjustForWeekendHoliday(new DateTime(year + 1, 1, 1));
+            if (nextYearNewYearsDate.Year == year)
+                holidays.Add(nextYearNewYearsDate);
+
+            return holidays;
+        }
+
+        public static DateTime AdjustForWeekendHoliday(DateTime holiday)
+        {
+            if (holiday.DayOfWeek == DayOfWeek.Saturday)
+            {
+                return holiday.AddDays(-1);
+            }
+            else if (holiday.DayOfWeek == DayOfWeek.Sunday)
+            {
+                return holiday.AddDays(1);
+            }
+            else
+            {
+                return holiday;
+            }
         }
     }
 }
