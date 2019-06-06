@@ -4,12 +4,11 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
 /* TO DO LIST...
- * 
- * 
  * IMPLIMENT BIN NUMBER BANK INFORMATION
  * IMPLIMENT HOLIDAY INFORMATION
  * ADD VALIDATION CODE FOR CVV
@@ -42,12 +41,25 @@ namespace PaymentPlanCalculator
         public paymentPlanCalculator()
         {
             InitializeComponent();
-        }// COLLAPSED (For Now)
+        }
 
         public void Form1_Load(object sender, EventArgs e)
         {
 
-        } // COLLAPSED (For Now)
+        }
+
+        /* ********************** *
+         *    MAKE FIELD BLINK    *
+         * ********************** */
+        private async void Blink()
+        {
+            while (true)
+            {
+                await Task.Delay(500);
+                dropDownPayCycle.BackColor = dropDownPayCycle.BackColor == Color.Gray ? Color.White : Color.Gray;
+                break;
+            }
+        }
 
         public void UpdateAll() // Method of all other methods (not sure if this works)
         {
@@ -62,7 +74,7 @@ namespace PaymentPlanCalculator
             InstallmentCalendar();
         }
 
-        public void BinAPI()
+        public void BinAPI() // ADD FUNCTIONALITY - ************************************************************ HERE
         {
             // https://www.youtube.com/watch?v=aWePkE2ReGw // Tim Correy
             // https://www.youtube.com/watch?v=aMkQe9JrV-k // Newton API
@@ -73,52 +85,221 @@ namespace PaymentPlanCalculator
         /* ********************************** *
          *   WORKING ON PAYMENT DATE CREATION *
          * ********************************** */
-        public void CalculatePaymentDates()
+        DateTime[] PPADates { get; set; } //Set payment dates on a global level
+        public void CreateInstallmentDates(int payCycle)
         {
-            int payCycle; // Initialize Integer for PayCycle Days
+            //int payCycle; // Initialize Integer for PayCycle Days
+            int numberOfPayments = Convert.ToInt16(lblTotalPaymentCount.Text); // Set number of payments
             DateTime downPaymentDate = monthCalendarDP.SelectionStart;
-            /* ************************************************************************************************ *
-             *                      IN PROGRESS - CREATING INSTALLMENT DATES                                    *
-             * ************************************************************************************************ */
+            DateTime[] paymentPlanDates = new DateTime[numberOfPayments];
+            //DateTime[] paymentPlanDates = new DateTime[numberOfPayments];
+            paymentPlanDates[0] = downPaymentDate;
+
+            if (Convert.ToInt16(lblTotalPaymentCount.Text) == 12)
+            {
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                paymentPlanDates[1] = firstInstallmentDate; // 2 Payments
+                DateTime secondInstallmentDate = firstInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[2] = secondInstallmentDate; // 3 Payments
+                DateTime thirdInstallmentDate = secondInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[3] = thirdInstallmentDate; // 4 Payments
+                DateTime fourthInstallmentDate = thirdInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[4] = fourthInstallmentDate; // 5 Payments
+                DateTime fifthInstallmentDate = fourthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[5] = fifthInstallmentDate; // 6 Payments
+                DateTime sixthInstallmentDate = fifthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[6] = sixthInstallmentDate; // 7 Payments
+                DateTime seventhInstallmentDate = sixthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[7] = seventhInstallmentDate; // 8 Payments
+                DateTime eighthInstallmentDate = seventhInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[8] = eighthInstallmentDate; // 9 Payments
+                DateTime ninethInstallmentDate = eighthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[9] = ninethInstallmentDate; // 10 Payments
+                DateTime tenthInstallmentDate = ninethInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[10] = tenthInstallmentDate; // 11 Payments
+                DateTime eleventhInstallmentDate = tenthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[11] = eleventhInstallmentDate; // 12 Payments
+            }
+            if (Convert.ToInt16(lblTotalPaymentCount.Text) == 11)
+            {
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                paymentPlanDates[1] = firstInstallmentDate; // 2 Payments
+                DateTime secondInstallmentDate = firstInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[2] = secondInstallmentDate; // 3 Payments
+                DateTime thirdInstallmentDate = secondInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[3] = thirdInstallmentDate; // 4 Payments
+                DateTime fourthInstallmentDate = thirdInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[4] = fourthInstallmentDate; // 5 Payments
+                DateTime fifthInstallmentDate = fourthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[5] = fifthInstallmentDate; // 6 Payments
+                DateTime sixthInstallmentDate = fifthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[6] = sixthInstallmentDate; // 7 Payments
+                DateTime seventhInstallmentDate = sixthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[7] = seventhInstallmentDate; // 8 Payments
+                DateTime eighthInstallmentDate = seventhInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[8] = eighthInstallmentDate; // 9 Payments
+                DateTime ninethInstallmentDate = eighthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[9] = ninethInstallmentDate; // 10 Payments
+                DateTime tenthInstallmentDate = ninethInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[10] = tenthInstallmentDate; // 11 Payments
+            }
+            if (Convert.ToInt16(lblTotalPaymentCount.Text) == 10)
+            {
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                paymentPlanDates[1] = firstInstallmentDate; // 2 Payments
+                DateTime secondInstallmentDate = firstInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[2] = secondInstallmentDate; // 3 Payments
+                DateTime thirdInstallmentDate = secondInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[3] = thirdInstallmentDate; // 4 Payments
+                DateTime fourthInstallmentDate = thirdInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[4] = fourthInstallmentDate; // 5 Payments
+                DateTime fifthInstallmentDate = fourthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[5] = fifthInstallmentDate; // 6 Payments
+                DateTime sixthInstallmentDate = fifthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[6] = sixthInstallmentDate; // 7 Payments
+                DateTime seventhInstallmentDate = sixthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[7] = seventhInstallmentDate; // 8 Payments
+                DateTime eighthInstallmentDate = seventhInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[8] = eighthInstallmentDate; // 9 Payments
+                DateTime ninethInstallmentDate = eighthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[9] = ninethInstallmentDate; // 10 Payments
+            }
+            if (Convert.ToInt16(lblTotalPaymentCount.Text) == 9)
+            {
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                paymentPlanDates[1] = firstInstallmentDate; // 2 Payments
+                DateTime secondInstallmentDate = firstInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[2] = secondInstallmentDate; // 3 Payments
+                DateTime thirdInstallmentDate = secondInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[3] = thirdInstallmentDate; // 4 Payments
+                DateTime fourthInstallmentDate = thirdInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[4] = fourthInstallmentDate; // 5 Payments
+                DateTime fifthInstallmentDate = fourthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[5] = fifthInstallmentDate; // 6 Payments
+                DateTime sixthInstallmentDate = fifthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[6] = sixthInstallmentDate; // 7 Payments
+                DateTime seventhInstallmentDate = sixthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[7] = seventhInstallmentDate; // 8 Payments
+                DateTime eighthInstallmentDate = seventhInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[8] = eighthInstallmentDate; // 9 Payments
+            }
+            if (Convert.ToInt16(lblTotalPaymentCount.Text) == 8)
+            {
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                paymentPlanDates[1] = firstInstallmentDate; // 2 Payments
+                DateTime secondInstallmentDate = firstInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[2] = secondInstallmentDate; // 3 Payments
+                DateTime thirdInstallmentDate = secondInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[3] = thirdInstallmentDate; // 4 Payments
+                DateTime fourthInstallmentDate = thirdInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[4] = fourthInstallmentDate; // 5 Payments
+                DateTime fifthInstallmentDate = fourthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[5] = fifthInstallmentDate; // 6 Payments
+                DateTime sixthInstallmentDate = fifthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[6] = sixthInstallmentDate; // 7 Payments
+                DateTime seventhInstallmentDate = sixthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[7] = seventhInstallmentDate; // 8 Payments
+            }
+            if (Convert.ToInt16(lblTotalPaymentCount.Text) == 7)
+            {
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                paymentPlanDates[1] = firstInstallmentDate; // 2 Payments
+                DateTime secondInstallmentDate = firstInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[2] = secondInstallmentDate; // 3 Payments
+                DateTime thirdInstallmentDate = secondInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[3] = thirdInstallmentDate; // 4 Payments
+                DateTime fourthInstallmentDate = thirdInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[4] = fourthInstallmentDate; // 5 Payments
+                DateTime fifthInstallmentDate = fourthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[5] = fifthInstallmentDate; // 6 Payments
+                DateTime sixthInstallmentDate = fifthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[6] = sixthInstallmentDate; // 7 Payments
+            }
+            if (Convert.ToInt16(lblTotalPaymentCount.Text) == 6)
+            {
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                paymentPlanDates[1] = firstInstallmentDate; // 2 Payments
+                DateTime secondInstallmentDate = firstInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[2] = secondInstallmentDate; // 3 Payments
+                DateTime thirdInstallmentDate = secondInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[3] = thirdInstallmentDate; // 4 Payments
+                DateTime fourthInstallmentDate = thirdInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[4] = fourthInstallmentDate; // 5 Payments
+                DateTime fifthInstallmentDate = fourthInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[5] = fifthInstallmentDate; // 6 Payments
+            }
+            if (Convert.ToInt16(lblTotalPaymentCount.Text) == 5)
+            {
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                paymentPlanDates[1] = firstInstallmentDate; // 2 Payments
+                DateTime secondInstallmentDate = firstInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[2] = secondInstallmentDate; // 3 Payments
+                DateTime thirdInstallmentDate = secondInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[3] = thirdInstallmentDate; // 4 Payments
+                DateTime fourthInstallmentDate = thirdInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[4] = fourthInstallmentDate; // 5 Payments
+            }
+            if (Convert.ToInt16(lblTotalPaymentCount.Text) == 4)
+            {
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                paymentPlanDates[1] = firstInstallmentDate; // 2 Payments
+                DateTime secondInstallmentDate = firstInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[2] = secondInstallmentDate; // 3 Payments
+                DateTime thirdInstallmentDate = secondInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[3] = thirdInstallmentDate; // 4 Payments
+            }
+            if (Convert.ToInt16(lblTotalPaymentCount.Text) == 3)
+            {
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                paymentPlanDates[1] = firstInstallmentDate; // 2 Payments
+                DateTime secondInstallmentDate = firstInstallmentDate.AddDays(payCycle);
+                paymentPlanDates[2] = secondInstallmentDate; // 3 Payments
+            }
+            if (Convert.ToInt16(lblTotalPaymentCount.Text) == 2)
+            {
+                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
+                paymentPlanDates[1] = firstInstallmentDate; // 2 Payments
+            }
+            PPADates = paymentPlanDates; // Set Local array to Global Array
+            //string installmentOne = firstInstallmentDate.ToShortDateString();
+            //string installmentTwo = secondInstallmentDate.ToShortDateString();
+            //string installmentThree = thirdInstallmentDate.ToShortDateString();
+            //string installmentFour = fourthInstallmentDate.ToShortDateString();
+            //string installmentFive = fifthInstallmentDate.ToShortDateString();
+            //string installmentSix = sixthInstallmentDate.ToShortDateString();
+            //string installmentSeven = seventhInstallmentDate.ToShortDateString();
+            //string installmentEight = eighthInstallmentDate.ToShortDateString();
+            //string installmentNine = ninethInstallmentDate.ToShortDateString();
+            //string installmentTen = tenthInstallmentDate.ToShortDateString();
+            //string installmentEleven = eleventhInstallmentDate.ToShortDateString();
+        }
+
+        public void CalculatePaymentDates() // Call to CreateInstallmentDates() Method with pay-cycle taken into account
+        {
+            /* ********************************* *
+             *   CALL DATES BASED ON PAY CYCLE   *
+             * ********************************* */
 
             if (dropDownPayCycle.Text == "WEEKLY")
             {
-                payCycle = 7; 
-                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
-                string installmentOne = firstInstallmentDate.ToShortDateString();
-                DateTime secondInstallmentDate = firstInstallmentDate.AddDays(payCycle);
-                string installmentTwo = secondInstallmentDate.ToShortDateString();
+                CreateInstallmentDates(7);
             }
             else if (dropDownPayCycle.Text == "BI-WEEKLY")
             {
-                payCycle = 14;
-                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
-                DateTime installmentOne = firstInstallmentDate.AddDays(payCycle);
+                CreateInstallmentDates(14);
             }
             else if (dropDownPayCycle.Text == "SEMI-MONTHLY")
             {
-                payCycle = 14;
-                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
-                DateTime installmentOne = firstInstallmentDate.AddDays(payCycle);
+                CreateInstallmentDates(15);
             }
             else if (dropDownPayCycle.Text == "MONTHLY")
             {
-                payCycle = 30;
-                DateTime firstInstallmentDate = monthCalendarInstallmentStart.SelectionStart;
-                DateTime installmentOne = firstInstallmentDate.AddDays(payCycle);
+                CreateInstallmentDates(30);
             }
             else
             {
                 // Not on a regular cycle
             }
-            //string downPaymentDate = monthCalendar1.SelectionStart.ToShortDateString();
-            //string paymentTwo = monthCalendar1.SelectionStart.ToShortDateString();
-
-            // Create firstInstallmentDate - twelvethInstallmentDate as DateTime variables
-            // Create installmentOne - installmentTwelve as strings?
-            // Check how many payments exist
-            // Assign dates to relevant payments
-            // Post relevant dates to dataGridView
         }
 
         public void InstallmentCalendar() // Make the installment calendar visible or invisible
@@ -569,13 +750,13 @@ namespace PaymentPlanCalculator
         public void PopulateDataGrid() // THESE ALL NEED THE ADDRESSES TO ADD
         {
             dataGridPPA.Rows.Clear();
+            CalculatePaymentDates(); // Call to calculate dates
             int numberOfPayments = Convert.ToInt16(lblTotalPaymentCount.Text);
 
             /* ************************* *
              * With Down Payment and PPA *
              * DP and PPA W/ or W/O SIF  *
              * ************************* */
-
             if (txtDownPayment.Text != "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value > 0) // If PPA has down payment and PPA
             {
                 dataGridPPA.Rows.Add(); // Add row
@@ -585,13 +766,13 @@ namespace PaymentPlanCalculator
                 for (int ppaRow = 1; ppaRow < (numberOfPayments - 1); ppaRow++) // Select second row
                 {
                     dataGridPPA.Rows.Add(); // Add row
-                    dataGridPPA["pmtDate", ppaRow].Value = monthCalendarDP.SelectionStart.ToShortDateString(); //pick date to add to string
+                    dataGridPPA["pmtDate", ppaRow].Value = PPADates[ppaRow].ToShortDateString(); // Select Date from PPA Dates Array
                     dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text; // Set installment amount to sting
                 }
                 // FILL THE FINAL INSTALLMENT PAYMENT
                 dataGridPPA.Rows.Add(); // Add final row
-                dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // numberOfPayments - 1 sets final row
-                dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text; // Adds remainder amount (after date in previous row)
+                dataGridPPA["pmtDate", numberOfPayments - 1].Value = PPADates[numberOfPayments - 1].ToShortDateString(); // Select Final Date from PPA Date Array
+                dataGridPPA["pmtAmount", numberOfPayments - 1].Value = lblRemainder.Text; // Adds remainder amount (after date in previous row)
             }
 
             /* *********************************** *
@@ -920,7 +1101,15 @@ namespace PaymentPlanCalculator
          * *********************** */
         public void BtnCalculate_Click(object sender, EventArgs e)
         {
-            PopulateDataGrid();
+            if (dropDownPayCycle.Text == "PAY CYCLE")
+            {
+                MessageBox.Show("Please Select Pay-Cycle");
+                Blink();
+            }
+            else
+            {
+                PopulateDataGrid(); // Populate Data Grid
+            }
         }
 
         /* **************************************************************************************************** *
@@ -992,6 +1181,19 @@ namespace PaymentPlanCalculator
             {
                 return holiday;
             }
+        }
+
+        private void DropDownPayCycle_MouseClick(object sender, MouseEventArgs e) // Fix color after alert
+        {
+            if (dropDownPayCycle.BackColor != Color.White)
+            {
+                dropDownPayCycle.BackColor = Color.White;
+            }
+        }
+
+        private void DropDownPayCycle_TextChanged(object sender, EventArgs e) // Ensure user can not change value of ComboBox
+        {
+            dropDownPayCycle.Text = "PAY CYCLE";
         }
     }
 }
