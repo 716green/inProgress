@@ -62,6 +62,14 @@ namespace PaymentPlanCalculator
             InstallmentCalendar();
         }
 
+        public void BinAPI()
+        {
+            // https://www.youtube.com/watch?v=aWePkE2ReGw // Tim Correy
+            // https://www.youtube.com/watch?v=aMkQe9JrV-k // Newton API
+            // BIN API https://www.freebinchecker.com/bin-api // Actual Website
+            // BIN API Example https://api.freebinchecker.com/bin/370245 // Use to test
+        }
+
         /* ********************************** *
          *   WORKING ON PAYMENT DATE CREATION *
          * ********************************** */
@@ -105,6 +113,12 @@ namespace PaymentPlanCalculator
             }
             //string downPaymentDate = monthCalendar1.SelectionStart.ToShortDateString();
             //string paymentTwo = monthCalendar1.SelectionStart.ToShortDateString();
+
+            // Create firstInstallmentDate - twelvethInstallmentDate as DateTime variables
+            // Create installmentOne - installmentTwelve as strings?
+            // Check how many payments exist
+            // Assign dates to relevant payments
+            // Post relevant dates to dataGridView
         }
 
         public void InstallmentCalendar() // Make the installment calendar visible or invisible
