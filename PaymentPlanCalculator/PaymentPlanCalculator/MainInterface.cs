@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 
 /* TO DO LIST...
+ * ADD YEAR CODE FOR EXP DATE
  * IMPLIMENT BIN NUMBER BANK INFORMATION
  * IMPLIMENT HOLIDAY INFORMATION
  * ADD VALIDATION CODE FOR CVV
@@ -46,6 +47,22 @@ namespace PaymentPlanCalculator
         public void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        /*
+         * ATTEMPTING TO CREATE AN ARRAY TO CALCULATE UPTO 10 YEARS INTO THE FUTURE FOR EXPDATE ----------------------------------------------------------------------!! HERE!
+         */
+        public void AddYearsToExpDate(string[] expYears)
+        {
+            String dateAsString = DateTime.Now.ToString();
+            DateTime datevalue = (Convert.ToDateTime(dateAsString.ToString()));
+            String dtYear = datevalue.Year.ToString();
+            int currentYear = Convert.ToInt16(dtYear);
+            for (int i = 1; i < 10; i++)
+            {
+                expYears[i - 1] = currentYear.ToString();
+            }
+            
         }
 
         /* ********************** *
