@@ -99,7 +99,7 @@ namespace PaymentPlanCalculator
             InstallmentCalendar();
         }
 
-        public void BinAPI() // ADD FUNCTIONALITY - ************************************************************ HERE
+        public void BinAPI() // ADD FUNCTIONALITY - RESOURCES FOR API INTEGRATION AND NUGET PACKAGES
         {
             // https://www.youtube.com/watch?v=aWePkE2ReGw // Tim Correy
             // https://www.youtube.com/watch?v=aMkQe9JrV-k // Newton API
