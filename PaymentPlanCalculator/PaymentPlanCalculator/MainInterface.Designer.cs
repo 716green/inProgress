@@ -243,6 +243,7 @@
             this.txtCVV.Text = "CVV";
             this.txtCVV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCVV.Click += new System.EventHandler(this.TxtCVV_Click);
+            this.txtCVV.TextChanged += new System.EventHandler(this.TxtCVV_TextChanged);
             // 
             // lblCardType
             // 

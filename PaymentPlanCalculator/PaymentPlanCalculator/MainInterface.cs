@@ -46,23 +46,31 @@ namespace PaymentPlanCalculator
 
         public void Form1_Load(object sender, EventArgs e)
         {
-
+            AddYearsToExpDate();
         }
 
         /*
          * ATTEMPTING TO CREATE AN ARRAY TO CALCULATE UPTO 10 YEARS INTO THE FUTURE FOR EXPDATE ----------------------------------------------------------------------!! HERE!
          */
-        public void AddYearsToExpDate(string[] expYears)
+        public void AddYearsToExpDate()
         {
-            String dateAsString = DateTime.Now.ToString();
-            DateTime datevalue = (Convert.ToDateTime(dateAsString.ToString()));
-            String dtYear = datevalue.Year.ToString();
-            int currentYear = Convert.ToInt16(dtYear);
-            for (int i = 1; i < 10; i++)
+            /*
+            string[] expYears = new string[10];
+            //DateTime[] paymentPlanDates = new DateTime[numberOfPayments];
+            String dateAsString = DateTime.Now.ToString(); // Set current date to a string named dateAsString
+            DateTime datevalue = (Convert.ToDateTime(dateAsString.ToString())); // set DateTime var dateValue
+            String dtYear = datevalue.Year.ToString(); // Separate year from current date and set it as string value
+            int currentYear = Convert.ToInt16(dtYear); // Set currentYear int to current year
+            for (int i = Convert.ToInt32(dtYear); i < Convert.ToInt32(dtYear) +  10 ; i++)
             {
-                expYears[i - 1] = currentYear.ToString();
+                expYears[(i - (i-1))] = i.ToString();
             }
-            
+            for (int i = 0; i < 10; i++)
+            {
+                rtxtNotate.Text = expYears[i];
+                cboxExpYear.Text. = expYear[i]
+            }
+            cboxExpYear.Text = expYear[i] */
         }
 
         /* ********************** *
@@ -1211,6 +1219,31 @@ namespace PaymentPlanCalculator
         private void DropDownPayCycle_TextChanged(object sender, EventArgs e) // Ensure user can not change value of ComboBox
         {
             dropDownPayCycle.Text = "PAY CYCLE";
+        }
+
+        public void TxtCVV_TextChanged(object sender, EventArgs e)
+        {
+            /* ************************************************ *
+             *    Allow UserInput in Down Payment CVV Box       *
+             * ************************************************ */
+
+            // Prevents first character being entered from being '.' or ','
+            txtCVV.Text = txtCVV.Text.TrimStart('.', ',');
+
+            // Uses method to prevent non-numeric which crashes app
+            txtCVV.Text = RemoveNonNumeric(txtCVV.Text);
+            // Move cursor to far right 
+            txtCVV.Select(txtCVV.Text.Length, 0);
+
+            // Test for blank field and replace with $0.00
+            if (txtCVV.Text == "")
+            {
+                txtCVV.Text = "000";
+            }
+            if (txtCVV.Text == "000")
+            {
+                txtCVV.SelectAll();
+            }
         }
     }
 }
