@@ -327,7 +327,7 @@ namespace PaymentPlanCalculator
             }
             else
             {
-                // Not on a regular cycle
+                CreateInstallmentDates(1);
             }
         }
 
@@ -785,7 +785,7 @@ namespace PaymentPlanCalculator
             /* ************************* *
              * With Down Payment and PPA *
              * DP and PPA W/ or W/O SIF  *
-             * ************************* */ // ERROR HERE ------------------------------------ HERE //
+             * ************************* */ 
             if (txtDownPayment.Text != "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value > 1) // If PPA has down payment and PPA
             {
                 dataGridPPA.Rows.Add(); // Add row
@@ -794,7 +794,7 @@ namespace PaymentPlanCalculator
                 // FILL THE INSTALLMENT PAYMENTS
                 for (int ppaRow = 1; ppaRow < (numberOfPayments - 1); ppaRow++) // Select second row
                 {
-                    
+                                                                                                                            // ERROR HERE ------------------------------------ HERE //
                     dataGridPPA.Rows.Add(); // Add row
                     dataGridPPA["pmtDate", ppaRow].Value = PPADates[ppaRow].ToShortDateString(); // Select Date from PPA Dates Array
                     dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text; // Set installment amount to sting
@@ -983,11 +983,6 @@ namespace PaymentPlanCalculator
             {
                 txtDownPayment.SelectAll();
             }
-
-            /* ************************************************ *
-             *    Calculates Math for Down Payment and SIF      *
-             * ************************************************ */
-            //CalculateRemainingBalance();
         }
 
         /* *************************************************** *
@@ -1299,6 +1294,12 @@ namespace PaymentPlanCalculator
         public void LblTwentyFive_Click(object sender, EventArgs e)
         {
             slideSIFpercentage.Value = 25;
+        }
+
+        public void APSheetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AutoPay autoPay = new AutoPay();
+            autoPay.Show();
         }
     }
 }

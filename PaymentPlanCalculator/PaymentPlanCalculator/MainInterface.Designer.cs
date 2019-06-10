@@ -86,6 +86,9 @@
             this.pmtDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pmtAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlPaymentPlan = new System.Windows.Forms.Panel();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.aPSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
@@ -100,7 +103,9 @@
             // 
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButton1});
+            this.toolStripDropDownButton1,
+            this.toolStripButton1,
+            this.toolStripButton2});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(1520, 25);
@@ -122,13 +127,13 @@
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.resetToolStripMenuItem.Text = "Save";
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
             // 
@@ -692,8 +697,14 @@
             // 
             // monthCalendarDP
             // 
+            this.monthCalendarDP.AnnuallyBoldedDates = new System.DateTime[] {
+        new System.DateTime(2019, 1, 1, 0, 0, 0, 0),
+        new System.DateTime(2019, 7, 4, 0, 0, 0, 0),
+        new System.DateTime(2019, 11, 11, 0, 0, 0, 0),
+        new System.DateTime(2019, 12, 24, 0, 0, 0, 0),
+        new System.DateTime(2019, 12, 25, 0, 0, 0, 0),
+        new System.DateTime(2019, 12, 31, 0, 0, 0, 0)};
             this.monthCalendarDP.CalendarDimensions = new System.Drawing.Size(1, 2);
-            this.monthCalendarDP.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
             this.monthCalendarDP.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.monthCalendarDP.Location = new System.Drawing.Point(11, 38);
             this.monthCalendarDP.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
@@ -728,8 +739,14 @@
             // 
             // monthCalendarInstallmentStart
             // 
+            this.monthCalendarInstallmentStart.AnnuallyBoldedDates = new System.DateTime[] {
+        new System.DateTime(2019, 1, 1, 0, 0, 0, 0),
+        new System.DateTime(2019, 7, 4, 0, 0, 0, 0),
+        new System.DateTime(2019, 11, 11, 0, 0, 0, 0),
+        new System.DateTime(2019, 12, 24, 0, 0, 0, 0),
+        new System.DateTime(2019, 12, 25, 0, 0, 0, 0),
+        new System.DateTime(2019, 12, 31, 0, 0, 0, 0)};
             this.monthCalendarInstallmentStart.CalendarDimensions = new System.Drawing.Size(1, 2);
-            this.monthCalendarInstallmentStart.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
             this.monthCalendarInstallmentStart.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.monthCalendarInstallmentStart.Location = new System.Drawing.Point(244, 38);
             this.monthCalendarInstallmentStart.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
@@ -793,6 +810,28 @@
             this.pnlPaymentPlan.Name = "pnlPaymentPlan";
             this.pnlPaymentPlan.Size = new System.Drawing.Size(378, 341);
             this.pnlPaymentPlan.TabIndex = 37;
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aPSheetToolStripMenuItem});
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(53, 22);
+            this.toolStripButton2.Text = "Export";
+            // 
+            // aPSheetToolStripMenuItem
+            // 
+            this.aPSheetToolStripMenuItem.Name = "aPSheetToolStripMenuItem";
+            this.aPSheetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aPSheetToolStripMenuItem.Text = "AP Sheet";
+            this.aPSheetToolStripMenuItem.Click += new System.EventHandler(this.APSheetToolStripMenuItem_Click);
             // 
             // paymentPlanCalculator
             // 
@@ -886,6 +925,9 @@
         public System.Windows.Forms.Label lblSeventyFive;
         public System.Windows.Forms.Label lblFifty;
         public System.Windows.Forms.Label lblOneHundo;
+        private System.Windows.Forms.ToolStripSeparator toolStripButton1;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripButton2;
+        private System.Windows.Forms.ToolStripMenuItem aPSheetToolStripMenuItem;
     }
 }
 
