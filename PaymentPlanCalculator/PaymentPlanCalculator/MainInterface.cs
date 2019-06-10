@@ -848,12 +848,12 @@ namespace PaymentPlanCalculator
                 for (int ppaRow = 0; ppaRow < (numberOfPayments - 1); ppaRow++) // Select second row
                 {
                     dataGridPPA.Rows.Add(); // Add row
-                    dataGridPPA["pmtDate", ppaRow].Value = monthCalendarDP.SelectionStart.ToShortDateString(); //pick date to add to string //******ARRAYARRAYARRAY
+                    dataGridPPA["pmtDate", ppaRow].Value = PPADates[ppaRow].ToShortDateString(); // Select Date from PPA Dates Array
                     dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text; // Set installment amount to sting
                 }
                 // FILL THE FINAL INSTALLMENT PAYMENT
                 dataGridPPA.Rows.Add(); // Add final row
-                dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // numberOfPayments - 1 sets final row
+                dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = PPADates[(numberOfPayments - 1)].ToShortDateString(); // Select Date from PPA Dates Array
                 dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text; // Adds remainder amount (after date in previous row)
             }
 
