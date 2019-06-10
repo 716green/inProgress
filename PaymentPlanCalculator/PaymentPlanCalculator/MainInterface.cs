@@ -873,6 +873,7 @@ namespace PaymentPlanCalculator
                 dataGridPPA["pmtAmount", 1].Value = ((Convert.ToDecimal(txtBalanceInput.Text) * (Convert.ToDecimal(slideSIFpercentage.Value) / 100))
                     - Convert.ToDecimal(txtDownPayment.Text)).ToString("C");
             }
+            
 
             { // This can be minimized
                 // I think I want to do away with this:
@@ -885,8 +886,6 @@ namespace PaymentPlanCalculator
                 */
             }
         }
-
-
 
         public void TxtCreditCardNumber_TextChanged(object sender, EventArgs e)
         {
@@ -1148,10 +1147,19 @@ namespace PaymentPlanCalculator
          * *********************** */
         public void BtnCalculate_Click(object sender, EventArgs e)
         {
+            /* ***************************************** *
+             *            CHECK FOR PAY CYCLE            *
+             *   CHECK TO MAKE SURE DATES ARE IN ORDER   *
+             * ***************************************** */
             if (dropDownPayCycle.Text == "PAY CYCLE")
             {
                 MessageBox.Show("Please Select Pay-Cycle");
                 Blink();
+            }
+            // CHECK TO MAKE SURE DATES ARE IN ORDER
+            else if ((monthCalendarInstallmentStart.SelectionStart < monthCalendarDP.SelectionStart) && (Convert.ToDouble(lblTotalPaymentCount.Text) > 1))
+            {
+                MessageBox.Show("Down Payment Date is AFTER Installment Date \n Please Fix");
             }
             else
             {
