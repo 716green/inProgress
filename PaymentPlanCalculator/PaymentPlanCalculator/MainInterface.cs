@@ -631,8 +631,7 @@ namespace PaymentPlanCalculator
                 lblCardValid.ForeColor = Color.Red;
                 lblCardValid.Text = "INVALID!";
             }
-
-            {
+            #region Old Antiquated Notation Code
                 /* ******************************************** *
                  *            CALCULATE NOTATIONS               *
                  * ******************************************** */
@@ -769,10 +768,11 @@ namespace PaymentPlanCalculator
                 }
                 */
 
-            } // OLD NOTATION CALCULATED CODE TO BE DELETED COLLAPSED //THIS WHOLE SECTION NEEDS TO BE DELETED AFTER WORKING VERSION SET
+             // OLD NOTATION CALCULATED CODE TO BE DELETED COLLAPSED //THIS WHOLE SECTION NEEDS TO BE DELETED AFTER WORKING VERSION SET
 
             //FOR TESTING PURPOSES- clicking validate calculates payments and prints notations
             //THESE 'CALL TO METHODS' may need to be moved
+            #endregion
             UpdateAll();
         }
 
@@ -794,13 +794,12 @@ namespace PaymentPlanCalculator
                 // FILL THE INSTALLMENT PAYMENTS
                 for (int ppaRow = 1; ppaRow < (numberOfPayments - 1); ppaRow++) // Select second row
                 {
-                                                                                                                            // ERROR HERE ------------------------------------ HERE //
                     dataGridPPA.Rows.Add(); // Add row
                     dataGridPPA["pmtDate", ppaRow].Value = PPADates[ppaRow].ToShortDateString(); // Select Date from PPA Dates Array
                     dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text; // Set installment amount to sting
                 }
                 // FILL THE FINAL INSTALLMENT PAYMENT
-                dataGridPPA.Rows.Add(); // Add final row // ----------------------------- ERROR HERE ------------------------------------ HERE when schedule is set to no schedule
+                dataGridPPA.Rows.Add(); // Add final row // Error when not set to schedule - Likely Fixed
                 dataGridPPA["pmtDate", numberOfPayments - 1].Value = PPADates[numberOfPayments - 1].ToShortDateString(); // Select Final Date from PPA Date Array
                 dataGridPPA["pmtAmount", numberOfPayments - 1].Value = lblRemainder.Text; // Adds remainder amount (after date in previous row)
             }
@@ -872,19 +871,7 @@ namespace PaymentPlanCalculator
                 dataGridPPA["pmtDate", 1].Value = monthCalendarInstallmentStart.SelectionStart.ToShortDateString(); // numberOfPayments - 1 sets final row
                 dataGridPPA["pmtAmount", 1].Value = ((Convert.ToDecimal(txtBalanceInput.Text) * (Convert.ToDecimal(slideSIFpercentage.Value) / 100))
                     - Convert.ToDecimal(txtDownPayment.Text)).ToString("C");
-            }
-            
-
-            { // This can be minimized
-                // I think I want to do away with this:
-                /*
-                // FILL THE SUM OF ALL THE ROWS (TEMPORARY FAKE SOLUTION)
-                dataGridPPA.Rows.Add();
-                dataGridPPA["pmtDate", numberOfPayments].Value = "TOTAL";
-                dataGridPPA["pmtAmount", numberOfPayments].Value = lblSifBalance.Text; // This is temporary while I actually write code to calculate this
-                                                                                       //dataGridPPA.Rows["pmtDate", numberOfPayments]Font = new Font("Segoe UI", 12, FontStyle.Bold); // // // Trying to bold
-                */
-            }
+            }            
         }
 
         public void TxtCreditCardNumber_TextChanged(object sender, EventArgs e)
@@ -1083,17 +1070,16 @@ namespace PaymentPlanCalculator
             txtCVV.Select(0, txtCVV.Text.Length);
         }
 
-        /*
-        WORKING EXAMPLE FOR NUMERIC VALIDATION IN RICH TEXT BOX -- Can be commented out or deleted at any time
+        #region Sample Code for Numeric Validation (Commented Out)
+        /*WORKING EXAMPLE FOR NUMERIC VALIDATION IN RICH TEXT BOX -- Can be commented out or deleted at any time
         this can be deleted after it is referenced elsewhere -- Remember to delete the corresponding code on the back-end if removed
 
         public void RtxtNotate_TextChanged(object sender, EventArgs e)
         {
             rtxtNotate.Text = RemoveNonNumeric(rtxtNotate.Text); // Pure use of RemoveNonNumeric Method (in real time) prevents spaces, allows commas and decimals
             rtxtNotate.Select(rtxtNotate.Text.Length, 0); // Move cursor to far right 
-        }
-        *///NUMBER VALIDATION TEST CODE (in RTB)
-
+        }*/
+        #endregion
         /* **************************************************** *
          *              Current Balance Textbox                 *
          *          Validate Inputs to Prevent Crashing         *
@@ -1119,20 +1105,6 @@ namespace PaymentPlanCalculator
 
         private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /*
-            txtBalanceInput.Clear();
-            txtDownPayment.Clear();
-            txtCreditCardNumber.Clear();
-            txtCVV.Clear();
-            sliderRemainingPmtCount.Value = 1;
-            slideSIFpercentage.Value = 100;
-            rtxtNotate.Clear();
-            lblSIFpercent.Text = "100";
-            lblSifBalance.Text = "0.00";
-            lblInstallmentAmt.Text = "0.00";
-            lblRemainder.Text = "0.00";
-            lblTotalPaymentCount.Text = "1";
-            */
             Application.Restart();
             Environment.Exit(0);
         }
@@ -1270,7 +1242,7 @@ namespace PaymentPlanCalculator
                 txtCVV.SelectAll();
             }
         }
-
+        #region Settlement Percentage Links
         /* ***************************** *
          *    CLICK TO SET PERCENTAGES   *
          * ***************************** */
@@ -1295,11 +1267,14 @@ namespace PaymentPlanCalculator
         {
             slideSIFpercentage.Value = 25;
         }
+        #endregion
 
+        #region Call New AP Sheet Window
         public void APSheetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AutoPay autoPay = new AutoPay();
             autoPay.Show();
         }
+        #endregion
     }
 }

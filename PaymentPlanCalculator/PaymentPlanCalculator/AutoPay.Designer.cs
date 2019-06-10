@@ -29,23 +29,17 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoPay));
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.pnlAutoPay = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // reportViewer1
-            // 
-            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
-            this.reportViewer1.Name = "ReportViewer";
-            this.reportViewer1.Size = new System.Drawing.Size(396, 246);
-            this.reportViewer1.TabIndex = 0;
-            // 
             // pnlAutoPay
             // 
-            this.pnlAutoPay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlAutoPay.Location = new System.Drawing.Point(0, 0);
+            this.pnlAutoPay.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnlAutoPay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pnlAutoPay.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlAutoPay.Location = new System.Drawing.Point(12, 12);
             this.pnlAutoPay.Name = "pnlAutoPay";
-            this.pnlAutoPay.Size = new System.Drawing.Size(1343, 529);
+            this.pnlAutoPay.Size = new System.Drawing.Size(727, 505);
             this.pnlAutoPay.TabIndex = 0;
             // 
             // AutoPay
@@ -63,7 +57,6 @@
 
         #endregion
 
-        private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
-        private System.Windows.Forms.Panel pnlAutoPay;
+        public System.Windows.Forms.Panel pnlAutoPay;
     }
 }
