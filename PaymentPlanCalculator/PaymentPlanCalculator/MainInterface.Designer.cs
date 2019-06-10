@@ -50,10 +50,10 @@
             this.lblDollarSign = new System.Windows.Forms.Label();
             this.txtDownPayment = new System.Windows.Forms.TextBox();
             this.txtBalanceInput = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblTwentyFive = new System.Windows.Forms.Label();
+            this.lblSeventyFive = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblFifty = new System.Windows.Forms.Label();
             this.lblOneHundo = new System.Windows.Forms.Label();
             this.chkSettlement = new System.Windows.Forms.CheckBox();
             this.chkPPA = new System.Windows.Forms.CheckBox();
@@ -151,10 +151,10 @@
             this.pnlDataEntry.Controls.Add(this.lblDollarSign);
             this.pnlDataEntry.Controls.Add(this.txtDownPayment);
             this.pnlDataEntry.Controls.Add(this.txtBalanceInput);
-            this.pnlDataEntry.Controls.Add(this.label16);
-            this.pnlDataEntry.Controls.Add(this.label3);
+            this.pnlDataEntry.Controls.Add(this.lblTwentyFive);
+            this.pnlDataEntry.Controls.Add(this.lblSeventyFive);
             this.pnlDataEntry.Controls.Add(this.label2);
-            this.pnlDataEntry.Controls.Add(this.label1);
+            this.pnlDataEntry.Controls.Add(this.lblFifty);
             this.pnlDataEntry.Controls.Add(this.lblOneHundo);
             this.pnlDataEntry.Controls.Add(this.chkSettlement);
             this.pnlDataEntry.Controls.Add(this.chkPPA);
@@ -393,31 +393,35 @@
             this.txtBalanceInput.TextChanged += new System.EventHandler(this.TxtBalanceInput_TextChanged);
             this.txtBalanceInput.Leave += new System.EventHandler(this.TxtBalanceInput_Leave);
             // 
-            // label16
+            // lblTwentyFive
             // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label16.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label16.Location = new System.Drawing.Point(311, 367);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(43, 23);
-            this.label16.TabIndex = 24;
-            this.label16.Text = "25%";
+            this.lblTwentyFive.AutoSize = true;
+            this.lblTwentyFive.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblTwentyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTwentyFive.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblTwentyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTwentyFive.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblTwentyFive.Location = new System.Drawing.Point(311, 367);
+            this.lblTwentyFive.Name = "lblTwentyFive";
+            this.lblTwentyFive.Size = new System.Drawing.Size(43, 23);
+            this.lblTwentyFive.TabIndex = 24;
+            this.lblTwentyFive.Text = "25%";
+            this.lblTwentyFive.Click += new System.EventHandler(this.LblTwentyFive_Click);
             // 
-            // label3
+            // lblSeventyFive
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label3.Location = new System.Drawing.Point(311, 143);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 23);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "75%";
+            this.lblSeventyFive.AutoSize = true;
+            this.lblSeventyFive.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblSeventyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSeventyFive.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSeventyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeventyFive.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblSeventyFive.Location = new System.Drawing.Point(311, 143);
+            this.lblSeventyFive.Name = "lblSeventyFive";
+            this.lblSeventyFive.Size = new System.Drawing.Size(43, 23);
+            this.lblSeventyFive.TabIndex = 23;
+            this.lblSeventyFive.Text = "75%";
+            this.lblSeventyFive.Click += new System.EventHandler(this.Label3_Click);
             // 
             // label2
             // 
@@ -432,24 +436,27 @@
             this.label2.TabIndex = 22;
             this.label2.Text = "0%";
             // 
-            // label1
+            // lblFifty
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label1.Location = new System.Drawing.Point(311, 255);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 23);
-            this.label1.TabIndex = 21;
-            this.label1.Text = "50%";
+            this.lblFifty.AutoSize = true;
+            this.lblFifty.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblFifty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblFifty.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblFifty.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFifty.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblFifty.Location = new System.Drawing.Point(311, 255);
+            this.lblFifty.Name = "lblFifty";
+            this.lblFifty.Size = new System.Drawing.Size(43, 23);
+            this.lblFifty.TabIndex = 21;
+            this.lblFifty.Text = "50%";
+            this.lblFifty.Click += new System.EventHandler(this.LblFifty_Click);
             // 
             // lblOneHundo
             // 
             this.lblOneHundo.AutoSize = true;
             this.lblOneHundo.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.lblOneHundo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblOneHundo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblOneHundo.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOneHundo.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.lblOneHundo.Location = new System.Drawing.Point(305, 31);
@@ -457,6 +464,7 @@
             this.lblOneHundo.Size = new System.Drawing.Size(49, 23);
             this.lblOneHundo.TabIndex = 20;
             this.lblOneHundo.Text = "100%";
+            this.lblOneHundo.Click += new System.EventHandler(this.LblOneHundo_Click);
             // 
             // chkSettlement
             // 
@@ -836,11 +844,7 @@
         private System.Windows.Forms.Label lblSettlementRate;
         private System.Windows.Forms.Label lblCurrentBal;
         public System.Windows.Forms.TextBox txtBalanceInput;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblOneHundo;
         public System.Windows.Forms.TextBox txtDownPayment;
         private System.Windows.Forms.Label lblDollarSign;
         public System.Windows.Forms.Label lblRemainingPmtCount;
@@ -878,6 +882,10 @@
         private System.Windows.Forms.Label label_downPaymentDate;
         private System.Windows.Forms.Label lblInstallmentLabel;
         public System.Windows.Forms.MonthCalendar monthCalendarInstallmentStart;
+        public System.Windows.Forms.Label lblTwentyFive;
+        public System.Windows.Forms.Label lblSeventyFive;
+        public System.Windows.Forms.Label lblFifty;
+        public System.Windows.Forms.Label lblOneHundo;
     }
 }
 
