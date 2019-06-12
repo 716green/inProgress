@@ -89,6 +89,7 @@
             this.pmtDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pmtAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlPaymentPlan = new System.Windows.Forms.Panel();
+            this.btnNotateToLog = new System.Windows.Forms.Button();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
@@ -155,7 +156,7 @@
             // apSheetExportButton
             // 
             this.apSheetExportButton.Name = "apSheetExportButton";
-            this.apSheetExportButton.Size = new System.Drawing.Size(180, 22);
+            this.apSheetExportButton.Size = new System.Drawing.Size(121, 22);
             this.apSheetExportButton.Text = "AP Sheet";
             this.apSheetExportButton.Click += new System.EventHandler(this.APSheetToolStripMenuItem_Click);
             // 
@@ -833,12 +834,25 @@
             this.pnlPaymentPlan.Size = new System.Drawing.Size(378, 341);
             this.pnlPaymentPlan.TabIndex = 37;
             // 
+            // btnNotateToLog
+            // 
+            this.btnNotateToLog.Enabled = false;
+            this.btnNotateToLog.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNotateToLog.Location = new System.Drawing.Point(1130, 477);
+            this.btnNotateToLog.Name = "btnNotateToLog";
+            this.btnNotateToLog.Size = new System.Drawing.Size(378, 46);
+            this.btnNotateToLog.TabIndex = 38;
+            this.btnNotateToLog.Text = "Add Payments to Notation Log";
+            this.btnNotateToLog.UseVisualStyleBackColor = true;
+            this.btnNotateToLog.Click += new System.EventHandler(this.BtnNotateToLog_Click);
+            // 
             // paymentPlanCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1520, 544);
+            this.Controls.Add(this.btnNotateToLog);
             this.Controls.Add(this.pnlPaymentPlan);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlDataEntry);
@@ -927,6 +941,7 @@
         public System.Windows.Forms.ToolStripSeparator toolStripButton1;
         public System.Windows.Forms.ToolStripDropDownButton toolStripExport;
         public System.Windows.Forms.ToolStripMenuItem apSheetExportButton;
+        public System.Windows.Forms.Button btnNotateToLog;
     }
 }
 

@@ -46,6 +46,35 @@ namespace PaymentPlanCalculator
             InitializeComponent();
         }
 
+        public void AddPaymentInfoToNotation()
+        {
+
+            // Add Payment Info Into Notation Log
+            try
+            {
+                string paymentPlan = rtxtNotate.Text;
+                for (int i = 0; i < Convert.ToInt16(lblTotalPaymentCount.Text); i++)
+                {
+                    paymentPlan += "\n";
+                    paymentPlan += dataGridPPA.Rows[i].Cells[0].Value.ToString();
+                    paymentPlan += " - ";
+                    paymentPlan += dataGridPPA.Rows[i].Cells[1].Value.ToString();
+                }
+                //Add Credit Card Information
+                paymentPlan += "\n" + "\n" + dropDownPayCycle.Text + "\n"; // PayCycle
+                paymentPlan += "\n" + lblCardType.Text + " - " + lblCardValid.Text + "\n"; // Visa - Valid
+                paymentPlan += txtCreditCardNumber.Text + "\n"; // 4000100020003004
+                paymentPlan += cboxExpMonth.Text + "/" + cboxExpYear.Text + "\n"; // 01/2021
+                paymentPlan += "CVV: " + txtCVV.Text + "\n"; // 234
+                rtxtNotate.Text = paymentPlan; // Post PPA to Notation Log
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Please Populate PPA Grid First");
+                //throw;
+            }
+
+        }
         public void Form1_Load(object sender, EventArgs e)
         {
             AddYearsToExpDate();
@@ -1133,6 +1162,7 @@ namespace PaymentPlanCalculator
             else
             {
                 PopulateDataGrid(); // Populate Data Grid
+                btnNotateToLog.Enabled = true;
             }
         }
 
@@ -1279,5 +1309,9 @@ namespace PaymentPlanCalculator
         }
         #endregion
 
+        private void BtnNotateToLog_Click(object sender, EventArgs e)
+        {
+            AddPaymentInfoToNotation();
+        }
     }
 }
