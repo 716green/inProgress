@@ -33,6 +33,9 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripExport = new System.Windows.Forms.ToolStripDropDownButton();
+            this.apSheetExportButton = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlDataEntry = new System.Windows.Forms.Panel();
             this.cboxExpYear = new System.Windows.Forms.ComboBox();
             this.cboxExpMonth = new System.Windows.Forms.ComboBox();
@@ -86,9 +89,6 @@
             this.pmtDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pmtAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlPaymentPlan = new System.Windows.Forms.Panel();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.aPSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
@@ -105,7 +105,7 @@
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButton1,
             this.toolStripButton1,
-            this.toolStripButton2});
+            this.toolStripExport});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(1520, 25);
@@ -127,15 +127,37 @@
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.resetToolStripMenuItem.Text = "Save";
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripExport
+            // 
+            this.toolStripExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.apSheetExportButton});
+            this.toolStripExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripExport.Name = "toolStripExport";
+            this.toolStripExport.Size = new System.Drawing.Size(53, 22);
+            this.toolStripExport.Text = "Export";
+            // 
+            // apSheetExportButton
+            // 
+            this.apSheetExportButton.Name = "apSheetExportButton";
+            this.apSheetExportButton.Size = new System.Drawing.Size(180, 22);
+            this.apSheetExportButton.Text = "AP Sheet";
+            this.apSheetExportButton.Click += new System.EventHandler(this.APSheetToolStripMenuItem_Click);
             // 
             // pnlDataEntry
             // 
@@ -811,28 +833,6 @@
             this.pnlPaymentPlan.Size = new System.Drawing.Size(378, 341);
             this.pnlPaymentPlan.TabIndex = 37;
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aPSheetToolStripMenuItem});
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(53, 22);
-            this.toolStripButton2.Text = "Export";
-            // 
-            // aPSheetToolStripMenuItem
-            // 
-            this.aPSheetToolStripMenuItem.Name = "aPSheetToolStripMenuItem";
-            this.aPSheetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.aPSheetToolStripMenuItem.Text = "AP Sheet";
-            this.aPSheetToolStripMenuItem.Click += new System.EventHandler(this.APSheetToolStripMenuItem_Click);
-            // 
             // paymentPlanCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -867,25 +867,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ToolStrip toolStrip;
-        private System.Windows.Forms.Panel pnlDataEntry;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         public System.Windows.Forms.TrackBar slideSIFpercentage;
-        private System.Windows.Forms.Label lblPercentSymbol;
-        private System.Windows.Forms.Label lblTtlPay;
-        private System.Windows.Forms.Label lblRemainingBalanceNotification;
-        private System.Windows.Forms.Label lblPCR;
-        private System.Windows.Forms.Label lblRemBal;
-        private System.Windows.Forms.Label lblDownPmt;
-        private System.Windows.Forms.Label lblSettlementRate;
-        private System.Windows.Forms.Label lblCurrentBal;
         public System.Windows.Forms.TextBox txtBalanceInput;
-        private System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox txtDownPayment;
-        private System.Windows.Forms.Label lblDollarSign;
         public System.Windows.Forms.Label lblRemainingPmtCount;
         public System.Windows.Forms.Label lblRMG;
         public System.Windows.Forms.TrackBar sliderRemainingPmtCount;
@@ -897,37 +881,52 @@
         public System.Windows.Forms.Label lblSIFpercent;
         public System.Windows.Forms.CheckBox chkSettlement;
         public System.Windows.Forms.CheckBox chkPPA;
-        private System.Windows.Forms.Label lblDollarSign5;
-        private System.Windows.Forms.Label lblDollarSign4;
         public System.Windows.Forms.ComboBox dropDownPayCycle;
         public System.Windows.Forms.MonthCalendar monthCalendarDP;
-        private System.Windows.Forms.RichTextBox rtxtNotate;
         public System.Windows.Forms.TextBox txtCreditCardNumber;
         public System.Windows.Forms.Label lblCreditCardNumber;
-        private System.Windows.Forms.Button btnValidate;
         public System.Windows.Forms.Label lblCardValid;
         public System.Windows.Forms.Label lblCardType;
-        private System.Windows.Forms.Panel pnlPPA;
         public System.Windows.Forms.Label lblPMTSREM;
-        private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.TextBox txtCVV;
         public System.Windows.Forms.ComboBox cboxExpMonth;
         public System.Windows.Forms.ComboBox cboxExpYear;
-        private System.Windows.Forms.DataGridView dataGridPPA;
-        private System.Windows.Forms.DataGridViewTextBoxColumn pmtDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn pmtAmount;
-        private System.Windows.Forms.Panel pnlPaymentPlan;
-        private System.Windows.Forms.Button btnCalculate;
-        private System.Windows.Forms.Label label_downPaymentDate;
-        private System.Windows.Forms.Label lblInstallmentLabel;
         public System.Windows.Forms.MonthCalendar monthCalendarInstallmentStart;
         public System.Windows.Forms.Label lblTwentyFive;
         public System.Windows.Forms.Label lblSeventyFive;
         public System.Windows.Forms.Label lblFifty;
         public System.Windows.Forms.Label lblOneHundo;
-        private System.Windows.Forms.ToolStripSeparator toolStripButton1;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripButton2;
-        private System.Windows.Forms.ToolStripMenuItem aPSheetToolStripMenuItem;
+        public System.Windows.Forms.ToolStrip toolStrip;
+        public System.Windows.Forms.Panel pnlDataEntry;
+        public System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        public System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        public System.Windows.Forms.Label lblPercentSymbol;
+        public System.Windows.Forms.Label lblTtlPay;
+        public System.Windows.Forms.Label lblRemainingBalanceNotification;
+        public System.Windows.Forms.Label lblPCR;
+        public System.Windows.Forms.Label lblRemBal;
+        public System.Windows.Forms.Label lblDownPmt;
+        public System.Windows.Forms.Label lblSettlementRate;
+        public System.Windows.Forms.Label lblCurrentBal;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label lblDollarSign;
+        public System.Windows.Forms.Label lblDollarSign5;
+        public System.Windows.Forms.Label lblDollarSign4;
+        public System.Windows.Forms.RichTextBox rtxtNotate;
+        public System.Windows.Forms.Button btnValidate;
+        public System.Windows.Forms.Panel pnlPPA;
+        public System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.DataGridView dataGridPPA;
+        public System.Windows.Forms.DataGridViewTextBoxColumn pmtDate;
+        public System.Windows.Forms.DataGridViewTextBoxColumn pmtAmount;
+        public System.Windows.Forms.Panel pnlPaymentPlan;
+        public System.Windows.Forms.Button btnCalculate;
+        public System.Windows.Forms.Label label_downPaymentDate;
+        public System.Windows.Forms.Label lblInstallmentLabel;
+        public System.Windows.Forms.ToolStripSeparator toolStripButton1;
+        public System.Windows.Forms.ToolStripDropDownButton toolStripExport;
+        public System.Windows.Forms.ToolStripMenuItem apSheetExportButton;
     }
 }
 
