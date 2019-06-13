@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(paymentPlanCalculator));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -219,18 +220,8 @@
             "2027",
             "2028",
             "2029",
-            "2030",
-            "2031",
-            "2032",
-            "2033",
-            "2034",
-            "2035",
-            "2036",
-            "2037",
-            "2038",
-            "2039",
-            "2040"});
-            this.cboxExpYear.Location = new System.Drawing.Point(142, 461);
+            "2030"});
+            this.cboxExpYear.Location = new System.Drawing.Point(93, 458);
             this.cboxExpYear.Name = "cboxExpYear";
             this.cboxExpYear.Size = new System.Drawing.Size(77, 38);
             this.cboxExpYear.TabIndex = 8;
@@ -241,29 +232,29 @@
             this.cboxExpMonth.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxExpMonth.FormattingEnabled = true;
             this.cboxExpMonth.Items.AddRange(new object[] {
-            "01 - JAN",
-            "02 - FEB",
-            "03 - MAR",
-            "04 - APR",
-            "05 - MAY",
-            "06 - JUNE",
-            "07 - JULY",
-            "08 - AUG",
-            "09 - SEP",
-            "10 - OCT",
-            "11 - NOV",
-            "12 - DEC"});
-            this.cboxExpMonth.Location = new System.Drawing.Point(9, 461);
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12"});
+            this.cboxExpMonth.Location = new System.Drawing.Point(9, 458);
             this.cboxExpMonth.Name = "cboxExpMonth";
-            this.cboxExpMonth.Size = new System.Drawing.Size(121, 38);
+            this.cboxExpMonth.Size = new System.Drawing.Size(70, 38);
             this.cboxExpMonth.TabIndex = 7;
-            this.cboxExpMonth.Text = "Exp MM";
+            this.cboxExpMonth.Text = "MM";
             // 
             // txtCVV
             // 
             this.txtCVV.AllowDrop = true;
             this.txtCVV.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold);
-            this.txtCVV.Location = new System.Drawing.Point(231, 463);
+            this.txtCVV.Location = new System.Drawing.Point(184, 458);
             this.txtCVV.MaxLength = 4;
             this.txtCVV.Name = "txtCVV";
             this.txtCVV.Size = new System.Drawing.Size(79, 36);
@@ -361,6 +352,7 @@
             this.dropDownPayCycle.Text = "PAY CYCLE";
             this.dropDownPayCycle.TextChanged += new System.EventHandler(this.DropDownPayCycle_TextChanged);
             this.dropDownPayCycle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DropDownPayCycle_MouseClick);
+            this.dropDownPayCycle.MouseHover += new System.EventHandler(this.DropDownPayCycle_MouseHover);
             // 
             // lblRMG
             // 
@@ -712,9 +704,10 @@
             // 
             // rtxtNotate
             // 
-            this.rtxtNotate.Location = new System.Drawing.Point(11, 351);
+            this.rtxtNotate.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxtNotate.Location = new System.Drawing.Point(11, 210);
             this.rtxtNotate.Name = "rtxtNotate";
-            this.rtxtNotate.Size = new System.Drawing.Size(683, 144);
+            this.rtxtNotate.Size = new System.Drawing.Size(691, 285);
             this.rtxtNotate.TabIndex = 1;
             this.rtxtNotate.Text = "";
             // 
@@ -727,7 +720,6 @@
         new System.DateTime(2019, 12, 24, 0, 0, 0, 0),
         new System.DateTime(2019, 12, 25, 0, 0, 0, 0),
         new System.DateTime(2019, 12, 31, 0, 0, 0, 0)};
-            this.monthCalendarDP.CalendarDimensions = new System.Drawing.Size(1, 2);
             this.monthCalendarDP.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.monthCalendarDP.Location = new System.Drawing.Point(11, 38);
             this.monthCalendarDP.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
@@ -746,7 +738,7 @@
             this.panel1.Controls.Add(this.monthCalendarDP);
             this.panel1.Location = new System.Drawing.Point(416, 28);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(707, 504);
+            this.panel1.Size = new System.Drawing.Size(717, 504);
             this.panel1.TabIndex = 36;
             // 
             // lblInstallmentLabel
@@ -769,7 +761,7 @@
         new System.DateTime(2019, 12, 24, 0, 0, 0, 0),
         new System.DateTime(2019, 12, 25, 0, 0, 0, 0),
         new System.DateTime(2019, 12, 31, 0, 0, 0, 0)};
-            this.monthCalendarInstallmentStart.CalendarDimensions = new System.Drawing.Size(1, 2);
+            this.monthCalendarInstallmentStart.CalendarDimensions = new System.Drawing.Size(2, 1);
             this.monthCalendarInstallmentStart.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.monthCalendarInstallmentStart.Location = new System.Drawing.Point(244, 38);
             this.monthCalendarInstallmentStart.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
@@ -793,9 +785,9 @@
             // btnCalculate
             // 
             this.btnCalculate.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCalculate.Location = new System.Drawing.Point(1130, 379);
+            this.btnCalculate.Location = new System.Drawing.Point(1139, 379);
             this.btnCalculate.Name = "btnCalculate";
-            this.btnCalculate.Size = new System.Drawing.Size(378, 46);
+            this.btnCalculate.Size = new System.Drawing.Size(369, 46);
             this.btnCalculate.TabIndex = 0;
             this.btnCalculate.Text = "Calculate";
             this.btnCalculate.UseVisualStyleBackColor = true;
@@ -803,6 +795,14 @@
             // 
             // dataGridPPA
             // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridPPA.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridPPA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridPPA.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.pmtDate,
@@ -810,7 +810,7 @@
             this.dataGridPPA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridPPA.Location = new System.Drawing.Point(0, 0);
             this.dataGridPPA.Name = "dataGridPPA";
-            this.dataGridPPA.Size = new System.Drawing.Size(378, 341);
+            this.dataGridPPA.Size = new System.Drawing.Size(369, 341);
             this.dataGridPPA.TabIndex = 0;
             this.dataGridPPA.TabStop = false;
             // 
@@ -829,20 +829,20 @@
             // pnlPaymentPlan
             // 
             this.pnlPaymentPlan.Controls.Add(this.dataGridPPA);
-            this.pnlPaymentPlan.Location = new System.Drawing.Point(1130, 28);
+            this.pnlPaymentPlan.Location = new System.Drawing.Point(1139, 28);
             this.pnlPaymentPlan.Name = "pnlPaymentPlan";
-            this.pnlPaymentPlan.Size = new System.Drawing.Size(378, 341);
+            this.pnlPaymentPlan.Size = new System.Drawing.Size(369, 341);
             this.pnlPaymentPlan.TabIndex = 37;
             // 
             // btnNotateToLog
             // 
             this.btnNotateToLog.Enabled = false;
             this.btnNotateToLog.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNotateToLog.Location = new System.Drawing.Point(1130, 477);
+            this.btnNotateToLog.Location = new System.Drawing.Point(1139, 431);
             this.btnNotateToLog.Name = "btnNotateToLog";
-            this.btnNotateToLog.Size = new System.Drawing.Size(378, 46);
+            this.btnNotateToLog.Size = new System.Drawing.Size(369, 46);
             this.btnNotateToLog.TabIndex = 38;
-            this.btnNotateToLog.Text = "Add Payments to Notation Log";
+            this.btnNotateToLog.Text = "Add Payments to Notation";
             this.btnNotateToLog.UseVisualStyleBackColor = true;
             this.btnNotateToLog.Click += new System.EventHandler(this.BtnNotateToLog_Click);
             // 

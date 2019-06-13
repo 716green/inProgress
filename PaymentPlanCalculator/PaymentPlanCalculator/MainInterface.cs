@@ -81,7 +81,7 @@ namespace PaymentPlanCalculator
         }
 
         /*
-         * ATTEMPTING TO CREATE AN ARRAY TO CALCULATE UPTO 10 YEARS INTO THE FUTURE FOR EXPDATE ----------------------------------------------------------------------!! HERE!
+         * ATTEMPTING TO CREATE AN ARRAY TO CALCULATE UPTO 10 YEARS INTO THE FUTURE FOR EXPDATE -------------------------------------------------------!! HERE!
          */
         public void AddYearsToExpDate()
         {
@@ -107,14 +107,10 @@ namespace PaymentPlanCalculator
         /* ********************** *
          *    MAKE FIELD BLINK    *
          * ********************** */
-        private async void Blink()
+        public void Blink()
         {
-            while (true)
-            {
-                await Task.Delay(500);
-                dropDownPayCycle.BackColor = dropDownPayCycle.BackColor == Color.Gray ? Color.White : Color.Gray;
-                break;
-            }
+            dropDownPayCycle.Select();
+            dropDownPayCycle.BackColor = Color.Yellow; //dropDownPayCycle.BackColor == Color.Gray ? Color.White : Color.Gray;
         }
 
         public void UpdateAll() // Method of all other methods (not sure if this works)
@@ -430,7 +426,8 @@ namespace PaymentPlanCalculator
             decimal remainderPayment = Math.Round((balanceAfterDP - (installmentAmount * (installmentCount - 1))), 2); // Final Payment (Remainder)
             // Using Rich Text box as a 'Console' for debugging
             rtxtNotate.Text = ($"Balance: {currentBalance.ToString("C")}" +
-                $"\nSettlement Balance: {settlementBalance.ToString("C")}" +
+                $"\nSettlement Balance: {settlementBalance.ToString("C")} - {slideSIFpercentage.Value.ToString()}%" +
+                $"\nTotal Payments: {lblTotalPaymentCount.Text}" +
                 $"\nDown Payment: {downPayment.ToString("C")}" +
                 $"\nRemaining Due: {balanceAfterDP.ToString("C")}" +
                 $"\nInstallment Count: {installmentCount.ToString()}" +
@@ -1155,6 +1152,14 @@ namespace PaymentPlanCalculator
                 Blink();
             }
             // CHECK TO MAKE SURE DATES ARE IN ORDER
+            else if ((monthCalendarInstallmentStart.SelectionStart == monthCalendarDP.SelectionStart) && 
+                (Convert.ToDouble(lblTotalPaymentCount.Text) > 1) &&
+                    (monthCalendarInstallmentStart.Visible == true))
+            {
+                MessageBox.Show("Down Payment and Installment Date \n Are the same date");
+                PopulateDataGrid(); // Populate Data Grid
+                btnNotateToLog.Enabled = true;
+            }
             else if ((monthCalendarInstallmentStart.SelectionStart < monthCalendarDP.SelectionStart) && (Convert.ToDouble(lblTotalPaymentCount.Text) > 1))
             {
                 MessageBox.Show("Down Payment Date is AFTER Installment Date \n Please Fix");
@@ -1237,15 +1242,8 @@ namespace PaymentPlanCalculator
             }
         }
 
-        private void DropDownPayCycle_MouseClick(object sender, MouseEventArgs e) // Fix color after alert
-        {
-            if (dropDownPayCycle.BackColor != Color.White)
-            {
-                dropDownPayCycle.BackColor = Color.White;
-            }
-        }
-
-        private void DropDownPayCycle_TextChanged(object sender, EventArgs e) // Ensure user can not change value of ComboBox
+        
+        public void DropDownPayCycle_TextChanged(object sender, EventArgs e) // Ensure user can not change value of ComboBox
         {
             dropDownPayCycle.Text = "PAY CYCLE";
         }
@@ -1309,9 +1307,25 @@ namespace PaymentPlanCalculator
         }
         #endregion
 
-        private void BtnNotateToLog_Click(object sender, EventArgs e)
+        public void BtnNotateToLog_Click(object sender, EventArgs e)
         {
             AddPaymentInfoToNotation();
+        }
+
+        public void DropDownPayCycle_MouseHover(object sender, EventArgs e)
+        {
+            if (dropDownPayCycle.BackColor != Color.White)
+            {
+                dropDownPayCycle.BackColor = Color.White;
+            }
+        }
+
+        public void DropDownPayCycle_MouseClick(object sender, MouseEventArgs e) // Fix color after alert
+        {
+            if (dropDownPayCycle.BackColor != Color.White)
+            {
+                dropDownPayCycle.BackColor = Color.White;
+            }
         }
     }
 }
