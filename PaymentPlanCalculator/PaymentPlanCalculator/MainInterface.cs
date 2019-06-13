@@ -35,6 +35,17 @@ namespace PaymentPlanCalculator
             return input;
         }
 
+        // ---------------------------------------------------------------------------------------------------------------------------------------------------// CARD PARSING
+        public string ParseCreditCard(string binNumber, string cardNumberFormatted, int numberOfDigits, string cardNumber)
+        {
+            if (txtCreditCardNumber.Text.Length > 12 && txtCreditCardNumber.Text.Length < 17)
+            {
+                numberOfDigits = txtCreditCardNumber.Text.Length;
+                
+            }
+            return binNumber;
+        }
+
         public static bool IsValidCurrency(string currencyValue)
         {
             string pattern = @"\p{Sc}+\s*\d+";
@@ -1307,9 +1318,22 @@ namespace PaymentPlanCalculator
         }
         #endregion
 
+        // ---------------------------------------------------------------------------------------------------------------------------------------------------// CARD PARSING
         public void BtnNotateToLog_Click(object sender, EventArgs e)
         {
-            AddPaymentInfoToNotation();
+            // Prevents notation log from double notating by testing line count
+            if (rtxtNotate.Lines.Count() < 10) // If line count is less than 10
+            {
+                AddPaymentInfoToNotation(); // Add payment notation
+            }
+            else
+            {
+                // If line count is over 10, clear notation before re-notating
+                rtxtNotate.Clear();
+                CalculateInstallmentPayments();
+                AddPaymentInfoToNotation();
+            }
+            
         }
 
         public void DropDownPayCycle_MouseHover(object sender, EventArgs e)
