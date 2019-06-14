@@ -52,6 +52,14 @@ namespace PaymentPlanCalculator
             return Regex.IsMatch(currencyValue, pattern);
         }
 
+        // Pull Information from Form 2 (Autopay) ------------------------------------------------------------------------------// Transfer Data across forms
+        /*
+        public static class ControlID
+        {
+            public static string HeaderData { get; set; }
+        }
+        */
+
         public paymentPlanCalculator()
         {
             InitializeComponent();
