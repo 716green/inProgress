@@ -52,13 +52,8 @@ namespace PaymentPlanCalculator
             return Regex.IsMatch(currencyValue, pattern);
         }
 
-        // Pull Information from Form 2 (Autopay) ------------------------------------------------------------------------------// Transfer Data across forms
-        /*
-        public static class ControlID
-        {
-            public static string HeaderData { get; set; }
-        }
-        */
+        // Pull Information from Form 2 (Autopay) ------------------------------------------------------------------------------// Transfer Data from form 2
+        // Create Method to Transfer Here
 
         public paymentPlanCalculator()
         {
@@ -67,7 +62,6 @@ namespace PaymentPlanCalculator
 
         public void AddPaymentInfoToNotation()
         {
-
             // Add Payment Info Into Notation Log
             try
             {
