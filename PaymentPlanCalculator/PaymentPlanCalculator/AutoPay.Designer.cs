@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoPay));
             this.pnlAutoPay = new System.Windows.Forms.Panel();
+            this.btnSave = new System.Windows.Forms.Button();
             this.txtCloserName = new System.Windows.Forms.TextBox();
             this.txtFileNumber = new System.Windows.Forms.TextBox();
             this.txtCallerName = new System.Windows.Forms.TextBox();
@@ -50,7 +51,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.rtxtNotate = new System.Windows.Forms.RichTextBox();
             this.pnlAutoPay.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,8 +83,18 @@
             this.pnlAutoPay.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnlAutoPay.Location = new System.Drawing.Point(12, 12);
             this.pnlAutoPay.Name = "pnlAutoPay";
-            this.pnlAutoPay.Size = new System.Drawing.Size(727, 505);
+            this.pnlAutoPay.Size = new System.Drawing.Size(444, 505);
             this.pnlAutoPay.TabIndex = 0;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(16, 309);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(419, 48);
+            this.btnSave.TabIndex = 21;
+            this.btnSave.Text = "SAVE";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // txtCloserName
             // 
@@ -265,21 +276,21 @@
             this.label10.TabIndex = 10;
             this.label10.Text = "Closer";
             // 
-            // btnSave
+            // rtxtNotate
             // 
-            this.btnSave.Location = new System.Drawing.Point(16, 309);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(419, 48);
-            this.btnSave.TabIndex = 21;
-            this.btnSave.Text = "SAVE";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            this.rtxtNotate.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxtNotate.Location = new System.Drawing.Point(471, 12);
+            this.rtxtNotate.Name = "rtxtNotate";
+            this.rtxtNotate.Size = new System.Drawing.Size(588, 505);
+            this.rtxtNotate.TabIndex = 2;
+            this.rtxtNotate.Text = "";
             // 
             // AutoPay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1343, 529);
+            this.Controls.Add(this.rtxtNotate);
             this.Controls.Add(this.pnlAutoPay);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AutoPay";
@@ -314,5 +325,6 @@
         public System.Windows.Forms.TextBox txtCallerName;
         public System.Windows.Forms.TextBox txtCloserName;
         private System.Windows.Forms.Button btnSave;
+        public System.Windows.Forms.RichTextBox rtxtNotate;
     }
 }

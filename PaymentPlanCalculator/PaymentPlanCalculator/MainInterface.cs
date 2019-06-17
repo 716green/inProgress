@@ -35,7 +35,9 @@ namespace PaymentPlanCalculator
             return input;
         }
 
-        // ---------------------------------------------------------------------------------------------------------------------------------------------------// CARD PARSING
+        //public string entireNotation;
+
+        // ---------------------------------------------------------------------------------------------------------- IN PROGRESS ------------// CARD PARSING
         public string ParseCreditCard(string binNumber, string cardNumberFormatted, int numberOfDigits, string cardNumber)
         {
             if (txtCreditCardNumber.Text.Length > 12 && txtCreditCardNumber.Text.Length < 17)
@@ -51,9 +53,6 @@ namespace PaymentPlanCalculator
             string pattern = @"\p{Sc}+\s*\d+";
             return Regex.IsMatch(currencyValue, pattern);
         }
-
-        // Pull Information from Form 2 (Autopay) ------------------------------------------------------------------------------// Transfer Data from form 2
-        // Create Method to Transfer Here
 
         public paymentPlanCalculator()
         {
@@ -1347,12 +1346,13 @@ namespace PaymentPlanCalculator
         #region Call New AP Sheet Window
         public void APSheetToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //entireNotation = rtxtNotate.Text; //not in use
+            rtxtNotate.SaveFile("notation.rtf");
             AutoPay autoPay = new AutoPay();
             autoPay.Show();
         }
         #endregion
 
-        // ---------------------------------------------------------------------------------------------------------------------------------------------------// CARD PARSING
         public void BtnNotateToLog_Click(object sender, EventArgs e)
         {
             // Prevents notation log from double notating by testing line count

@@ -19,6 +19,7 @@ namespace PaymentPlanCalculator
         {
             InitializeComponent();
             headerArray = new string[11]; //Instantiate headerArray
+            rtxtNotate.LoadFile("notation.rtf"); // Load Rich Text File
         }
                     
         public void HeaderInformation(string dateAndTime, string fileNumber, string nameOnCard, string billingAddress, string billingCity, string billingState, string billingZip,
