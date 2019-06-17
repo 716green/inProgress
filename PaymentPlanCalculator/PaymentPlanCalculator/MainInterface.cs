@@ -66,6 +66,7 @@ namespace PaymentPlanCalculator
             try
             {
                 string paymentPlan = rtxtNotate.Text;
+                //Test IF statement here
                 for (int i = 0; i < Convert.ToInt16(lblTotalPaymentCount.Text); i++)
                 {
                     paymentPlan += "\n";
@@ -1324,10 +1325,14 @@ namespace PaymentPlanCalculator
         public void BtnNotateToLog_Click(object sender, EventArgs e)
         {
             // Prevents notation log from double notating by testing line count
-            if (rtxtNotate.Lines.Count() < 10) // If line count is less than 10
+            if (rtxtNotate.Text.Contains("*Installment Count: *"))
             {
                 AddPaymentInfoToNotation(); // Add payment notation
             }
+            //if (rtxtNotate.Lines.Count() < 10) // If line count is less than 10
+            //{
+            //    AddPaymentInfoToNotation(); // Add payment notation
+            //}
             else
             {
                 // If line count is over 10, clear notation before re-notating
@@ -1335,7 +1340,6 @@ namespace PaymentPlanCalculator
                 CalculateInstallmentPayments();
                 AddPaymentInfoToNotation();
             }
-            
         }
 
         public void DropDownPayCycle_MouseHover(object sender, EventArgs e)
