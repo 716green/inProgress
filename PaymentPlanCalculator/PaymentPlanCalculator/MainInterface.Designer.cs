@@ -813,6 +813,7 @@
             this.dataGridPPA.Size = new System.Drawing.Size(369, 341);
             this.dataGridPPA.TabIndex = 0;
             this.dataGridPPA.TabStop = false;
+            this.dataGridPPA.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DataGridPPA_RowsRemoved);
             // 
             // pmtDate
             // 

@@ -60,34 +60,65 @@ namespace PaymentPlanCalculator
             InitializeComponent();
         }
 
+        // Test for payments being deleted
+        bool paymentsDeleted = false;
         public void AddPaymentInfoToNotation()
         {
             // Add Payment Info Into Notation Log
-            try
+            if (paymentsDeleted == false)
             {
-                string paymentPlan = rtxtNotate.Text;
-                //Test IF statement here
-                for (int i = 0; i < Convert.ToInt16(lblTotalPaymentCount.Text); i++)
+                try
                 {
-                    paymentPlan += "\n";
-                    paymentPlan += dataGridPPA.Rows[i].Cells[0].Value.ToString();
-                    paymentPlan += " - ";
-                    paymentPlan += dataGridPPA.Rows[i].Cells[1].Value.ToString();
+                    string paymentPlan = rtxtNotate.Text;
+                    //Test IF statement here
+                    for (int i = 0; i < Convert.ToInt16(lblTotalPaymentCount.Text); i++)
+                    {
+                        paymentPlan += "\n";
+                        paymentPlan += dataGridPPA.Rows[i].Cells[0].Value.ToString();
+                        paymentPlan += " - ";
+                        paymentPlan += dataGridPPA.Rows[i].Cells[1].Value.ToString();
+                    }
+                    //Add Credit Card Information
+                    paymentPlan += "\n" + "\n" + dropDownPayCycle.Text + "\n"; // PayCycle
+                    paymentPlan += "\n" + lblCardType.Text + " - " + lblCardValid.Text + "\n"; // Visa - Valid
+                    paymentPlan += txtCreditCardNumber.Text + "\n"; // 4000100020003004
+                    paymentPlan += cboxExpMonth.Text + "/" + cboxExpYear.Text + "\n"; // 01/2021
+                    paymentPlan += "CVV: " + txtCVV.Text + "\n"; // 234
+                    rtxtNotate.Text = paymentPlan; // Post PPA to Notation Log
                 }
-                //Add Credit Card Information
-                paymentPlan += "\n" + "\n" + dropDownPayCycle.Text + "\n"; // PayCycle
-                paymentPlan += "\n" + lblCardType.Text + " - " + lblCardValid.Text + "\n"; // Visa - Valid
-                paymentPlan += txtCreditCardNumber.Text + "\n"; // 4000100020003004
-                paymentPlan += cboxExpMonth.Text + "/" + cboxExpYear.Text + "\n"; // 01/2021
-                paymentPlan += "CVV: " + txtCVV.Text + "\n"; // 234
-                rtxtNotate.Text = paymentPlan; // Post PPA to Notation Log
+                catch (Exception)
+                {
+                    MessageBox.Show("Please Populate PPA Grid First");
+                    //throw;
+                }
             }
-            catch (Exception)
+            else if (paymentsDeleted == true)
             {
-                MessageBox.Show("Please Populate PPA Grid First");
-                //throw;
+                try
+                {
+                    // This re-populates the data grid after rows have been deleted
+                    string paymentPlan = rtxtNotate.Text;
+                    for (int i = 0; i < (dataGridPPA.Rows.Count - 1); i++)
+                    {
+                        paymentPlan += "\n";
+                        paymentPlan += dataGridPPA.Rows[i].Cells[0].Value.ToString();
+                        paymentPlan += " - ";
+                        paymentPlan += dataGridPPA.Rows[i].Cells[1].Value.ToString();
+                    }
+                    //Add Credit Card Information
+                    paymentPlan += "\n" + "\n" + dropDownPayCycle.Text + "\n"; // PayCycle
+                    paymentPlan += "\n" + lblCardType.Text + " - " + lblCardValid.Text + "\n"; // Visa - Valid
+                    paymentPlan += txtCreditCardNumber.Text + "\n"; // 4000100020003004
+                    paymentPlan += cboxExpMonth.Text + "/" + cboxExpYear.Text + "\n"; // 01/2021
+                    paymentPlan += "CVV: " + txtCVV.Text + "\n"; // 234
+                    rtxtNotate.Text = paymentPlan; // Post PPA to Notation Log
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Please Populate PPA Grid First");
+                    //throw;
+                }
             }
-
         }
         public void Form1_Load(object sender, EventArgs e)
         {
@@ -1355,6 +1386,17 @@ namespace PaymentPlanCalculator
             if (dropDownPayCycle.BackColor != Color.White)
             {
                 dropDownPayCycle.BackColor = Color.White;
+            }
+        }
+
+        public void DataGridPPA_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            //Count number of rows and change the total payment count to the new number
+            if (dataGridPPA.Rows.Count != 0)
+            {
+                int newTotalPaymentCount = dataGridPPA.Rows.Count;
+                lblTotalPaymentCount.Text = Convert.ToString(newTotalPaymentCount);
+                paymentsDeleted = true;
             }
         }
     }
