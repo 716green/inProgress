@@ -35,18 +35,29 @@ namespace PaymentPlanCalculator
             return input;
         }
 
-        //public string entireNotation;
-
-        // ---------------------------------------------------------------------------------------------------------- IN PROGRESS ------------// CARD PARSING
-        public string ParseCreditCard(string binNumber, string cardNumberFormatted, int numberOfDigits, string cardNumber)
+        /* **************** *
+         *   CARD PARSING   *
+         * **************** */
+        public string ParseCard(string cardString)
         {
-            if (txtCreditCardNumber.Text.Length > 12 && txtCreditCardNumber.Text.Length < 17)
-            {
-                numberOfDigits = txtCreditCardNumber.Text.Length;
-                
-            }
-            return binNumber;
+            cardString = txtCreditCardNumber.Text;
+            int numberOfDigits = txtCreditCardNumber.Text.Length;
+            string firstFour = cardString.Substring(0, 4);
+            string secondfFour = cardString.Substring(3, 4);
+            string thirdFour = cardString.Substring(7, 4);
+            string fourthFour = cardString.Substring(11, 4);
+            string cardNumberFormatted = $"{firstFour} {secondfFour} {thirdFour} {fourthFour}";
+            return cardNumberFormatted;
         }
+        public string ParseBIN(string cardString)
+        {
+            cardString = txtCreditCardNumber.Text;
+            int numberOfDigits = txtCreditCardNumber.Text.Length;
+            string binNumber = cardString.Substring(0, 6);
+            return (binNumber);
+        }
+        string binNumber; // Instantiate BIN variable string
+        string formattedCard; // Instantiate Formatted Card String
 
         public static bool IsValidCurrency(string currencyValue)
         {
@@ -80,7 +91,7 @@ namespace PaymentPlanCalculator
                     //Add Credit Card Information
                     paymentPlan += "\n" + "\n" + dropDownPayCycle.Text + "\n"; // PayCycle
                     paymentPlan += "\n" + lblCardType.Text + " - " + lblCardValid.Text + "\n"; // Visa - Valid
-                    paymentPlan += txtCreditCardNumber.Text + "\n"; // 4000100020003004
+                    paymentPlan += ParseCard(txtCreditCardNumber.Text) + "\n"; // 4000100020003004
                     paymentPlan += cboxExpMonth.Text + "/" + cboxExpYear.Text + "\n"; // 01/2021
                     paymentPlan += "CVV: " + txtCVV.Text + "\n"; // 234
                     rtxtNotate.Text = paymentPlan; // Post PPA to Notation Log
@@ -115,37 +126,17 @@ namespace PaymentPlanCalculator
                 catch (Exception)
                 {
                     MessageBox.Show("Please Populate PPA Grid First");
-                    //throw;
                 }
             }
         }
         public void Form1_Load(object sender, EventArgs e)
         {
-            AddYearsToExpDate();
+            AddYearsToExpDate(); // When form loads, add years to exp date (in progress)
         }
 
-        /*
-         * ATTEMPTING TO CREATE AN ARRAY TO CALCULATE UPTO 10 YEARS INTO THE FUTURE FOR EXPDATE -------------------------------------------------------!! HERE!
-         */
         public void AddYearsToExpDate()
         {
-            /*
-            string[] expYears = new string[10];
-            //DateTime[] paymentPlanDates = new DateTime[numberOfPayments];
-            String dateAsString = DateTime.Now.ToString(); // Set current date to a string named dateAsString
-            DateTime datevalue = (Convert.ToDateTime(dateAsString.ToString())); // set DateTime var dateValue
-            String dtYear = datevalue.Year.ToString(); // Separate year from current date and set it as string value
-            int currentYear = Convert.ToInt16(dtYear); // Set currentYear int to current year
-            for (int i = Convert.ToInt32(dtYear); i < Convert.ToInt32(dtYear) +  10 ; i++)
-            {
-                expYears[(i - (i-1))] = i.ToString();
-            }
-            for (int i = 0; i < 10; i++)
-            {
-                rtxtNotate.Text = expYears[i];
-                cboxExpYear.Text. = expYear[i]
-            }
-            cboxExpYear.Text = expYear[i] */
+            // CREATE AN ARRAY TO CALCULATE UPTO 10 YEARS INTO THE FUTURE FOR EXPDATE
         }
 
         /* ********************** *
@@ -154,7 +145,7 @@ namespace PaymentPlanCalculator
         public void Blink()
         {
             dropDownPayCycle.Select();
-            dropDownPayCycle.BackColor = Color.Yellow; //dropDownPayCycle.BackColor == Color.Gray ? Color.White : Color.Gray;
+            dropDownPayCycle.BackColor = Color.Yellow;
         }
 
         public void UpdateAll() // Method of all other methods (not sure if this works)
@@ -196,6 +187,7 @@ namespace PaymentPlanCalculator
         /* ********************************** *
          *     ARRAY PAYMENT DATE CREATION    *
          * ********************************** */
+        #region // Payment date creation
         DateTime[] PPADates { get; set; } //Set payment dates on a global level
         public void CreateInstallmentDates(int payCycle)
         {
@@ -373,6 +365,7 @@ namespace PaymentPlanCalculator
             }
             PPADates = paymentPlanDates; // Set Local array to Global Array
         }
+        #endregion
 
         public void CalculatePaymentDates() // Call to CreateInstallmentDates() Method with pay-cycle taken into account
         {
@@ -469,15 +462,35 @@ namespace PaymentPlanCalculator
             // Calculate Final Payment
             decimal remainderPayment = Math.Round((balanceAfterDP - (installmentAmount * (installmentCount - 1))), 2); // Final Payment (Remainder)
             // Using Rich Text box as a 'Console' for debugging
+
+            /*
+            Balance: $1,100.00 | Settlement Balance: $825.00 - 75%
+            Total Payments: 12
+            Down Payment: $100.00
+            Remaining Due: $725.00
+            Installment Count: 11
+            Installment Amount: $65.91
+            Remainder: $65.90
+             */
             rtxtNotate.Text = ($"Balance: {currentBalance.ToString("C")}" +
-                $"\nSettlement Balance: {settlementBalance.ToString("C")} - {slideSIFpercentage.Value.ToString()}%" +
+                $" | Settlement Balance: {settlementBalance.ToString("C")} ({slideSIFpercentage.Value.ToString()}%)" +
                 $"\nTotal Payments: {lblTotalPaymentCount.Text}" +
                 $"\nDown Payment: {downPayment.ToString("C")}" +
-                $"\nRemaining Due: {balanceAfterDP.ToString("C")}" +
-                $"\nInstallment Count: {installmentCount.ToString()}" +
-                $"\nInstallment Amount: {installmentAmount.ToString("C")}" +
-                $"\nRemainder: {remainderPayment.ToString("C")}" +
-                $"\n");
+                $" | Remaining Due: {balanceAfterDP.ToString("C")}" +
+                $"\n{installmentCount.ToString()}" +
+                $"x installments: {installmentAmount.ToString("C")}");
+                if (installmentAmount != remainderPayment)
+                    {
+                        rtxtNotate.Text +=
+                        $" (Final Payment: {remainderPayment.ToString("C")})" +
+                        $"\n";
+                    }
+                else
+                    {
+                        rtxtNotate.Text +=
+                        $"\n";
+                    };
+                
             // Installment labels to formatted numbers            
             lblInstallmentAmt.Text = installmentAmount.ToString("C"); // ToString("C") converts to currency
             lblRemainder.Text = remainderPayment.ToString("C");
@@ -704,147 +717,153 @@ namespace PaymentPlanCalculator
                 lblCardValid.Text = "INVALID!";
             }
             #region Old Antiquated Notation Code
-                /* ******************************************** *
-                 *            CALCULATE NOTATIONS               *
-                 * ******************************************** */
+            /* ******************************************** *
+             *            CALCULATE NOTATIONS               *
+             * ******************************************** */
 
-                /* MAP OUT THE REST OF THIS AND RE-DO IT FROM BEGINNING FOLLOWING PATTERN ... closes at line 317
-                /* ****************** *
-                 *   NOTATE ACCOUNT   *
-                 * ****************** *
+            /* MAP OUT THE REST OF THIS AND RE-DO IT FROM BEGINNING FOLLOWING PATTERN ... closes at line 317
+            /* ****************** *
+             *   NOTATE ACCOUNT   *
+             * ****************** *
 
-                // Account Notation
-                // Current Balance
-                string notationOverview = $"Dbtr owes ${txtBalanceInput.Text:C}";
+            // Account Notation
+            // Current Balance
+            string notationOverview = $"Dbtr owes ${txtBalanceInput.Text:C}";
 
-                // // Debtor owes $1,234.56
+            // // Debtor owes $1,234.56
 
-                // Account Notation
-                // SIF Yes/No
-                if (chkSettlement.Checked == true) // If SIF box is checked, add SIF info to notation
+            // Account Notation
+            // SIF Yes/No
+            if (chkSettlement.Checked == true) // If SIF box is checked, add SIF info to notation
+            {
+                notationOverview += $"\n{slideSIFpercentage.Value}% SIF authorized for {((slideSIFpercentage.Value * 0.01) * Convert.ToDouble(txtBalanceInput.Text)).ToString("C")}";
+            }
+            else // State that there is no SIF authorized
+            {
+                notationOverview += $"\nno SIF authorized";
+            }
+
+            // // 75% SIF authorized
+            // // no SIF authorized
+
+            // Account Notation
+            // PPA Yes/No
+            if (chkPPA.Checked == true && chkSettlement.Checked == false) // If PPA Box is checked, add PPA info to notation
+            {
+                notationOverview += $"\nPPA Authorized over {lblTotalPaymentCount.Text} payments";
+            }
+            // // PPA Authorized over 3 payments
+
+            else if (chkPPA.Checked == false && txtDownPayment.Text != "0.00") // If PPA box is not checked BUT down payment IS entered
+            {
+                if (chkSettlement.Checked == true) // and there is a settlement
                 {
-                    notationOverview += $"\n{slideSIFpercentage.Value}% SIF authorized for {((slideSIFpercentage.Value * 0.01) * Convert.ToDouble(txtBalanceInput.Text)).ToString("C")}";
+                    notationOverview += $"\nto be paid in 2 payments\nDown payment of ${txtDownPayment.Text}\nRemaining SIF balance of " +
+                        $"{((((slideSIFpercentage.Value * 0.01) * Convert.ToDouble(txtBalanceInput.Text)) - Convert.ToDouble(txtDownPayment.Text)).ToString("C"))}";
                 }
-                else // State that there is no SIF authorized
+                else // and there is no settlement
                 {
-                    notationOverview += $"\nno SIF authorized";
+                    notationOverview += $"\nto be paid in 2 payments";
+                }
+            }
+            else if (chkPPA.Checked == true && chkSettlement.Checked == true) // If PPA and SIF are both checked, add to notation
+            {
+                notationOverview += $"\nto be paid in {sliderRemainingPmtCount.Value} payments\nDown payment of ${txtDownPayment.Text}\nRemaining SIF balance of " +
+                        $"{((((slideSIFpercentage.Value * 0.01) * Convert.ToDouble(txtBalanceInput.Text)) - Convert.ToDouble(txtDownPayment.Text)).ToString("C"))}";
+            }
+            else // If no PPA, decide if it is BIF or SIF and notate as such (Nested IF/ELSE)
+            {
+                notationOverview += $"\nto be paid in 1 payment "; // No PPA means 1 payment
+
+                // // to be paid in 1 payment
+
+                if (slideSIFpercentage.Value == 100) // If settlement is 100%, state balance in full
+                {
+                    notationOverview += $"for balance in full of ${txtBalanceInput.Text:C}";
+                }
+                else // If SIF = true, state SIF amount
+                {
+                    notationOverview += $"for {slideSIFpercentage.Value}% SIF of {lblSifBalance:C}";
                 }
 
-                // // 75% SIF authorized
-                // // no SIF authorized
+                // // for the balance in full of $1,234.56
+                // // for 75%
+            }
+            // Account Notation
+            // Down Payment Yes/No
+            if (txtDownPayment.Text != "0.00") // If there is a down payment then (Follow nested tree to check if installment = remainder amount)
 
-                // Account Notation
-                // PPA Yes/No
-                if (chkPPA.Checked == true && chkSettlement.Checked == false) // If PPA Box is checked, add PPA info to notation
+                // Yes, down payment (nested statement)
+            {
+                if (lblInstallmentAmt.Text != lblRemainder.Text) // If DP = true and If installment and remainder are different, display notation as follows:
                 {
-                    notationOverview += $"\nPPA Authorized over {lblTotalPaymentCount.Text} payments";
+                    notationOverview += $"\nDown payment of ${txtDownPayment.Text:C} \nto leave a remaining balance of ${lblRemainingBal.Text:C}" +
+                    $"\nover {(sliderRemainingPmtCount.Value - 1)} payments of {lblInstallmentAmt.Text:C} and 1 " +
+                    $"final payment of {lblRemainder.Text:C}";
                 }
-                // // PPA Authorized over 3 payments
-
-                else if (chkPPA.Checked == false && txtDownPayment.Text != "0.00") // If PPA box is not checked BUT down payment IS entered
+                // // Down payment of $250.56 to leave a remaining balance of $984.00
+                // // // over 3 payments of 246.02 and 1 final payment of $245.94
+                // // // (This is not an actual example, just the concept)
+                else // If installment and remainder are the same, display notation as follows:
                 {
-                    if (chkSettlement.Checked == true) // and there is a settlement
+                    if (chkPPA.Checked == false && chkSettlement.Checked == false) // If installment and remainder are the same with no PPA or SIF
                     {
-                        notationOverview += $"\nto be paid in 2 payments\nDown payment of ${txtDownPayment.Text}\nRemaining SIF balance of " +
-                            $"{((((slideSIFpercentage.Value * 0.01) * Convert.ToDouble(txtBalanceInput.Text)) - Convert.ToDouble(txtDownPayment.Text)).ToString("C"))}";
+                        notationOverview += $"\nDown payment of ${txtDownPayment.Text:C} to leave a remaining balance of ${lblRemainingBal.Text:C}";
                     }
-                    else // and there is no settlement
+                    else if (chkPPA.Checked == true && chkSettlement.Checked == false)
                     {
-                        notationOverview += $"\nto be paid in 2 payments";
+                        notationOverview += $"\nDown payment of ${txtDownPayment.Text:C} to leave a remaining balance of ${lblRemainingBal.Text:C}" +
+                        $"\nover {sliderRemainingPmtCount.Value} payments of {lblInstallmentAmt.Text:C}";
                     }
-                }
-                else if (chkPPA.Checked == true && chkSettlement.Checked == true) // If PPA and SIF are both checked, add to notation
-                {
-                    notationOverview += $"\nto be paid in {sliderRemainingPmtCount.Value} payments\nDown payment of ${txtDownPayment.Text}\nRemaining SIF balance of " +
-                            $"{((((slideSIFpercentage.Value * 0.01) * Convert.ToDouble(txtBalanceInput.Text)) - Convert.ToDouble(txtDownPayment.Text)).ToString("C"))}";
-                }
-                else // If no PPA, decide if it is BIF or SIF and notate as such (Nested IF/ELSE)
-                {
-                    notationOverview += $"\nto be paid in 1 payment "; // No PPA means 1 payment
-
-                    // // to be paid in 1 payment
-
-                    if (slideSIFpercentage.Value == 100) // If settlement is 100%, state balance in full
+                    else if (chkPPA.Checked == true && chkSettlement.Checked == true)
                     {
-                        notationOverview += $"for balance in full of ${txtBalanceInput.Text:C}";
+                        notationOverview += $"\nDown payment of ${txtDownPayment.Text:C} \nRemaining SIF balance of " +
+                        $"{((((slideSIFpercentage.Value * 0.01) * Convert.ToDouble(txtBalanceInput.Text)) - Convert.ToDouble(txtDownPayment.Text)).ToString("C"))}" +
+                        $"\nover {sliderRemainingPmtCount.Value} payments of {lblInstallmentAmt.Text:C}";
                     }
-                    else // If SIF = true, state SIF amount
+                    else
                     {
-                        notationOverview += $"for {slideSIFpercentage.Value}% SIF of {lblSifBalance:C}";
-                    }
-
-                    // // for the balance in full of $1,234.56
-                    // // for 75%
-                }
-                // Account Notation
-                // Down Payment Yes/No
-                if (txtDownPayment.Text != "0.00") // If there is a down payment then (Follow nested tree to check if installment = remainder amount)
-
-                    // Yes, down payment (nested statement)
-                {
-                    if (lblInstallmentAmt.Text != lblRemainder.Text) // If DP = true and If installment and remainder are different, display notation as follows:
-                    {
-                        notationOverview += $"\nDown payment of ${txtDownPayment.Text:C} \nto leave a remaining balance of ${lblRemainingBal.Text:C}" +
-                        $"\nover {(sliderRemainingPmtCount.Value - 1)} payments of {lblInstallmentAmt.Text:C} and 1 " +
-                        $"final payment of {lblRemainder.Text:C}";
-                    }
-                    // // Down payment of $250.56 to leave a remaining balance of $984.00
-                    // // // over 3 payments of 246.02 and 1 final payment of $245.94
-                    // // // (This is not an actual example, just the concept)
-                    else // If installment and remainder are the same, display notation as follows:
-                    {
-                        if (chkPPA.Checked == false && chkSettlement.Checked == false) // If installment and remainder are the same with no PPA or SIF
-                        {
-                            notationOverview += $"\nDown payment of ${txtDownPayment.Text:C} to leave a remaining balance of ${lblRemainingBal.Text:C}";
-                        }
-                        else if (chkPPA.Checked == true && chkSettlement.Checked == false)
-                        {
-                            notationOverview += $"\nDown payment of ${txtDownPayment.Text:C} to leave a remaining balance of ${lblRemainingBal.Text:C}" +
-                            $"\nover {sliderRemainingPmtCount.Value} payments of {lblInstallmentAmt.Text:C}";
-                        }
-                        else if (chkPPA.Checked == true && chkSettlement.Checked == true)
-                        {
-                            notationOverview += $"\nDown payment of ${txtDownPayment.Text:C} \nRemaining SIF balance of " +
-                            $"{((((slideSIFpercentage.Value * 0.01) * Convert.ToDouble(txtBalanceInput.Text)) - Convert.ToDouble(txtDownPayment.Text)).ToString("C"))}" +
-                            $"\nover {sliderRemainingPmtCount.Value} payments of {lblInstallmentAmt.Text:C}";
-                        }
-                        else
-                        {
-                            // Nothing
-                        }
-                    }
-                    // // Down payment of $250.56 to leave a remaining balance of $984.00
-                    // // // over 4 payments of $246.00
-                }
-                else // If there is no down payment
-                {
-                    if (lblInstallmentAmt.Text != lblRemainder.Text) // If installment and remainder are different, display notation as follows:
-                    {
-                        notationOverview += $"\nover { (Convert.ToDouble(lblTotalPaymentCount.Text) - 1)} payments of {lblInstallmentAmt.Text:C} " +
-                        $"and 1 final payment of {lblRemainder.Text:C}";
-                    }
-                    // // over 3 payments of 309.00 and 1 final payment of $307.56
-                    else // If installment and remainder are the same
-                    {
-                        if (lblInstallmentAmt.Text == "0.00") // If there is no down payment, the installment and remainder are the same, and they are both "0.00"
-                                                              // Example: $2500 down, no down payment, no settlement. (Prevents "over 1 payments of 0.00 " from being added)
-                        {
-                            // notationOverview += $"\n [ON SELECTED PAYMENT DATE];  //UPDATE THIS ONCE DATES ARE IMPLIMENTED
-                        }
-                        else
-                        {
-                            notationOverview += $"\nover {Convert.ToDouble(lblTotalPaymentCount.Text)} payments of {lblInstallmentAmt.Text:C} ";
-                        }
-                        // // over 4 payments of $308.64
+                        // Nothing
                     }
                 }
-                */
+                // // Down payment of $250.56 to leave a remaining balance of $984.00
+                // // // over 4 payments of $246.00
+            }
+            else // If there is no down payment
+            {
+                if (lblInstallmentAmt.Text != lblRemainder.Text) // If installment and remainder are different, display notation as follows:
+                {
+                    notationOverview += $"\nover { (Convert.ToDouble(lblTotalPaymentCount.Text) - 1)} payments of {lblInstallmentAmt.Text:C} " +
+                    $"and 1 final payment of {lblRemainder.Text:C}";
+                }
+                // // over 3 payments of 309.00 and 1 final payment of $307.56
+                else // If installment and remainder are the same
+                {
+                    if (lblInstallmentAmt.Text == "0.00") // If there is no down payment, the installment and remainder are the same, and they are both "0.00"
+                                                          // Example: $2500 down, no down payment, no settlement. (Prevents "over 1 payments of 0.00 " from being added)
+                    {
+                        // notationOverview += $"\n [ON SELECTED PAYMENT DATE];  //UPDATE THIS ONCE DATES ARE IMPLIMENTED
+                    }
+                    else
+                    {
+                        notationOverview += $"\nover {Convert.ToDouble(lblTotalPaymentCount.Text)} payments of {lblInstallmentAmt.Text:C} ";
+                    }
+                    // // over 4 payments of $308.64
+                }
+            }
+            */
 
-             // OLD NOTATION CALCULATED CODE TO BE DELETED COLLAPSED //THIS WHOLE SECTION NEEDS TO BE DELETED AFTER WORKING VERSION SET
+            // OLD NOTATION CALCULATED CODE TO BE DELETED COLLAPSED //THIS WHOLE SECTION NEEDS TO BE DELETED AFTER WORKING VERSION SET
 
             //FOR TESTING PURPOSES- clicking validate calculates payments and prints notations
             //THESE 'CALL TO METHODS' may need to be moved
             #endregion
+            lblDebug.Text = ParseBIN(txtCreditCardNumber.Text); // BIN NUMBER
+            binNumber = lblDebug.Text;
+            lblDebug2.Text = ParseCard(txtCreditCardNumber.Text); // CARD NUMBER
+            formattedCard = lblDebug2.Text;
+
+            //------------------------------------------------------------------------------------------------------------------------------------------**
             UpdateAll();
         }
 
@@ -1306,7 +1325,7 @@ namespace PaymentPlanCalculator
             // Move cursor to far right 
             txtCVV.Select(txtCVV.Text.Length, 0);
 
-            // Test for blank field and replace with $0.00
+            // Test for blank field and replace with '000'
             if (txtCVV.Text == "")
             {
                 txtCVV.Text = "000";
@@ -1360,10 +1379,6 @@ namespace PaymentPlanCalculator
             {
                 AddPaymentInfoToNotation(); // Add payment notation
             }
-            //if (rtxtNotate.Lines.Count() < 10) // If line count is less than 10
-            //{
-            //    AddPaymentInfoToNotation(); // Add payment notation
-            //}
             else
             {
                 // If line count is over 10, clear notation before re-notating
@@ -1391,12 +1406,12 @@ namespace PaymentPlanCalculator
 
         public void DataGridPPA_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            //Count number of rows and change the total payment count to the new number
+            // Count number of rows and change the total payment count to the new number
             if (dataGridPPA.Rows.Count != 0)
             {
                 int newTotalPaymentCount = dataGridPPA.Rows.Count;
                 lblTotalPaymentCount.Text = Convert.ToString(newTotalPaymentCount);
-                paymentsDeleted = true;
+                paymentsDeleted = true; // Bool to test if payments are deleted
             }
         }
     }

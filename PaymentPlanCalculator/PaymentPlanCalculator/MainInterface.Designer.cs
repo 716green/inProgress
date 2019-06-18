@@ -91,6 +91,8 @@
             this.pmtAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlPaymentPlan = new System.Windows.Forms.Panel();
             this.btnNotateToLog = new System.Windows.Forms.Button();
+            this.lblDebug = new System.Windows.Forms.Label();
+            this.lblDebug2 = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
@@ -847,12 +849,32 @@
             this.btnNotateToLog.UseVisualStyleBackColor = true;
             this.btnNotateToLog.Click += new System.EventHandler(this.BtnNotateToLog_Click);
             // 
+            // lblDebug
+            // 
+            this.lblDebug.AutoSize = true;
+            this.lblDebug.Location = new System.Drawing.Point(1139, 487);
+            this.lblDebug.Name = "lblDebug";
+            this.lblDebug.Size = new System.Drawing.Size(45, 13);
+            this.lblDebug.TabIndex = 39;
+            this.lblDebug.Text = "DEBUG";
+            // 
+            // lblDebug2
+            // 
+            this.lblDebug2.AutoSize = true;
+            this.lblDebug2.Location = new System.Drawing.Point(1139, 510);
+            this.lblDebug2.Name = "lblDebug2";
+            this.lblDebug2.Size = new System.Drawing.Size(45, 13);
+            this.lblDebug2.TabIndex = 40;
+            this.lblDebug2.Text = "DEBUG";
+            // 
             // paymentPlanCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1520, 544);
+            this.Controls.Add(this.lblDebug2);
+            this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.btnNotateToLog);
             this.Controls.Add(this.pnlPaymentPlan);
             this.Controls.Add(this.panel1);
@@ -943,6 +965,8 @@
         public System.Windows.Forms.ToolStripDropDownButton toolStripExport;
         public System.Windows.Forms.ToolStripMenuItem apSheetExportButton;
         public System.Windows.Forms.Button btnNotateToLog;
+        private System.Windows.Forms.Label lblDebug;
+        private System.Windows.Forms.Label lblDebug2;
     }
 }
 
