@@ -89,11 +89,14 @@ namespace PaymentPlanCalculator
                         paymentPlan += dataGridPPA.Rows[i].Cells[1].Value.ToString();
                     }
                     //Add Credit Card Information
-                    paymentPlan += "\n" + "\n" + dropDownPayCycle.Text + "\n"; // PayCycle
-                    paymentPlan += "\n" + lblCardType.Text + " - " + lblCardValid.Text + "\n"; // Visa - Valid
+                    //paymentPlan += "\n" + "\n" + dropDownPayCycle.Text + "\n"; // Moved to Header
+                    paymentPlan += "\n\n" + lblCardType.Text + " - " + lblCardValid.Text + "\n"; // Visa - Valid
                     paymentPlan += ParseCard(txtCreditCardNumber.Text) + "\n"; // 4000100020003004
-                    paymentPlan += cboxExpMonth.Text + "/" + cboxExpYear.Text + "\n"; // 01/2021
-                    paymentPlan += "CVV: " + txtCVV.Text + "\n"; // 234
+                    //paymentPlan += cboxExpMonth.Text + "/" + cboxExpYear.Text + "\n"; // 01/2021
+                    paymentPlan += cboxExpMonth.Text + "/" + cboxExpYear.Text + "       " + "CVV: " + txtCVV.Text + "\n"; // 01/2021  CVV: 234
+
+
+                    //paymentPlan += "CVV: " + txtCVV.Text + "\n"; // 234
                     rtxtNotate.Text = paymentPlan; // Post PPA to Notation Log
                 }
                 catch (Exception)
@@ -463,18 +466,9 @@ namespace PaymentPlanCalculator
             decimal remainderPayment = Math.Round((balanceAfterDP - (installmentAmount * (installmentCount - 1))), 2); // Final Payment (Remainder)
             // Using Rich Text box as a 'Console' for debugging
 
-            /*
-            Balance: $1,100.00 | Settlement Balance: $825.00 - 75%
-            Total Payments: 12
-            Down Payment: $100.00
-            Remaining Due: $725.00
-            Installment Count: 11
-            Installment Amount: $65.91
-            Remainder: $65.90
-             */
             rtxtNotate.Text = ($"Balance: {currentBalance.ToString("C")}" +
                 $" | Settlement Balance: {settlementBalance.ToString("C")} ({slideSIFpercentage.Value.ToString()}%)" +
-                $"\nTotal Payments: {lblTotalPaymentCount.Text}" +
+                $"\nTotal Payments: {lblTotalPaymentCount.Text} | {dropDownPayCycle.Text}" +
                 $"\nDown Payment: {downPayment.ToString("C")}" +
                 $" | Remaining Due: {balanceAfterDP.ToString("C")}" +
                 $"\n{installmentCount.ToString()}" +
@@ -494,6 +488,7 @@ namespace PaymentPlanCalculator
             // Installment labels to formatted numbers            
             lblInstallmentAmt.Text = installmentAmount.ToString("C"); // ToString("C") converts to currency
             lblRemainder.Text = remainderPayment.ToString("C");
+
         }
 
         public void TestForRemainder()
@@ -863,7 +858,6 @@ namespace PaymentPlanCalculator
             lblDebug2.Text = ParseCard(txtCreditCardNumber.Text); // CARD NUMBER
             formattedCard = lblDebug2.Text;
 
-            //------------------------------------------------------------------------------------------------------------------------------------------**
             UpdateAll();
         }
 
@@ -1413,6 +1407,11 @@ namespace PaymentPlanCalculator
                 lblTotalPaymentCount.Text = Convert.ToString(newTotalPaymentCount);
                 paymentsDeleted = true; // Bool to test if payments are deleted
             }
+        }
+
+        public void DropDownPayCycle_SelectedIndexChanged(object sender, EventArgs e) // Update notation after changing pay cycle
+        {
+            UpdateAll();
         }
     }
 }

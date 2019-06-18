@@ -153,7 +153,7 @@
             this.apSheetExportButton});
             this.toolStripExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripExport.Name = "toolStripExport";
-            this.toolStripExport.Size = new System.Drawing.Size(53, 22);
+            this.toolStripExport.Size = new System.Drawing.Size(54, 22);
             this.toolStripExport.Text = "Export";
             // 
             // apSheetExportButton
@@ -352,6 +352,7 @@
             this.dropDownPayCycle.Size = new System.Drawing.Size(256, 38);
             this.dropDownPayCycle.TabIndex = 4;
             this.dropDownPayCycle.Text = "PAY CYCLE";
+            this.dropDownPayCycle.SelectedIndexChanged += new System.EventHandler(this.DropDownPayCycle_SelectedIndexChanged);
             this.dropDownPayCycle.TextChanged += new System.EventHandler(this.DropDownPayCycle_TextChanged);
             this.dropDownPayCycle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DropDownPayCycle_MouseClick);
             this.dropDownPayCycle.MouseHover += new System.EventHandler(this.DropDownPayCycle_MouseHover);
