@@ -77,10 +77,17 @@ namespace PaymentPlanCalculator
 
         }
 
-        private void TxtPhone_TextChanged(object sender, EventArgs e)
+        public void TxtPhone_TextChanged(object sender, EventArgs e)
         {
 
         }
         /* DELETE HERE IF INCORRECT ------------------------------------------------------------------------------------------------------- */
+        public void TestFieldsForValues()
+        {
+            if (txtBillingAddress.Text != "" && txtCallerName.Text != "" && txtCity.Text != "" && txtCloserName.Text != "" && txtEmail.Text != "" && txtFileNumber.Text != "" && txtNameOnCard.Text != "" && txtPhone.Text != "" && txtState.Text != "" && txtZip.Text != "")
+            {
+                btnSave.Enabled = true;
+            }
+        }
     }
 }

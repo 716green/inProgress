@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 
 /* TO DO LIST...
@@ -40,21 +41,40 @@ namespace PaymentPlanCalculator
          * **************** */
         public string ParseCard(string cardString)
         {
-            cardString = txtCreditCardNumber.Text;
-            int numberOfDigits = txtCreditCardNumber.Text.Length;
-            string firstFour = cardString.Substring(0, 4);
-            string secondfFour = cardString.Substring(3, 4);
-            string thirdFour = cardString.Substring(7, 4);
-            string fourthFour = cardString.Substring(11, 4);
-            string cardNumberFormatted = $"{firstFour} {secondfFour} {thirdFour} {fourthFour}";
-            return cardNumberFormatted;
+            if (txtCreditCardNumber.Text.Length == 15 || txtCreditCardNumber.Text.Length == 16)
+            {
+                cardString = txtCreditCardNumber.Text;
+                int numberOfDigits = txtCreditCardNumber.Text.Length;
+                string firstFour = cardString.Substring(0, 4);
+                string secondfFour = cardString.Substring(4, 4);
+                string thirdFour = cardString.Substring(8, 4);
+                string fourthFour = cardString.Substring(12, 4);
+                string cardNumberFormatted = $"{firstFour} {secondfFour} {thirdFour} {fourthFour}";
+                return cardNumberFormatted;
+            }
+            else
+            {
+                cardString = "";
+                return cardString;
+            }
         }
         public string ParseBIN(string cardString)
         {
-            cardString = txtCreditCardNumber.Text;
-            int numberOfDigits = txtCreditCardNumber.Text.Length;
-            string binNumber = cardString.Substring(0, 6);
-            return (binNumber);
+            if (txtCreditCardNumber.Text.Length < 15 || txtCreditCardNumber.Text.Length > 16)
+            {
+                txtCreditCardNumber.Clear();
+                //lblBIN.Text = "FIX CARD NUMBER";
+                MessageBox.Show("Card number is wrong length\nPlease try again");
+                string binNumber = "FIX CARD NUMBER"; //cardString.Substring(0, 6);
+                return (binNumber);
+            }
+            else
+            {
+                cardString = txtCreditCardNumber.Text;
+                int numberOfDigits = txtCreditCardNumber.Text.Length;
+                string binNumber = cardString.Substring(0, 6); //---------------------------------------------------------------------------------- Throw exception if no CC Number in this place
+                return (binNumber);
+            }
         }
         string binNumber; // Instantiate BIN variable string
         string formattedCard; // Instantiate Formatted Card String
@@ -853,8 +873,8 @@ namespace PaymentPlanCalculator
             //FOR TESTING PURPOSES- clicking validate calculates payments and prints notations
             //THESE 'CALL TO METHODS' may need to be moved
             #endregion
-            lblDebug.Text = ParseBIN(txtCreditCardNumber.Text); // BIN NUMBER
-            binNumber = lblDebug.Text;
+            lblBIN.Text = ParseBIN(txtCreditCardNumber.Text); // BIN NUMBER
+            binNumber = lblBIN.Text;
             lblDebug2.Text = ParseCard(txtCreditCardNumber.Text); // CARD NUMBER
             formattedCard = lblDebug2.Text;
 
@@ -1221,6 +1241,10 @@ namespace PaymentPlanCalculator
             {
                 MessageBox.Show("Down Payment Date is AFTER Installment Date \n Please Fix");
             }
+            else if (txtBalanceInput.Text == "0.00")
+            {
+                MessageBox.Show("Enter Current Balance");
+            }
             else
             {
                 PopulateDataGrid(); // Populate Data Grid
@@ -1380,6 +1404,7 @@ namespace PaymentPlanCalculator
                 CalculateInstallmentPayments();
                 AddPaymentInfoToNotation();
             }
+            toolStripExport.Enabled = true;
         }
 
         public void DropDownPayCycle_MouseHover(object sender, EventArgs e)
@@ -1412,6 +1437,26 @@ namespace PaymentPlanCalculator
         public void DropDownPayCycle_SelectedIndexChanged(object sender, EventArgs e) // Update notation after changing pay cycle
         {
             UpdateAll();
+        }
+
+        public void LblDebug_Click(object sender, EventArgs e)
+        {
+            if (lblCardValid.Text == "VALID!")
+            {
+                string urlPrefixOne = "https://binlists.com/";
+                string binPrefixTwo = "https://www.bankbinlist.com/search.html?bin=";
+                string binPrefixThree = "https://checkb.in/number-";
+                string binPrefixFour = "https://free-bin-checker.com/cards/bin-";
+                string urlAppend = lblBIN.Text;
+                string fullURL = urlPrefixOne + urlAppend;
+                ProcessStartInfo binWebAddress = new ProcessStartInfo(fullURL);
+                Process.Start(binWebAddress);
+            }
+            else
+            {
+                MessageBox.Show("Validate a Valid Card Number First");
+            }
+            
         }
     }
 }

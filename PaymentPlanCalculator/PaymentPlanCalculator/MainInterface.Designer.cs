@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(paymentPlanCalculator));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,7 +91,7 @@
             this.pmtAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlPaymentPlan = new System.Windows.Forms.Panel();
             this.btnNotateToLog = new System.Windows.Forms.Button();
-            this.lblDebug = new System.Windows.Forms.Label();
+            this.lblBIN = new System.Windows.Forms.Label();
             this.lblDebug2 = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
@@ -151,6 +151,7 @@
             this.toolStripExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.apSheetExportButton});
+            this.toolStripExport.Enabled = false;
             this.toolStripExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripExport.Name = "toolStripExport";
             this.toolStripExport.Size = new System.Drawing.Size(54, 22);
@@ -159,7 +160,7 @@
             // apSheetExportButton
             // 
             this.apSheetExportButton.Name = "apSheetExportButton";
-            this.apSheetExportButton.Size = new System.Drawing.Size(121, 22);
+            this.apSheetExportButton.Size = new System.Drawing.Size(180, 22);
             this.apSheetExportButton.Text = "AP Sheet";
             this.apSheetExportButton.Click += new System.EventHandler(this.APSheetToolStripMenuItem_Click);
             // 
@@ -798,14 +799,14 @@
             // 
             // dataGridPPA
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridPPA.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridPPA.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridPPA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridPPA.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.pmtDate,
@@ -850,21 +851,25 @@
             this.btnNotateToLog.UseVisualStyleBackColor = true;
             this.btnNotateToLog.Click += new System.EventHandler(this.BtnNotateToLog_Click);
             // 
-            // lblDebug
+            // lblBIN
             // 
-            this.lblDebug.AutoSize = true;
-            this.lblDebug.Location = new System.Drawing.Point(1139, 487);
-            this.lblDebug.Name = "lblDebug";
-            this.lblDebug.Size = new System.Drawing.Size(45, 13);
-            this.lblDebug.TabIndex = 39;
-            this.lblDebug.Text = "DEBUG";
+            this.lblBIN.AutoSize = true;
+            this.lblBIN.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblBIN.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBIN.Location = new System.Drawing.Point(1139, 487);
+            this.lblBIN.Name = "lblBIN";
+            this.lblBIN.Size = new System.Drawing.Size(101, 21);
+            this.lblBIN.TabIndex = 39;
+            this.lblBIN.Text = "BIN Number";
+            this.lblBIN.Click += new System.EventHandler(this.LblDebug_Click);
             // 
             // lblDebug2
             // 
             this.lblDebug2.AutoSize = true;
+            this.lblDebug2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDebug2.Location = new System.Drawing.Point(1139, 510);
             this.lblDebug2.Name = "lblDebug2";
-            this.lblDebug2.Size = new System.Drawing.Size(45, 13);
+            this.lblDebug2.Size = new System.Drawing.Size(61, 21);
             this.lblDebug2.TabIndex = 40;
             this.lblDebug2.Text = "DEBUG";
             // 
@@ -875,7 +880,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1520, 544);
             this.Controls.Add(this.lblDebug2);
-            this.Controls.Add(this.lblDebug);
+            this.Controls.Add(this.lblBIN);
             this.Controls.Add(this.btnNotateToLog);
             this.Controls.Add(this.pnlPaymentPlan);
             this.Controls.Add(this.panel1);
@@ -966,7 +971,7 @@
         public System.Windows.Forms.ToolStripDropDownButton toolStripExport;
         public System.Windows.Forms.ToolStripMenuItem apSheetExportButton;
         public System.Windows.Forms.Button btnNotateToLog;
-        private System.Windows.Forms.Label lblDebug;
+        private System.Windows.Forms.Label lblBIN;
         private System.Windows.Forms.Label lblDebug2;
     }
 }
