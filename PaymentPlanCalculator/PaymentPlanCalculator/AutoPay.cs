@@ -9,6 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PaymentPlanCalculator
+
+/* TO DO LIST...
+ * Center Top DateTime
+ * Add Regex to text boxes
+ * Add Print Functionality
+ * Add filepath functionality
+ */
+
 {
     public partial class AutoPay : Form
     {
@@ -59,15 +67,12 @@ namespace PaymentPlanCalculator
             closerName = $"Closer: {txtCloserName.Text}";
         }
 
-        /* POSSIBLE POTENTIAL SOLUTION -------------------------------------------------------------------------------------------------- */
 
         public void BtnSave_Click(object sender, EventArgs e)
         {
             if (saveButtonHasBeenPressed == true)
-            //if (rtxtNotate.Text != originalNotation)
             {
                 rtxtNotate.Clear();
-                //rtxtNotate.Text = originalNotation;
                 rtxtNotate.LoadFile("notation.rtf"); // Load Rich Text File
             }
             
@@ -78,9 +83,7 @@ namespace PaymentPlanCalculator
             for (int i = 0; i < 5; i++)
             {
                 notationHeading += headerArray[i] + "\n";
-                //entireNotation += headerArray[i] + "\n";
             }
-            //rtxtNotate.Text += entireNotation;
             for (int i = 5; i < 9; i++)
             {
                 notationBottom += headerArray[i] + "\n";
@@ -91,7 +94,7 @@ namespace PaymentPlanCalculator
             fullNotation = "";
             notationBottom = "";
             notationHeading = "";
-
+            // rtxtNotate.SaveFile($"{txtFileNumber}.rtf"); // UN-COMMENT THIS OUT FOR PRODUCTION - CREATE FILEPATH TO SHARED FOLDER
         }
 
         public void TestFieldsForValues()

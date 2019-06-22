@@ -39,6 +39,8 @@ namespace PaymentPlanCalculator
         // TEMPORARY SOLUTION, REPLACE WITH ACTUAL SAVE BUTTON
         public void saveButton()
         {
+            MessageBox.Show("Save button not currently functional");
+            /*
             txtBalanceInput.Text = "1,100.00";
             txtCreditCardNumber.Text = "4567456745614561";
             txtCVV.Text = "456";
@@ -48,6 +50,7 @@ namespace PaymentPlanCalculator
             cboxExpMonth.Text = "12";
             cboxExpYear.Text = "2020";
             dropDownPayCycle.ValueMember = "WEEKLY";
+            */
         }
 
         /* **************** *
@@ -1485,8 +1488,8 @@ namespace PaymentPlanCalculator
 
         public void ResetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveButton();
-            UpdateAll();
+            saveButton(); //currently pops up message box and has debug functionality commented out
+            //UpdateAll();
         }
     }
 }
