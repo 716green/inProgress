@@ -36,12 +36,26 @@ namespace PaymentPlanCalculator
             return input;
         }
 
+        // TEMPORARY SOLUTION, REPLACE WITH ACTUAL SAVE BUTTON
+        public void saveButton()
+        {
+            txtBalanceInput.Text = "1,100.00";
+            txtCreditCardNumber.Text = "4567456745614561";
+            txtCVV.Text = "456";
+            txtDownPayment.Text = "100.00";
+            sliderRemainingPmtCount.Value = 11;
+            slideSIFpercentage.Value = 75;
+            cboxExpMonth.Text = "12";
+            cboxExpYear.Text = "2020";
+            dropDownPayCycle.ValueMember = "WEEKLY";
+        }
+
         /* **************** *
          *   CARD PARSING   *
          * **************** */
         public string ParseCard(string cardString)
         {
-            if (txtCreditCardNumber.Text.Length == 15 || txtCreditCardNumber.Text.Length == 16)
+            if (txtCreditCardNumber.Text.Length == 16) // VISA MC and DISCOVER
             {
                 cardString = txtCreditCardNumber.Text;
                 int numberOfDigits = txtCreditCardNumber.Text.Length;
@@ -50,6 +64,16 @@ namespace PaymentPlanCalculator
                 string thirdFour = cardString.Substring(8, 4);
                 string fourthFour = cardString.Substring(12, 4);
                 string cardNumberFormatted = $"{firstFour} {secondfFour} {thirdFour} {fourthFour}";
+                return cardNumberFormatted;
+            }
+            else if (txtCreditCardNumber.Text.Length == 15) // AMEX 3234 123456 12345
+            {
+                cardString = txtCreditCardNumber.Text;
+                int numberOfDigits = txtCreditCardNumber.Text.Length;
+                string firstFour = cardString.Substring(0, 4);
+                string secondfFour = cardString.Substring(4, 6);
+                string thirdFour = cardString.Substring(10, 5);
+                string cardNumberFormatted = $"{firstFour} {secondfFour} {thirdFour}";
                 return cardNumberFormatted;
             }
             else
@@ -688,7 +712,7 @@ namespace PaymentPlanCalculator
             {
                 cardType = "null";
             }
-            else if (cardType == "3")
+            else if (cardType == "3" && txtCreditCardNumber.Text.Length == 15)
             {
                 cardType = "AMEX";
             }
@@ -1441,7 +1465,7 @@ namespace PaymentPlanCalculator
 
         public void LblDebug_Click(object sender, EventArgs e)
         {
-            if (lblCardValid.Text == "VALID!")
+            if (lblCardValid.Text == "VALID!" && txtCreditCardNumber.Text != "")
             {
                 string urlPrefixOne = "https://binlists.com/";
                 string binPrefixTwo = "https://www.bankbinlist.com/search.html?bin=";
@@ -1457,6 +1481,12 @@ namespace PaymentPlanCalculator
                 MessageBox.Show("Validate a Valid Card Number First");
             }
             
+        }
+
+        public void ResetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveButton();
+            UpdateAll();
         }
     }
 }

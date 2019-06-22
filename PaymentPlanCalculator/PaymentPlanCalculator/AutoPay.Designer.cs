@@ -103,6 +103,7 @@
             this.txtCloserName.Name = "txtCloserName";
             this.txtCloserName.Size = new System.Drawing.Size(286, 29);
             this.txtCloserName.TabIndex = 20;
+            this.txtCloserName.TextChanged += new System.EventHandler(this.TxtCloserName_TextChanged);
             // 
             // txtFileNumber
             // 
@@ -111,6 +112,7 @@
             this.txtFileNumber.Name = "txtFileNumber";
             this.txtFileNumber.Size = new System.Drawing.Size(286, 29);
             this.txtFileNumber.TabIndex = 11;
+            this.txtFileNumber.TextChanged += new System.EventHandler(this.TxtFileNumber_TextChanged);
             // 
             // txtCallerName
             // 
@@ -119,6 +121,7 @@
             this.txtCallerName.Name = "txtCallerName";
             this.txtCallerName.Size = new System.Drawing.Size(286, 29);
             this.txtCallerName.TabIndex = 19;
+            this.txtCallerName.TextChanged += new System.EventHandler(this.TxtCallerName_TextChanged);
             // 
             // label1
             // 
@@ -137,6 +140,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(286, 29);
             this.txtEmail.TabIndex = 18;
+            this.txtEmail.TextChanged += new System.EventHandler(this.TxtEmail_TextChanged);
             // 
             // label2
             // 
@@ -155,6 +159,7 @@
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(286, 29);
             this.txtPhone.TabIndex = 17;
+            this.txtPhone.TextChanged += new System.EventHandler(this.TxtPhone_TextChanged_1);
             // 
             // label4
             // 
@@ -173,6 +178,7 @@
             this.txtZip.Name = "txtZip";
             this.txtZip.Size = new System.Drawing.Size(286, 29);
             this.txtZip.TabIndex = 16;
+            this.txtZip.TextChanged += new System.EventHandler(this.TxtZip_TextChanged);
             // 
             // label3
             // 
@@ -191,6 +197,7 @@
             this.txtState.Name = "txtState";
             this.txtState.Size = new System.Drawing.Size(286, 29);
             this.txtState.TabIndex = 15;
+            this.txtState.TextChanged += new System.EventHandler(this.TxtState_TextChanged);
             // 
             // label8
             // 
@@ -209,6 +216,7 @@
             this.txtCity.Name = "txtCity";
             this.txtCity.Size = new System.Drawing.Size(286, 29);
             this.txtCity.TabIndex = 14;
+            this.txtCity.TextChanged += new System.EventHandler(this.TxtCity_TextChanged);
             // 
             // label7
             // 
@@ -227,6 +235,7 @@
             this.txtBillingAddress.Name = "txtBillingAddress";
             this.txtBillingAddress.Size = new System.Drawing.Size(286, 29);
             this.txtBillingAddress.TabIndex = 13;
+            this.txtBillingAddress.TextChanged += new System.EventHandler(this.TxtBillingAddress_TextChanged);
             // 
             // label6
             // 
@@ -245,6 +254,7 @@
             this.txtNameOnCard.Name = "txtNameOnCard";
             this.txtNameOnCard.Size = new System.Drawing.Size(286, 29);
             this.txtNameOnCard.TabIndex = 12;
+            this.txtNameOnCard.TextChanged += new System.EventHandler(this.TxtNameOnCard_TextChanged);
             // 
             // label5
             // 
