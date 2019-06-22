@@ -1471,9 +1471,12 @@ namespace PaymentPlanCalculator
             if (lblCardValid.Text == "VALID!" && txtCreditCardNumber.Text != "")
             {
                 string urlPrefixOne = "https://binlists.com/";
+                /*
+                 * ***************************************************************** * //BACKUP URLS
                 string binPrefixTwo = "https://www.bankbinlist.com/search.html?bin=";
                 string binPrefixThree = "https://checkb.in/number-";
                 string binPrefixFour = "https://free-bin-checker.com/cards/bin-";
+                */
                 string urlAppend = lblBIN.Text;
                 string fullURL = urlPrefixOne + urlAppend;
                 ProcessStartInfo binWebAddress = new ProcessStartInfo(fullURL);
