@@ -288,10 +288,10 @@
             // 
             // rtxtNotate
             // 
-            this.rtxtNotate.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxtNotate.Font = new System.Drawing.Font("Courier New", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtxtNotate.Location = new System.Drawing.Point(471, 12);
             this.rtxtNotate.Name = "rtxtNotate";
-            this.rtxtNotate.Size = new System.Drawing.Size(588, 505);
+            this.rtxtNotate.Size = new System.Drawing.Size(663, 505);
             this.rtxtNotate.TabIndex = 2;
             this.rtxtNotate.Text = "";
             // 

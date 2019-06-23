@@ -87,6 +87,9 @@ namespace PaymentPlanCalculator
             fullNotation = "";
             notationBottom = "";
             notationHeading = "";
+            rtxtNotate.Text.TrimEnd();
+            rtxtNotate.Select(0, DateTime.Now.ToString().Length);
+            rtxtNotate.SelectionAlignment = HorizontalAlignment.Center;
             // rtxtNotate.SaveFile($"{txtFileNumber}.rtf"); // UN-COMMENT THIS OUT FOR PRODUCTION - CREATE FILEPATH TO SHARED FOLDER
         }
 

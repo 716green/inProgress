@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(paymentPlanCalculator));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -709,7 +709,7 @@
             // 
             // rtxtNotate
             // 
-            this.rtxtNotate.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxtNotate.Font = new System.Drawing.Font("Courier New", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtxtNotate.Location = new System.Drawing.Point(11, 210);
             this.rtxtNotate.Name = "rtxtNotate";
             this.rtxtNotate.Size = new System.Drawing.Size(691, 285);
@@ -800,14 +800,14 @@
             // 
             // dataGridPPA
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridPPA.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridPPA.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridPPA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridPPA.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.pmtDate,
@@ -856,7 +856,9 @@
             // 
             this.lblBIN.AutoSize = true;
             this.lblBIN.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblBIN.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBIN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblBIN.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBIN.ForeColor = System.Drawing.SystemColors.Highlight;
             this.lblBIN.Location = new System.Drawing.Point(1139, 487);
             this.lblBIN.Name = "lblBIN";
             this.lblBIN.Size = new System.Drawing.Size(101, 21);
@@ -867,12 +869,13 @@
             // lblDebug2
             // 
             this.lblDebug2.AutoSize = true;
+            this.lblDebug2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblDebug2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDebug2.Location = new System.Drawing.Point(1139, 510);
             this.lblDebug2.Name = "lblDebug2";
-            this.lblDebug2.Size = new System.Drawing.Size(61, 21);
+            this.lblDebug2.Size = new System.Drawing.Size(164, 21);
             this.lblDebug2.TabIndex = 40;
-            this.lblDebug2.Text = "DEBUG";
+            this.lblDebug2.Text = "Card Number Format";
             // 
             // paymentPlanCalculator
             // 
@@ -972,8 +975,8 @@
         public System.Windows.Forms.ToolStripDropDownButton toolStripExport;
         public System.Windows.Forms.ToolStripMenuItem apSheetExportButton;
         public System.Windows.Forms.Button btnNotateToLog;
-        private System.Windows.Forms.Label lblBIN;
-        private System.Windows.Forms.Label lblDebug2;
+        public System.Windows.Forms.Label lblBIN;
+        public System.Windows.Forms.Label lblDebug2;
     }
 }
 
