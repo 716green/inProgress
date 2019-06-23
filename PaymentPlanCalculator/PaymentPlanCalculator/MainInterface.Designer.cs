@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(paymentPlanCalculator));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,14 +131,14 @@
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.resetToolStripMenuItem.Text = "Save";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
             // 
@@ -225,10 +225,10 @@
             "2028",
             "2029",
             "2030"});
-            this.cboxExpYear.Location = new System.Drawing.Point(93, 458);
+            this.cboxExpYear.Location = new System.Drawing.Point(93, 395);
             this.cboxExpYear.Name = "cboxExpYear";
             this.cboxExpYear.Size = new System.Drawing.Size(77, 38);
-            this.cboxExpYear.TabIndex = 8;
+            this.cboxExpYear.TabIndex = 7;
             this.cboxExpYear.Text = "YYYY";
             // 
             // cboxExpMonth
@@ -248,21 +248,21 @@
             "10",
             "11",
             "12"});
-            this.cboxExpMonth.Location = new System.Drawing.Point(9, 458);
+            this.cboxExpMonth.Location = new System.Drawing.Point(9, 395);
             this.cboxExpMonth.Name = "cboxExpMonth";
             this.cboxExpMonth.Size = new System.Drawing.Size(70, 38);
-            this.cboxExpMonth.TabIndex = 7;
+            this.cboxExpMonth.TabIndex = 6;
             this.cboxExpMonth.Text = "MM";
             // 
             // txtCVV
             // 
             this.txtCVV.AllowDrop = true;
             this.txtCVV.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold);
-            this.txtCVV.Location = new System.Drawing.Point(184, 458);
+            this.txtCVV.Location = new System.Drawing.Point(184, 395);
             this.txtCVV.MaxLength = 4;
             this.txtCVV.Name = "txtCVV";
             this.txtCVV.Size = new System.Drawing.Size(79, 36);
-            this.txtCVV.TabIndex = 9;
+            this.txtCVV.TabIndex = 8;
             this.txtCVV.Text = "CVV";
             this.txtCVV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCVV.Click += new System.EventHandler(this.TxtCVV_Click);
@@ -281,7 +281,7 @@
             // 
             this.lblCardValid.AutoSize = true;
             this.lblCardValid.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCardValid.Location = new System.Drawing.Point(109, 431);
+            this.lblCardValid.Location = new System.Drawing.Point(107, 439);
             this.lblCardValid.Name = "lblCardValid";
             this.lblCardValid.Size = new System.Drawing.Size(52, 21);
             this.lblCardValid.TabIndex = 39;
@@ -290,10 +290,10 @@
             // btnValidate
             // 
             this.btnValidate.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnValidate.Location = new System.Drawing.Point(8, 393);
+            this.btnValidate.Location = new System.Drawing.Point(6, 463);
             this.btnValidate.Name = "btnValidate";
             this.btnValidate.Size = new System.Drawing.Size(254, 31);
-            this.btnValidate.TabIndex = 6;
+            this.btnValidate.TabIndex = 9;
             this.btnValidate.Text = "VALIDATE";
             this.btnValidate.UseVisualStyleBackColor = true;
             this.btnValidate.Click += new System.EventHandler(this.Button1_Click);
@@ -800,14 +800,14 @@
             // 
             // dataGridPPA
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridPPA.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridPPA.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridPPA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridPPA.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.pmtDate,
