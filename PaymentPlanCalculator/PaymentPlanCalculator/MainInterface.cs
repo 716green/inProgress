@@ -118,6 +118,38 @@ namespace PaymentPlanCalculator
             return input;
         }
 
+        /* ************************** *
+         *    VALIDATE CREDIT CARD    *
+         * ************************** */
+        public void ValidateCreditCard()
+        {
+            string creditCardNumber = txtCreditCardNumber.Text;
+            CardType(creditCardNumber);
+            //add check for card length
+            if (Luhn(creditCardNumber))
+            {
+                lblCardValid.BackColor = Color.White;
+                lblCardValid.ForeColor = Color.Green;
+                lblCardValid.Text = "VALID!";
+            }
+            else
+            {
+                lblCardValid.BackColor = Color.White;
+                lblCardValid.ForeColor = Color.Red;
+                lblCardValid.Text = "INVALID!";
+            }
+
+            //FOR TESTING PURPOSES- clicking validate calculates payments and prints notations
+            //THESE 'CALL TO METHODS' may need to be moved
+
+            lblBIN.Text = ParseBIN(txtCreditCardNumber.Text); // BIN NUMBER
+            binNumber = lblBIN.Text;
+            lblDebug2.Text = ParseCard(txtCreditCardNumber.Text); // CARD NUMBER
+            formattedCard = lblDebug2.Text;
+
+            UpdateAll();
+        }
+
         /* **************** *
          *   CARD PARSING   *
          * **************** */
@@ -811,31 +843,8 @@ namespace PaymentPlanCalculator
          * ******************************************** */
         public void Button1_Click(object sender, EventArgs e)
         {
-            string creditCardNumber = txtCreditCardNumber.Text;
-            CardType(creditCardNumber);
-            //add check for card length
-            if (Luhn(creditCardNumber))
-            {
-                lblCardValid.BackColor = Color.White;
-                lblCardValid.ForeColor = Color.Green;
-                lblCardValid.Text = "VALID!";
-            }
-            else
-            {
-                lblCardValid.BackColor = Color.White;
-                lblCardValid.ForeColor = Color.Red;
-                lblCardValid.Text = "INVALID!";
-            }
-
-            //FOR TESTING PURPOSES- clicking validate calculates payments and prints notations
-            //THESE 'CALL TO METHODS' may need to be moved
-
-            lblBIN.Text = ParseBIN(txtCreditCardNumber.Text); // BIN NUMBER
-            binNumber = lblBIN.Text;
-            lblDebug2.Text = ParseCard(txtCreditCardNumber.Text); // CARD NUMBER
-            formattedCard = lblDebug2.Text;
-
-            UpdateAll();
+            ValidateCreditCard();
+            
         }
 
         public void PopulateDataGrid() // THESE ALL NEED THE ADDRESSES TO ADD

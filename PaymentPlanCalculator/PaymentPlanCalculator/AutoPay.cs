@@ -21,10 +21,25 @@ namespace PaymentPlanCalculator
             "Z", "\"", "\'", "?", ".", "," };
         public string RemoveNonNumeric(string input)
         {
-            // 80 invalid characters, 80 indexes in array
+            // 85 invalid characters, 85 indexes in array
             for (int i = 0; i < 85; i++) // i represents index for invalidChars
             {
                 input = input.Replace(invalidChars[i], "");
+            }
+            return input;
+        }
+
+        // Create array to test for letters in numeric spot
+        public readonly string[] invalidNums = { "`", "!", "#", "$", "%", "&", "*", "/", ":", ";", "@", "[", "\\", "]", "^", "_", "{",
+            "|", "}", "~", "+", "<", "=", ">", "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G", "h", "H", "i", "I", "j", "J", "k", "K",
+            "l", "L", "m", "M", "n", "N", "o", "O", "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U", "v", "V", "w", "W", "x", "X", "y", "Y", "z",
+            "Z", "\"", "\'", "?", ".", "," };
+        public string RemoveNonPhones(string input)
+        {
+            // 85 invalid characters, 81 indexes in array
+            for (int i = 0; i < 81; i++) // i represents index for invalidChars
+            {
+                input = input.Replace(invalidNums[i], "");
             }
             return input;
         }
@@ -36,6 +51,8 @@ namespace PaymentPlanCalculator
         string notationBottom;
         bool saveButtonHasBeenPressed = false;
         string fullNotation;
+        string formattedPhoneNumber;
+        bool phoneHasBeenFormatted = false;
         public AutoPay()
         {
             InitializeComponent();
@@ -46,6 +63,7 @@ namespace PaymentPlanCalculator
             originalNotation = rtxtNotate.Text;
         }
 
+        #region Update Notations
         public void HeaderInformation(string dateAndTime, string fileNumber, string nameOnCard, string callerName, string closerName,  string billingAddress, string cityStateZip,
             string phoneNumber, string emailAddress)
         {
@@ -108,7 +126,7 @@ namespace PaymentPlanCalculator
             rtxtNotate.SelectionAlignment = HorizontalAlignment.Center;
             // rtxtNotate.SaveFile($"{txtFileNumber}.rtf"); // UN-COMMENT THIS OUT FOR PRODUCTION - CREATE FILEPATH TO SHARED FOLDER
         }
-
+        #endregion
         public void TestFieldsForValues()
         {
             if (txtBillingAddress.Text != "" && txtCallerName.Text != "" && txtCity.Text != "" && txtCloserName.Text != "" && txtEmail.Text != "" && 
@@ -123,6 +141,7 @@ namespace PaymentPlanCalculator
             }
         }
 
+        #region // test textboxes for values
         public void TxtFileNumber_TextChanged(object sender, EventArgs e)
         {
             TestFieldsForValues();
@@ -153,40 +172,6 @@ namespace PaymentPlanCalculator
             TestFieldsForValues();
         }
 
-        public void TxtPhone_TextChanged_1(object sender, EventArgs e) // When value is changed
-        {
-            if (txtPhone.Text.Length == 10)
-            {
-                string phoneAtTen = txtPhone.Text;
-                txtPhone.Text.Replace(txtPhone.Text, phoneAtTen);
-            }
-            else
-            {
-                RemoveNonNumeric(txtPhone.Text); // Remove Non-Numeric Characters using RemoveNonNumeric() Method
-                // Prevents first character being entered from being blank spaces 0s or 1s
-                txtPhone.Text = txtPhone.Text.TrimStart('0', '1', ' ', '+');
-                // Uses method to prevent non-numeric
-                //txtPhone.Text = RemoveNonNumeric(txtPhone.Text); // Causes problem
-                // Move cursor to far right 
-                txtPhone.Select(txtPhone.Text.Length, 0);
-            }
-
-            TestFieldsForValues();
-        }
-
-        public void TxtPhone_Leave(object sender, EventArgs e) // Add more if else statements?
-        {
-            if (txtPhone.Text.Length == 10)
-            {
-                FormatPhone();
-            }
-            else
-            {
-                txtPhone.Text = RemoveNonNumeric(txtPhone.Text);
-                FormatPhone();
-            }
-        }
-
         public void TxtEmail_TextChanged(object sender, EventArgs e)
         {
             TestFieldsForValues();
@@ -201,19 +186,96 @@ namespace PaymentPlanCalculator
         {
             TestFieldsForValues();
         }
+        #endregion
 
         public void TxtPhone_MouseClick(object sender, MouseEventArgs e)
         {
-            if (txtPhone.Text.Length == 14) //(555) 555-5555
+            if (txtPhone.Text.Length > 0) // If there is text in this box and you click, highlight full string
             {
                 txtPhone.SelectAll();
             }
         }
 
-        public void FormatPhone()
+        public void TxtPhone_TextChanged_1(object sender, EventArgs e) // When value is changed
+        {
+            {
+                /*
+                if (txtPhone.Text.Length == 10)
+                {
+                    string phoneAtTen = txtPhone.Text;
+                    txtPhone.Text.Replace(txtPhone.Text, phoneAtTen);
+                }
+                else
+                {
+                    RemoveNonNumeric(txtPhone.Text); // Remove Non-Numeric Characters using RemoveNonNumeric() Method
+                    // Prevents first character being entered from being blank spaces 0s or 1s
+                    txtPhone.Text = txtPhone.Text.TrimStart('0', '1', ' ', '+');
+                    // Uses method to prevent non-numeric
+                    //txtPhone.Text = RemoveNonNumeric(txtPhone.Text); // Causes problem
+                    // Move cursor to far right 
+                    txtPhone.Select(txtPhone.Text.Length, 0);
+                }
+                */
+            }// Old Solution
+            RemoveNonNumeric(txtPhone.Text);
+            txtPhone.Text = RemoveNonPhones(txtPhone.Text);
+
+            if (txtPhone.Text.Length > 10) // Just added, if over 10 chars, highlught all
+            {
+                // Calculates length to locate starting point and how much to highlight, Phone Input
+                txtPhone.Select(0, txtPhone.Text.Length);
+            }
+            
+
+            /* TEST for dupe parenthesis
+            if (txtPhone.Text == @"^*(.*")
+            {
+
+            }
+            */
+
+            TestFieldsForValues();
+        }
+
+        public void TxtPhone_Leave(object sender, EventArgs e) // Add more if else statements?
+        {
+            {/*
+                if (txtPhone.Text.Length == 10)
+                {
+                    FormatPhone();
+                }
+                else
+                {
+                    txtPhone.Text = RemoveNonNumeric(txtPhone.Text);
+                    FormatPhone();
+                }*/
+            }// Old Solution
+            if (txtPhone.Text.Length > 9 && phoneHasBeenFormatted == false)
+            {
+                txtPhone.Text = FormatPhone(txtPhone.Text);
+                formattedPhoneNumber = txtPhone.Text;
+                phoneHasBeenFormatted = true;
+            }
+            else if (txtPhone.Text == formattedPhoneNumber && phoneHasBeenFormatted == true)
+            {
+                // Do nothing
+            }
+            else if (txtPhone.Text.Length > 9 && phoneHasBeenFormatted == true && txtPhone.Text != formattedPhoneNumber)
+            {
+                txtPhone.Text = FormatPhone(txtPhone.Text);
+                formattedPhoneNumber = txtPhone.Text;
+            }
+            else
+            {
+                // Maybe a message where 'Phone can't be blank'
+            }
+            
+        }
+
+        public string FormatPhone(string phoneNumber)
         {
             string unformattedPhone;
-            string phoneNumber;
+            //string phoneNumber;
             string areaCode;
             string secondThree;
             string lastFour;
@@ -222,7 +284,8 @@ namespace PaymentPlanCalculator
             secondThree = unformattedPhone.Substring(3, 3);
             lastFour = unformattedPhone.Substring(6, 4);
             phoneNumber = "(" + areaCode + ") " + secondThree + "-" + lastFour;
-            txtPhone.Text = phoneNumber;
+            //txtPhone.Text = phoneNumber;
+            return phoneNumber;
         }
     }
 }
