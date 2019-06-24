@@ -159,7 +159,9 @@
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(286, 29);
             this.txtPhone.TabIndex = 17;
+            this.txtPhone.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TxtPhone_MouseClick);
             this.txtPhone.TextChanged += new System.EventHandler(this.TxtPhone_TextChanged_1);
+            this.txtPhone.Leave += new System.EventHandler(this.TxtPhone_Leave);
             // 
             // label4
             // 

@@ -13,6 +13,22 @@ namespace PaymentPlanCalculator
 {
     public partial class AutoPay : Form
     {
+
+        // Create array to test for invalid characters (invalidChars)
+        public readonly string[] invalidChars = { " ", "`", "-", "!", "#", "$", "%", "&", "(", ")", "*", "/", ":", ";", "@", "[", "\\", "]", "^", "_", "{",
+            "|", "}", "~", "+", "<", "=", ">", "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G", "h", "H", "i", "I", "j", "J", "k", "K",
+            "l", "L", "m", "M", "n", "N", "o", "O", "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U", "v", "V", "w", "W", "x", "X", "y", "Y", "z",
+            "Z", "\"", "\'", "?", ".", "," };
+        public string RemoveNonNumeric(string input)
+        {
+            // 80 invalid characters, 80 indexes in array
+            for (int i = 0; i < 85; i++) // i represents index for invalidChars
+            {
+                input = input.Replace(invalidChars[i], "");
+            }
+            return input;
+        }
+
         public string[] headerArray; // Declare headerArray
         string originalNotation;
         string entireNotation;
@@ -137,9 +153,38 @@ namespace PaymentPlanCalculator
             TestFieldsForValues();
         }
 
-        public void TxtPhone_TextChanged_1(object sender, EventArgs e)
+        public void TxtPhone_TextChanged_1(object sender, EventArgs e) // When value is changed
         {
+            if (txtPhone.Text.Length == 10)
+            {
+                string phoneAtTen = txtPhone.Text;
+                txtPhone.Text.Replace(txtPhone.Text, phoneAtTen);
+            }
+            else
+            {
+                RemoveNonNumeric(txtPhone.Text); // Remove Non-Numeric Characters using RemoveNonNumeric() Method
+                // Prevents first character being entered from being blank spaces 0s or 1s
+                txtPhone.Text = txtPhone.Text.TrimStart('0', '1', ' ', '+');
+                // Uses method to prevent non-numeric
+                //txtPhone.Text = RemoveNonNumeric(txtPhone.Text); // Causes problem
+                // Move cursor to far right 
+                txtPhone.Select(txtPhone.Text.Length, 0);
+            }
+
             TestFieldsForValues();
+        }
+
+        public void TxtPhone_Leave(object sender, EventArgs e) // Add more if else statements?
+        {
+            if (txtPhone.Text.Length == 10)
+            {
+                FormatPhone();
+            }
+            else
+            {
+                txtPhone.Text = RemoveNonNumeric(txtPhone.Text);
+                FormatPhone();
+            }
         }
 
         public void TxtEmail_TextChanged(object sender, EventArgs e)
@@ -155,6 +200,29 @@ namespace PaymentPlanCalculator
         public void TxtCloserName_TextChanged(object sender, EventArgs e)
         {
             TestFieldsForValues();
+        }
+
+        public void TxtPhone_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (txtPhone.Text.Length == 14) //(555) 555-5555
+            {
+                txtPhone.SelectAll();
+            }
+        }
+
+        public void FormatPhone()
+        {
+            string unformattedPhone;
+            string phoneNumber;
+            string areaCode;
+            string secondThree;
+            string lastFour;
+            unformattedPhone = txtPhone.Text;
+            areaCode = unformattedPhone.Substring(0, 3);
+            secondThree = unformattedPhone.Substring(3, 3);
+            lastFour = unformattedPhone.Substring(6, 4);
+            phoneNumber = "(" + areaCode + ") " + secondThree + "-" + lastFour;
+            txtPhone.Text = phoneNumber;
         }
     }
 }
