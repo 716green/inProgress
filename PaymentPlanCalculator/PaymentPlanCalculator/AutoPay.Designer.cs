@@ -52,6 +52,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.rtxtNotate = new System.Windows.Forms.RichTextBox();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.pnlAutoPay.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,6 +60,7 @@
             // 
             this.pnlAutoPay.BackColor = System.Drawing.SystemColors.ControlDark;
             this.pnlAutoPay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pnlAutoPay.Controls.Add(this.btnPrint);
             this.pnlAutoPay.Controls.Add(this.btnSave);
             this.pnlAutoPay.Controls.Add(this.txtCloserName);
             this.pnlAutoPay.Controls.Add(this.txtFileNumber);
@@ -297,6 +299,15 @@
             this.rtxtNotate.TabIndex = 2;
             this.rtxtNotate.Text = "";
             // 
+            // btnPrint
+            // 
+            this.btnPrint.Location = new System.Drawing.Point(16, 363);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(419, 48);
+            this.btnPrint.TabIndex = 22;
+            this.btnPrint.Text = "PRINT";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            // 
             // AutoPay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -339,5 +350,6 @@
         public System.Windows.Forms.TextBox txtCloserName;
         private System.Windows.Forms.Button btnSave;
         public System.Windows.Forms.RichTextBox rtxtNotate;
+        private System.Windows.Forms.Button btnPrint;
     }
 }
