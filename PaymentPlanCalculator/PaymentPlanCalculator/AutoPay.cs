@@ -149,41 +149,63 @@ namespace PaymentPlanCalculator
 
         public void TxtNameOnCard_TextChanged(object sender, EventArgs e)
         {
+            // Name on Card
+            txtNameOnCard.Text = txtNameOnCard.Text.ToUpper(); // Convert name to uppercase as you type
+            txtNameOnCard.Select(txtNameOnCard.Text.Length, 0); // Move I Beam to far right as you type
             TestFieldsForValues();
         }
 
         public void TxtBillingAddress_TextChanged(object sender, EventArgs e)
         {
+            // Address
+            txtBillingAddress.Text = txtBillingAddress.Text.ToUpper(); // Convert to uppercase as you type
+            txtBillingAddress.Select(txtBillingAddress.Text.Length, 0); // Move I Beam to far right as you type
             TestFieldsForValues();
         }
 
         public void TxtCity_TextChanged(object sender, EventArgs e)
         {
+            // City
+            txtCity.Text = txtCity.Text.ToUpper(); // Convert to uppercase as you type
+            txtCity.Select(txtCity.Text.Length, 0); // Move I Beam to far right as you type
             TestFieldsForValues();
         }
 
         public void TxtState_TextChanged(object sender, EventArgs e)
         {
+            // State
+            txtState.Text = txtState.Text.ToUpper(); // Convert to uppercase as you type
+            txtState.Select(txtState.Text.Length, 0); // Move I Beam to far right as you type
             TestFieldsForValues();
         }
 
         public void TxtZip_TextChanged(object sender, EventArgs e)
         {
+            // Zip
             TestFieldsForValues();
         }
 
         public void TxtEmail_TextChanged(object sender, EventArgs e)
         {
+            // Email
+            txtEmail.Text = txtEmail.Text.ToUpper(); // Convert to uppercase as you type
+            txtEmail.Select(txtEmail.Text.Length, 0); // Move I Beam to far right as you type
             TestFieldsForValues();
         }
 
         public void TxtCallerName_TextChanged(object sender, EventArgs e)
         {
+            // Caller
+            txtCallerName.Text = txtCallerName.Text.ToUpper(); // Convert to uppercase as you type
+            txtCallerName.Select(txtCallerName.Text.Length, 0); // Move I Beam to far right as you type
             TestFieldsForValues();
         }
 
         public void TxtCloserName_TextChanged(object sender, EventArgs e)
         {
+            // Closer
+            txtCloserName.Text = txtCloserName.Text.ToUpper(); // Convert to uppercase as you type
+            txtCloserName.Select(txtCloserName.Text.Length, 0); // Move I Beam to far right as you type
             TestFieldsForValues();
         }
         #endregion
@@ -198,27 +220,10 @@ namespace PaymentPlanCalculator
 
         public void TxtPhone_TextChanged_1(object sender, EventArgs e) // When value is changed
         {
-            {
-                /*
-                if (txtPhone.Text.Length == 10)
-                {
-                    string phoneAtTen = txtPhone.Text;
-                    txtPhone.Text.Replace(txtPhone.Text, phoneAtTen);
-                }
-                else
-                {
-                    RemoveNonNumeric(txtPhone.Text); // Remove Non-Numeric Characters using RemoveNonNumeric() Method
-                    // Prevents first character being entered from being blank spaces 0s or 1s
-                    txtPhone.Text = txtPhone.Text.TrimStart('0', '1', ' ', '+');
-                    // Uses method to prevent non-numeric
-                    //txtPhone.Text = RemoveNonNumeric(txtPhone.Text); // Causes problem
-                    // Move cursor to far right 
-                    txtPhone.Select(txtPhone.Text.Length, 0);
-                }
-                */
-            }// Old Solution
             RemoveNonNumeric(txtPhone.Text);
             txtPhone.Text = RemoveNonPhones(txtPhone.Text);
+            // Move cursor to end (REMOVE THIS LINE IF ERRORS)
+            txtPhone.Select(txtPhone.Text.Length, 0);
 
             if (txtPhone.Text.Length > 10) // Just added, if over 10 chars, highlught all
             {
@@ -227,29 +232,11 @@ namespace PaymentPlanCalculator
             }
             
 
-            /* TEST for dupe parenthesis
-            if (txtPhone.Text == @"^*(.*")
-            {
-
-            }
-            */
-
             TestFieldsForValues();
         }
 
-        public void TxtPhone_Leave(object sender, EventArgs e) // Add more if else statements?
+        public void TxtPhone_Leave(object sender, EventArgs e) 
         {
-            {/*
-                if (txtPhone.Text.Length == 10)
-                {
-                    FormatPhone();
-                }
-                else
-                {
-                    txtPhone.Text = RemoveNonNumeric(txtPhone.Text);
-                    FormatPhone();
-                }*/
-            }// Old Solution
             if (txtPhone.Text.Length > 9 && phoneHasBeenFormatted == false)
             {
                 txtPhone.Text = FormatPhone(txtPhone.Text);
@@ -265,11 +252,15 @@ namespace PaymentPlanCalculator
                 txtPhone.Text = FormatPhone(txtPhone.Text);
                 formattedPhoneNumber = txtPhone.Text;
             }
+            else if (txtPhone.Text.Length == 0)
+            {
+                MessageBox.Show("Phone Number can not be blank");
+            }
             else
             {
-                // Maybe a message where 'Phone can't be blank'
+                // Add more if else statements for additional contingencies
             }
-            
+
         }
 
         public string FormatPhone(string phoneNumber)
