@@ -307,6 +307,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AutoPay";
             this.Text = "AutoPay";
+            this.Load += new System.EventHandler(this.AutoPay_Load);
             this.pnlAutoPay.ResumeLayout(false);
             this.pnlAutoPay.PerformLayout();
             this.ResumeLayout(false);

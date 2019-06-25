@@ -235,19 +235,31 @@ namespace PaymentPlanCalculator
             TestFieldsForValues();
         }
 
-        public void TxtPhone_Leave(object sender, EventArgs e) 
+        public void TxtPhone_Leave(object sender, EventArgs e) // Test out numbers that start with "+1"
+            /*
+            716-983-2079
+            (716) 983-2079
+            716) 983-2079
+            +17169832079
+            */
         {
-            if (txtPhone.Text.Length > 9 && phoneHasBeenFormatted == false)
+            if (txtPhone.Text.Length == 10 && phoneHasBeenFormatted == false)
             {
                 txtPhone.Text = FormatPhone(txtPhone.Text);
                 formattedPhoneNumber = txtPhone.Text;
+                phoneHasBeenFormatted = true;
+            }
+            else if (txtPhone.Text.StartsWith("(") || txtPhone.Text.StartsWith(" (") || txtPhone.Text.Contains(")") || txtPhone.Text.StartsWith("+"))
+            {
+                RemoveNonNumeric(txtPhone.Text);
+                FormatPhone(txtPhone.Text);
                 phoneHasBeenFormatted = true;
             }
             else if (txtPhone.Text == formattedPhoneNumber && phoneHasBeenFormatted == true)
             {
                 // Do nothing
             }
-            else if (txtPhone.Text.Length > 9 && phoneHasBeenFormatted == true && txtPhone.Text != formattedPhoneNumber)
+            else if (txtPhone.Text.Length > 9 && phoneHasBeenFormatted == true && txtPhone.Text != formattedPhoneNumber && !txtPhone.Text.Contains(")"))
             {
                 txtPhone.Text = FormatPhone(txtPhone.Text);
                 formattedPhoneNumber = txtPhone.Text;
@@ -255,6 +267,12 @@ namespace PaymentPlanCalculator
             else if (txtPhone.Text.Length == 0)
             {
                 MessageBox.Show("Phone Number can not be blank");
+            }
+            else if (txtPhone.Text.StartsWith(" ") && !txtPhone.Text.Contains("("))
+            {
+                RemoveNonPhones(txtPhone.Text);
+                FormatPhone(txtPhone.Text);
+                phoneHasBeenFormatted = true;
             }
             else
             {
@@ -277,6 +295,11 @@ namespace PaymentPlanCalculator
             phoneNumber = "(" + areaCode + ") " + secondThree + "-" + lastFour;
             //txtPhone.Text = phoneNumber;
             return phoneNumber;
+        }
+
+        public void AutoPay_Load(object sender, EventArgs e)
+        {
+            // When form loads
         }
     }
 }
