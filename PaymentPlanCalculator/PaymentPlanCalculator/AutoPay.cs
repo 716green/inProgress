@@ -101,8 +101,12 @@ namespace PaymentPlanCalculator
             {
                 rtxtNotate.Clear();
                 rtxtNotate.LoadFile("notation.rtf"); // Load Rich Text File
+                
             }
-            
+            else if (btnSave.Enabled == true)
+            {
+                btnPrint.Enabled = true;
+            }
 
             HeaderInformation(headerArray[0], headerArray[1], headerArray[2], headerArray[3],
                 headerArray[4], headerArray[5], headerArray[6], headerArray[7], headerArray[8]);

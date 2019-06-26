@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoPay));
             this.pnlAutoPay = new System.Windows.Forms.Panel();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.txtCloserName = new System.Windows.Forms.TextBox();
             this.txtFileNumber = new System.Windows.Forms.TextBox();
@@ -52,7 +53,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.rtxtNotate = new System.Windows.Forms.RichTextBox();
-            this.btnPrint = new System.Windows.Forms.Button();
             this.pnlAutoPay.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,6 +87,16 @@
             this.pnlAutoPay.Name = "pnlAutoPay";
             this.pnlAutoPay.Size = new System.Drawing.Size(444, 505);
             this.pnlAutoPay.TabIndex = 0;
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Enabled = false;
+            this.btnPrint.Location = new System.Drawing.Point(16, 363);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(419, 48);
+            this.btnPrint.TabIndex = 22;
+            this.btnPrint.Text = "PRINT";
+            this.btnPrint.UseVisualStyleBackColor = true;
             // 
             // btnSave
             // 
@@ -298,15 +308,6 @@
             this.rtxtNotate.Size = new System.Drawing.Size(663, 505);
             this.rtxtNotate.TabIndex = 2;
             this.rtxtNotate.Text = "";
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.Location = new System.Drawing.Point(16, 363);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(419, 48);
-            this.btnPrint.TabIndex = 22;
-            this.btnPrint.Text = "PRINT";
-            this.btnPrint.UseVisualStyleBackColor = true;
             // 
             // AutoPay
             // 
