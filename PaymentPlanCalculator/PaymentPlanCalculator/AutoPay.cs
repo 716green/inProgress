@@ -312,10 +312,11 @@ namespace PaymentPlanCalculator
             // When form loads
         }
 
-        public void BtnPrint_Click(object sender, EventArgs e) //runs when previewing
+        public void BtnPrint_Click(object sender, EventArgs e) // 'Print' functionality adds RTF AP sheet to desktiop
         {
             apSheetName = (txtFileNumber.Text + ".rtf");
-            rtxtNotate.SaveFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), apSheetName));            
+            rtxtNotate.SaveFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), apSheetName));
+            MessageBox.Show($"AP Sheet for:\nFile: {apSheetName}\nSaved on Desktop\nPlease send to admin");
         }
     }
 }
