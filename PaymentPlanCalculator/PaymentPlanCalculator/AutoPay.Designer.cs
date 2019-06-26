@@ -97,6 +97,7 @@
             this.btnPrint.TabIndex = 22;
             this.btnPrint.Text = "PRINT";
             this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.BtnPrint_Click);
             // 
             // btnSave
             // 

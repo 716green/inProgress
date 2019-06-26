@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Drawing.Printing;
+using System.IO;
 
 namespace PaymentPlanCalculator
 
@@ -53,6 +57,8 @@ namespace PaymentPlanCalculator
         string fullNotation;
         string formattedPhoneNumber;
         bool phoneHasBeenFormatted = false;
+        string apSheetName;
+        string filePath;
         public AutoPay()
         {
             InitializeComponent();
@@ -304,6 +310,12 @@ namespace PaymentPlanCalculator
         public void AutoPay_Load(object sender, EventArgs e)
         {
             // When form loads
+        }
+
+        public void BtnPrint_Click(object sender, EventArgs e) //runs when previewing
+        {
+            apSheetName = (txtFileNumber.Text + ".rtf");
+            rtxtNotate.SaveFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), apSheetName));            
         }
     }
 }
