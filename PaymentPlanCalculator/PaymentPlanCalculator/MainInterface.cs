@@ -1328,21 +1328,85 @@ namespace PaymentPlanCalculator
         public void LblOneHundo_Click(object sender, EventArgs e)
         {
             slideSIFpercentage.Value = 100;
+            slideSIFpercentage.Select();
+            UpdateAll();
         }
-        // 75% (NO SIF)
+        // 95% SIF
+        public void LblNinetyFive_Click(object sender, EventArgs e)
+        {
+            slideSIFpercentage.Value = 95;
+            slideSIFpercentage.Select();
+            UpdateAll();
+        }
+        // 90% SIF
+        public void LblNinety_Click(object sender, EventArgs e)
+        {
+            slideSIFpercentage.Value = 90;
+            slideSIFpercentage.Select();
+            UpdateAll();
+        }
+        // 85% SIF
+        public void LblEightyFive_Click(object sender, EventArgs e)
+        {
+            slideSIFpercentage.Value = 85;
+            slideSIFpercentage.Select();
+            UpdateAll();
+        }
+        // 80% SIF
+        public void LblEighty_Click(object sender, EventArgs e)
+        {
+            slideSIFpercentage.Value = 80;
+            slideSIFpercentage.Select();
+            UpdateAll();
+        }
+        // 75% SIF
         public void Label3_Click(object sender, EventArgs e)
         {
             slideSIFpercentage.Value = 75;
+            slideSIFpercentage.Select();
+            UpdateAll();
+        }
+        // 70% SIF
+        public void LblSeventy_Click(object sender, EventArgs e)
+        {
+            slideSIFpercentage.Value = 70;
+            slideSIFpercentage.Select();
+            UpdateAll();
+        }
+        // 65% SIF
+        public void LblSixtyFive_Click(object sender, EventArgs e)
+        {
+            slideSIFpercentage.Value = 65;
+            slideSIFpercentage.Select();
+            UpdateAll();
+        }
+        // 60% SIF
+        public void LblSixty_Click(object sender, EventArgs e)
+        {
+            slideSIFpercentage.Value = 60;
+            slideSIFpercentage.Select();
+            UpdateAll();
+        }
+        // 55% SIF
+        public void LblFiftyFive_Click(object sender, EventArgs e)
+        {
+            slideSIFpercentage.Value = 55;
+            slideSIFpercentage.Select();
+            UpdateAll();
         }
         // 50% (NO SIF)
         public void LblFifty_Click(object sender, EventArgs e)
         {
             slideSIFpercentage.Value = 50;
+            slideSIFpercentage.Select();
+            UpdateAll();
         }
         // 25% (NO SIF)
         public void LblTwentyFive_Click(object sender, EventArgs e)
         {
             slideSIFpercentage.Value = 25;
+            slideSIFpercentage.Select();
+            UpdateAll();
         }
         #endregion
 
@@ -1433,5 +1497,9 @@ namespace PaymentPlanCalculator
             saveButton(); //currently pops up message box and has debug functionality commented out
             //UpdateAll();
         }
+
+
+
+
     }
 }

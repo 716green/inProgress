@@ -93,6 +93,14 @@
             this.btnNotateToLog = new System.Windows.Forms.Button();
             this.lblBIN = new System.Windows.Forms.Label();
             this.lblDebug2 = new System.Windows.Forms.Label();
+            this.lblNinety = new System.Windows.Forms.Label();
+            this.lblEightyFive = new System.Windows.Forms.Label();
+            this.lblEighty = new System.Windows.Forms.Label();
+            this.lblNinetyFive = new System.Windows.Forms.Label();
+            this.lblSeventy = new System.Windows.Forms.Label();
+            this.lblFiftyFive = new System.Windows.Forms.Label();
+            this.lblSixty = new System.Windows.Forms.Label();
+            this.lblSixtyFive = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
@@ -168,6 +176,14 @@
             // pnlDataEntry
             // 
             this.pnlDataEntry.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnlDataEntry.Controls.Add(this.lblSeventy);
+            this.pnlDataEntry.Controls.Add(this.lblFiftyFive);
+            this.pnlDataEntry.Controls.Add(this.lblSixty);
+            this.pnlDataEntry.Controls.Add(this.lblSixtyFive);
+            this.pnlDataEntry.Controls.Add(this.lblNinetyFive);
+            this.pnlDataEntry.Controls.Add(this.lblEighty);
+            this.pnlDataEntry.Controls.Add(this.lblEightyFive);
+            this.pnlDataEntry.Controls.Add(this.lblNinety);
             this.pnlDataEntry.Controls.Add(this.cboxExpYear);
             this.pnlDataEntry.Controls.Add(this.cboxExpMonth);
             this.pnlDataEntry.Controls.Add(this.txtCVV);
@@ -440,8 +456,8 @@
             this.lblSeventyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSeventyFive.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblSeventyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeventyFive.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.lblSeventyFive.Location = new System.Drawing.Point(311, 143);
+            this.lblSeventyFive.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lblSeventyFive.Location = new System.Drawing.Point(311, 139);
             this.lblSeventyFive.Name = "lblSeventyFive";
             this.lblSeventyFive.Size = new System.Drawing.Size(43, 23);
             this.lblSeventyFive.TabIndex = 23;
@@ -469,7 +485,7 @@
             this.lblFifty.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblFifty.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFifty.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.lblFifty.Location = new System.Drawing.Point(311, 255);
+            this.lblFifty.Location = new System.Drawing.Point(311, 254);
             this.lblFifty.Name = "lblFifty";
             this.lblFifty.Size = new System.Drawing.Size(43, 23);
             this.lblFifty.TabIndex = 21;
@@ -484,7 +500,7 @@
             this.lblOneHundo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblOneHundo.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOneHundo.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.lblOneHundo.Location = new System.Drawing.Point(305, 31);
+            this.lblOneHundo.Location = new System.Drawing.Point(305, 24);
             this.lblOneHundo.Name = "lblOneHundo";
             this.lblOneHundo.Size = new System.Drawing.Size(49, 23);
             this.lblOneHundo.TabIndex = 20;
@@ -877,6 +893,126 @@
             this.lblDebug2.TabIndex = 40;
             this.lblDebug2.Text = "Card Number Format";
             // 
+            // lblNinety
+            // 
+            this.lblNinety.AutoSize = true;
+            this.lblNinety.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblNinety.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblNinety.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblNinety.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNinety.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblNinety.Location = new System.Drawing.Point(311, 70);
+            this.lblNinety.Name = "lblNinety";
+            this.lblNinety.Size = new System.Drawing.Size(43, 23);
+            this.lblNinety.TabIndex = 42;
+            this.lblNinety.Text = "90%";
+            this.lblNinety.Click += new System.EventHandler(this.LblNinety_Click);
+            // 
+            // lblEightyFive
+            // 
+            this.lblEightyFive.AutoSize = true;
+            this.lblEightyFive.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblEightyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblEightyFive.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblEightyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEightyFive.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lblEightyFive.Location = new System.Drawing.Point(311, 93);
+            this.lblEightyFive.Name = "lblEightyFive";
+            this.lblEightyFive.Size = new System.Drawing.Size(43, 23);
+            this.lblEightyFive.TabIndex = 43;
+            this.lblEightyFive.Text = "85%";
+            this.lblEightyFive.Click += new System.EventHandler(this.LblEightyFive_Click);
+            // 
+            // lblEighty
+            // 
+            this.lblEighty.AutoSize = true;
+            this.lblEighty.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblEighty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblEighty.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblEighty.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEighty.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblEighty.Location = new System.Drawing.Point(311, 116);
+            this.lblEighty.Name = "lblEighty";
+            this.lblEighty.Size = new System.Drawing.Size(43, 23);
+            this.lblEighty.TabIndex = 44;
+            this.lblEighty.Text = "80%";
+            this.lblEighty.Click += new System.EventHandler(this.LblEighty_Click);
+            // 
+            // lblNinetyFive
+            // 
+            this.lblNinetyFive.AutoSize = true;
+            this.lblNinetyFive.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblNinetyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblNinetyFive.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblNinetyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNinetyFive.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lblNinetyFive.Location = new System.Drawing.Point(311, 47);
+            this.lblNinetyFive.Name = "lblNinetyFive";
+            this.lblNinetyFive.Size = new System.Drawing.Size(43, 23);
+            this.lblNinetyFive.TabIndex = 45;
+            this.lblNinetyFive.Text = "95%";
+            this.lblNinetyFive.Click += new System.EventHandler(this.LblNinetyFive_Click);
+            // 
+            // lblSeventy
+            // 
+            this.lblSeventy.AutoSize = true;
+            this.lblSeventy.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblSeventy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSeventy.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSeventy.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeventy.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblSeventy.Location = new System.Drawing.Point(311, 162);
+            this.lblSeventy.Name = "lblSeventy";
+            this.lblSeventy.Size = new System.Drawing.Size(43, 23);
+            this.lblSeventy.TabIndex = 49;
+            this.lblSeventy.Text = "70%";
+            this.lblSeventy.Click += new System.EventHandler(this.LblSeventy_Click);
+            // 
+            // lblFiftyFive
+            // 
+            this.lblFiftyFive.AutoSize = true;
+            this.lblFiftyFive.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblFiftyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblFiftyFive.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblFiftyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFiftyFive.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lblFiftyFive.Location = new System.Drawing.Point(311, 231);
+            this.lblFiftyFive.Name = "lblFiftyFive";
+            this.lblFiftyFive.Size = new System.Drawing.Size(43, 23);
+            this.lblFiftyFive.TabIndex = 48;
+            this.lblFiftyFive.Text = "55%";
+            this.lblFiftyFive.Click += new System.EventHandler(this.LblFiftyFive_Click);
+            // 
+            // lblSixty
+            // 
+            this.lblSixty.AutoSize = true;
+            this.lblSixty.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblSixty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSixty.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSixty.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSixty.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblSixty.Location = new System.Drawing.Point(311, 208);
+            this.lblSixty.Name = "lblSixty";
+            this.lblSixty.Size = new System.Drawing.Size(43, 23);
+            this.lblSixty.TabIndex = 47;
+            this.lblSixty.Text = "60%";
+            this.lblSixty.Click += new System.EventHandler(this.LblSixty_Click);
+            // 
+            // lblSixtyFive
+            // 
+            this.lblSixtyFive.AutoSize = true;
+            this.lblSixtyFive.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblSixtyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSixtyFive.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSixtyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSixtyFive.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lblSixtyFive.Location = new System.Drawing.Point(311, 185);
+            this.lblSixtyFive.Name = "lblSixtyFive";
+            this.lblSixtyFive.Size = new System.Drawing.Size(43, 23);
+            this.lblSixtyFive.TabIndex = 46;
+            this.lblSixtyFive.Text = "65%";
+            this.lblSixtyFive.Click += new System.EventHandler(this.LblSixtyFive_Click);
+            // 
             // paymentPlanCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -977,6 +1113,14 @@
         public System.Windows.Forms.Button btnNotateToLog;
         public System.Windows.Forms.Label lblBIN;
         public System.Windows.Forms.Label lblDebug2;
+        public System.Windows.Forms.Label lblSeventy;
+        public System.Windows.Forms.Label lblFiftyFive;
+        public System.Windows.Forms.Label lblSixty;
+        public System.Windows.Forms.Label lblSixtyFive;
+        public System.Windows.Forms.Label lblNinetyFive;
+        public System.Windows.Forms.Label lblEighty;
+        public System.Windows.Forms.Label lblEightyFive;
+        public System.Windows.Forms.Label lblNinety;
     }
 }
 
