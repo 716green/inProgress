@@ -29,10 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(paymentPlanCalculator));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripExport = new System.Windows.Forms.ToolStripDropDownButton();
+            this.apSheetExportButton = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlDataEntry = new System.Windows.Forms.Panel();
             this.cboxExpYear = new System.Windows.Forms.ComboBox();
             this.cboxExpMonth = new System.Windows.Forms.ComboBox();
@@ -50,10 +54,10 @@
             this.lblDollarSign = new System.Windows.Forms.Label();
             this.txtDownPayment = new System.Windows.Forms.TextBox();
             this.txtBalanceInput = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblTwentyFive = new System.Windows.Forms.Label();
+            this.lblSeventyFive = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblFifty = new System.Windows.Forms.Label();
             this.lblOneHundo = new System.Windows.Forms.Label();
             this.chkSettlement = new System.Windows.Forms.CheckBox();
             this.chkPPA = new System.Windows.Forms.CheckBox();
@@ -76,23 +80,47 @@
             this.lblTtlPay = new System.Windows.Forms.Label();
             this.lblTotalPaymentCount = new System.Windows.Forms.Label();
             this.rtxtNotate = new System.Windows.Forms.RichTextBox();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.monthCalendarDP = new System.Windows.Forms.MonthCalendar();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblInstallmentLabel = new System.Windows.Forms.Label();
+            this.monthCalendarInstallmentStart = new System.Windows.Forms.MonthCalendar();
+            this.label_downPaymentDate = new System.Windows.Forms.Label();
+            this.btnCalculate = new System.Windows.Forms.Button();
+            this.dataGridPPA = new System.Windows.Forms.DataGridView();
+            this.pmtDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pmtAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pnlPaymentPlan = new System.Windows.Forms.Panel();
+            this.btnNotateToLog = new System.Windows.Forms.Button();
+            this.lblBIN = new System.Windows.Forms.Label();
+            this.lblDebug2 = new System.Windows.Forms.Label();
+            this.lblNinety = new System.Windows.Forms.Label();
+            this.lblEightyFive = new System.Windows.Forms.Label();
+            this.lblEighty = new System.Windows.Forms.Label();
+            this.lblNinetyFive = new System.Windows.Forms.Label();
+            this.lblSeventy = new System.Windows.Forms.Label();
+            this.lblFiftyFive = new System.Windows.Forms.Label();
+            this.lblSixty = new System.Windows.Forms.Label();
+            this.lblSixtyFive = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.pnlDataEntry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderRemainingPmtCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.slideSIFpercentage)).BeginInit();
             this.pnlPPA.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridPPA)).BeginInit();
+            this.pnlPaymentPlan.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip
             // 
+            this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButton1});
+            this.toolStripDropDownButton1,
+            this.toolStripButton1,
+            this.toolStripExport});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(1302, 25);
+            this.toolStrip.Size = new System.Drawing.Size(1520, 25);
             this.toolStrip.TabIndex = 0;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -113,16 +141,49 @@
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
             this.resetToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.resetToolStripMenuItem.Text = "Save";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
             this.clearToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripExport
+            // 
+            this.toolStripExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.apSheetExportButton});
+            this.toolStripExport.Enabled = false;
+            this.toolStripExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripExport.Name = "toolStripExport";
+            this.toolStripExport.Size = new System.Drawing.Size(54, 22);
+            this.toolStripExport.Text = "Export";
+            // 
+            // apSheetExportButton
+            // 
+            this.apSheetExportButton.Name = "apSheetExportButton";
+            this.apSheetExportButton.Size = new System.Drawing.Size(121, 22);
+            this.apSheetExportButton.Text = "AP Sheet";
+            this.apSheetExportButton.Click += new System.EventHandler(this.APSheetToolStripMenuItem_Click);
             // 
             // pnlDataEntry
             // 
             this.pnlDataEntry.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnlDataEntry.Controls.Add(this.lblSeventy);
+            this.pnlDataEntry.Controls.Add(this.lblFiftyFive);
+            this.pnlDataEntry.Controls.Add(this.lblSixty);
+            this.pnlDataEntry.Controls.Add(this.lblSixtyFive);
+            this.pnlDataEntry.Controls.Add(this.lblNinetyFive);
+            this.pnlDataEntry.Controls.Add(this.lblEighty);
+            this.pnlDataEntry.Controls.Add(this.lblEightyFive);
+            this.pnlDataEntry.Controls.Add(this.lblNinety);
             this.pnlDataEntry.Controls.Add(this.cboxExpYear);
             this.pnlDataEntry.Controls.Add(this.cboxExpMonth);
             this.pnlDataEntry.Controls.Add(this.txtCVV);
@@ -139,10 +200,10 @@
             this.pnlDataEntry.Controls.Add(this.lblDollarSign);
             this.pnlDataEntry.Controls.Add(this.txtDownPayment);
             this.pnlDataEntry.Controls.Add(this.txtBalanceInput);
-            this.pnlDataEntry.Controls.Add(this.label16);
-            this.pnlDataEntry.Controls.Add(this.label3);
+            this.pnlDataEntry.Controls.Add(this.lblTwentyFive);
+            this.pnlDataEntry.Controls.Add(this.lblSeventyFive);
             this.pnlDataEntry.Controls.Add(this.label2);
-            this.pnlDataEntry.Controls.Add(this.label1);
+            this.pnlDataEntry.Controls.Add(this.lblFifty);
             this.pnlDataEntry.Controls.Add(this.lblOneHundo);
             this.pnlDataEntry.Controls.Add(this.chkSettlement);
             this.pnlDataEntry.Controls.Add(this.chkPPA);
@@ -179,21 +240,11 @@
             "2027",
             "2028",
             "2029",
-            "2030",
-            "2031",
-            "2032",
-            "2033",
-            "2034",
-            "2035",
-            "2036",
-            "2037",
-            "2038",
-            "2039",
-            "2040"});
-            this.cboxExpYear.Location = new System.Drawing.Point(142, 461);
+            "2030"});
+            this.cboxExpYear.Location = new System.Drawing.Point(93, 395);
             this.cboxExpYear.Name = "cboxExpYear";
             this.cboxExpYear.Size = new System.Drawing.Size(77, 38);
-            this.cboxExpYear.TabIndex = 44;
+            this.cboxExpYear.TabIndex = 7;
             this.cboxExpYear.Text = "YYYY";
             // 
             // cboxExpMonth
@@ -201,36 +252,37 @@
             this.cboxExpMonth.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxExpMonth.FormattingEnabled = true;
             this.cboxExpMonth.Items.AddRange(new object[] {
-            "01 - JAN",
-            "02 - FEB",
-            "03 - MAR",
-            "04 - APR",
-            "05 - MAY",
-            "06 - JUNE",
-            "07 - JULY",
-            "08 - AUG",
-            "09 - SEP",
-            "10 - OCT",
-            "11 - NOV",
-            "12 - DEC"});
-            this.cboxExpMonth.Location = new System.Drawing.Point(9, 461);
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12"});
+            this.cboxExpMonth.Location = new System.Drawing.Point(9, 395);
             this.cboxExpMonth.Name = "cboxExpMonth";
-            this.cboxExpMonth.Size = new System.Drawing.Size(121, 38);
-            this.cboxExpMonth.TabIndex = 43;
-            this.cboxExpMonth.Text = "Exp MM";
+            this.cboxExpMonth.Size = new System.Drawing.Size(70, 38);
+            this.cboxExpMonth.TabIndex = 6;
+            this.cboxExpMonth.Text = "MM";
             // 
             // txtCVV
             // 
             this.txtCVV.AllowDrop = true;
             this.txtCVV.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold);
-            this.txtCVV.Location = new System.Drawing.Point(231, 463);
+            this.txtCVV.Location = new System.Drawing.Point(184, 395);
             this.txtCVV.MaxLength = 4;
             this.txtCVV.Name = "txtCVV";
             this.txtCVV.Size = new System.Drawing.Size(79, 36);
-            this.txtCVV.TabIndex = 42;
+            this.txtCVV.TabIndex = 8;
             this.txtCVV.Text = "CVV";
             this.txtCVV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCVV.Click += new System.EventHandler(this.TxtCVV_Click);
+            this.txtCVV.TextChanged += new System.EventHandler(this.TxtCVV_TextChanged);
             // 
             // lblCardType
             // 
@@ -245,7 +297,7 @@
             // 
             this.lblCardValid.AutoSize = true;
             this.lblCardValid.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCardValid.Location = new System.Drawing.Point(109, 431);
+            this.lblCardValid.Location = new System.Drawing.Point(107, 439);
             this.lblCardValid.Name = "lblCardValid";
             this.lblCardValid.Size = new System.Drawing.Size(52, 21);
             this.lblCardValid.TabIndex = 39;
@@ -254,10 +306,10 @@
             // btnValidate
             // 
             this.btnValidate.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnValidate.Location = new System.Drawing.Point(8, 393);
+            this.btnValidate.Location = new System.Drawing.Point(6, 463);
             this.btnValidate.Name = "btnValidate";
             this.btnValidate.Size = new System.Drawing.Size(254, 31);
-            this.btnValidate.TabIndex = 38;
+            this.btnValidate.TabIndex = 9;
             this.btnValidate.Text = "VALIDATE";
             this.btnValidate.UseVisualStyleBackColor = true;
             this.btnValidate.Click += new System.EventHandler(this.Button1_Click);
@@ -280,7 +332,7 @@
             this.txtCreditCardNumber.MaxLength = 20;
             this.txtCreditCardNumber.Name = "txtCreditCardNumber";
             this.txtCreditCardNumber.Size = new System.Drawing.Size(254, 36);
-            this.txtCreditCardNumber.TabIndex = 36;
+            this.txtCreditCardNumber.TabIndex = 5;
             this.txtCreditCardNumber.TextChanged += new System.EventHandler(this.TxtCreditCardNumber_TextChanged);
             // 
             // lblDollarSign5
@@ -316,8 +368,12 @@
             this.dropDownPayCycle.Location = new System.Drawing.Point(6, 286);
             this.dropDownPayCycle.Name = "dropDownPayCycle";
             this.dropDownPayCycle.Size = new System.Drawing.Size(256, 38);
-            this.dropDownPayCycle.TabIndex = 32;
+            this.dropDownPayCycle.TabIndex = 4;
             this.dropDownPayCycle.Text = "PAY CYCLE";
+            this.dropDownPayCycle.SelectedIndexChanged += new System.EventHandler(this.DropDownPayCycle_SelectedIndexChanged);
+            this.dropDownPayCycle.TextChanged += new System.EventHandler(this.DropDownPayCycle_TextChanged);
+            this.dropDownPayCycle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DropDownPayCycle_MouseClick);
+            this.dropDownPayCycle.MouseHover += new System.EventHandler(this.DropDownPayCycle_MouseHover);
             // 
             // lblRMG
             // 
@@ -337,7 +393,7 @@
             this.sliderRemainingPmtCount.Maximum = 11;
             this.sliderRemainingPmtCount.Name = "sliderRemainingPmtCount";
             this.sliderRemainingPmtCount.Size = new System.Drawing.Size(303, 45);
-            this.sliderRemainingPmtCount.TabIndex = 28;
+            this.sliderRemainingPmtCount.TabIndex = 2;
             this.sliderRemainingPmtCount.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.sliderRemainingPmtCount.Value = 1;
             this.sliderRemainingPmtCount.ValueChanged += new System.EventHandler(this.SliderRemainingPmtCount_ValueChanged);
@@ -356,10 +412,10 @@
             // 
             this.txtDownPayment.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDownPayment.Location = new System.Drawing.Point(156, 86);
-            this.txtDownPayment.MaxLength = 6;
+            this.txtDownPayment.MaxLength = 12;
             this.txtDownPayment.Name = "txtDownPayment";
             this.txtDownPayment.Size = new System.Drawing.Size(125, 29);
-            this.txtDownPayment.TabIndex = 26;
+            this.txtDownPayment.TabIndex = 1;
             this.txtDownPayment.Text = "0.00";
             this.txtDownPayment.Click += new System.EventHandler(this.TxtDownPayment_Click);
             this.txtDownPayment.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
@@ -369,39 +425,44 @@
             // 
             this.txtBalanceInput.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBalanceInput.Location = new System.Drawing.Point(156, 5);
-            this.txtBalanceInput.MaxLength = 10;
+            this.txtBalanceInput.MaxLength = 12;
             this.txtBalanceInput.Name = "txtBalanceInput";
             this.txtBalanceInput.Size = new System.Drawing.Size(125, 29);
-            this.txtBalanceInput.TabIndex = 25;
+            this.txtBalanceInput.TabIndex = 0;
             this.txtBalanceInput.Text = "0.00";
             this.txtBalanceInput.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TxtBalanceInput_MouseClick);
+            this.txtBalanceInput.TextChanged += new System.EventHandler(this.TxtBalanceInput_TextChanged);
             this.txtBalanceInput.Leave += new System.EventHandler(this.TxtBalanceInput_Leave);
             // 
-            // label16
+            // lblTwentyFive
             // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label16.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label16.Location = new System.Drawing.Point(311, 367);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(43, 23);
-            this.label16.TabIndex = 24;
-            this.label16.Text = "25%";
+            this.lblTwentyFive.AutoSize = true;
+            this.lblTwentyFive.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblTwentyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTwentyFive.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblTwentyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTwentyFive.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblTwentyFive.Location = new System.Drawing.Point(311, 367);
+            this.lblTwentyFive.Name = "lblTwentyFive";
+            this.lblTwentyFive.Size = new System.Drawing.Size(43, 23);
+            this.lblTwentyFive.TabIndex = 24;
+            this.lblTwentyFive.Text = "25%";
+            this.lblTwentyFive.Click += new System.EventHandler(this.LblTwentyFive_Click);
             // 
-            // label3
+            // lblSeventyFive
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label3.Location = new System.Drawing.Point(311, 143);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 23);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "75%";
+            this.lblSeventyFive.AutoSize = true;
+            this.lblSeventyFive.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblSeventyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSeventyFive.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSeventyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeventyFive.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lblSeventyFive.Location = new System.Drawing.Point(311, 139);
+            this.lblSeventyFive.Name = "lblSeventyFive";
+            this.lblSeventyFive.Size = new System.Drawing.Size(43, 23);
+            this.lblSeventyFive.TabIndex = 23;
+            this.lblSeventyFive.Text = "75%";
+            this.lblSeventyFive.Click += new System.EventHandler(this.Label3_Click);
             // 
             // label2
             // 
@@ -416,35 +477,40 @@
             this.label2.TabIndex = 22;
             this.label2.Text = "0%";
             // 
-            // label1
+            // lblFifty
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label1.Location = new System.Drawing.Point(311, 255);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 23);
-            this.label1.TabIndex = 21;
-            this.label1.Text = "50%";
+            this.lblFifty.AutoSize = true;
+            this.lblFifty.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblFifty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblFifty.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblFifty.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFifty.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblFifty.Location = new System.Drawing.Point(311, 254);
+            this.lblFifty.Name = "lblFifty";
+            this.lblFifty.Size = new System.Drawing.Size(43, 23);
+            this.lblFifty.TabIndex = 21;
+            this.lblFifty.Text = "50%";
+            this.lblFifty.Click += new System.EventHandler(this.LblFifty_Click);
             // 
             // lblOneHundo
             // 
             this.lblOneHundo.AutoSize = true;
             this.lblOneHundo.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.lblOneHundo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblOneHundo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblOneHundo.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOneHundo.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.lblOneHundo.Location = new System.Drawing.Point(305, 31);
+            this.lblOneHundo.Location = new System.Drawing.Point(305, 24);
             this.lblOneHundo.Name = "lblOneHundo";
             this.lblOneHundo.Size = new System.Drawing.Size(49, 23);
             this.lblOneHundo.TabIndex = 20;
             this.lblOneHundo.Text = "100%";
+            this.lblOneHundo.Click += new System.EventHandler(this.LblOneHundo_Click);
             // 
             // chkSettlement
             // 
             this.chkSettlement.AutoSize = true;
+            this.chkSettlement.Enabled = false;
             this.chkSettlement.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSettlement.Location = new System.Drawing.Point(287, 3);
             this.chkSettlement.Name = "chkSettlement";
@@ -456,6 +522,7 @@
             // chkPPA
             // 
             this.chkPPA.AutoSize = true;
+            this.chkPPA.Enabled = false;
             this.chkPPA.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkPPA.Location = new System.Drawing.Point(8, 61);
             this.chkPPA.Name = "chkPPA";
@@ -473,7 +540,7 @@
             this.slideSIFpercentage.Name = "slideSIFpercentage";
             this.slideSIFpercentage.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.slideSIFpercentage.Size = new System.Drawing.Size(45, 475);
-            this.slideSIFpercentage.TabIndex = 16;
+            this.slideSIFpercentage.TabIndex = 3;
             this.slideSIFpercentage.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.slideSIFpercentage.Value = 100;
             this.slideSIFpercentage.ValueChanged += new System.EventHandler(this.SlideSIFpercentage_ValueChanged_1);
@@ -658,41 +725,307 @@
             // 
             // rtxtNotate
             // 
-            this.rtxtNotate.Location = new System.Drawing.Point(11, 320);
+            this.rtxtNotate.Font = new System.Drawing.Font("Courier New", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxtNotate.Location = new System.Drawing.Point(11, 210);
             this.rtxtNotate.Name = "rtxtNotate";
-            this.rtxtNotate.Size = new System.Drawing.Size(479, 175);
-            this.rtxtNotate.TabIndex = 2;
+            this.rtxtNotate.Size = new System.Drawing.Size(691, 285);
+            this.rtxtNotate.TabIndex = 1;
             this.rtxtNotate.Text = "";
             // 
-            // monthCalendar1
+            // monthCalendarDP
             // 
-            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(3, 2);
-            this.monthCalendar1.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
-            this.monthCalendar1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.monthCalendar1.Location = new System.Drawing.Point(5, 6);
-            this.monthCalendar1.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
-            this.monthCalendar1.MaxSelectionCount = 365;
-            this.monthCalendar1.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 35;
+            this.monthCalendarDP.AnnuallyBoldedDates = new System.DateTime[] {
+        new System.DateTime(2019, 1, 1, 0, 0, 0, 0),
+        new System.DateTime(2019, 7, 4, 0, 0, 0, 0),
+        new System.DateTime(2019, 11, 11, 0, 0, 0, 0),
+        new System.DateTime(2019, 12, 24, 0, 0, 0, 0),
+        new System.DateTime(2019, 12, 25, 0, 0, 0, 0),
+        new System.DateTime(2019, 12, 31, 0, 0, 0, 0)};
+            this.monthCalendarDP.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.monthCalendarDP.Location = new System.Drawing.Point(11, 38);
+            this.monthCalendarDP.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
+            this.monthCalendarDP.MaxSelectionCount = 365;
+            this.monthCalendarDP.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
+            this.monthCalendarDP.Name = "monthCalendarDP";
+            this.monthCalendarDP.TabIndex = 35;
+            this.monthCalendarDP.TabStop = false;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblInstallmentLabel);
+            this.panel1.Controls.Add(this.monthCalendarInstallmentStart);
+            this.panel1.Controls.Add(this.label_downPaymentDate);
             this.panel1.Controls.Add(this.rtxtNotate);
-            this.panel1.Controls.Add(this.monthCalendar1);
+            this.panel1.Controls.Add(this.monthCalendarDP);
             this.panel1.Location = new System.Drawing.Point(416, 28);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(874, 504);
+            this.panel1.Size = new System.Drawing.Size(717, 504);
             this.panel1.TabIndex = 36;
+            // 
+            // lblInstallmentLabel
+            // 
+            this.lblInstallmentLabel.AutoSize = true;
+            this.lblInstallmentLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstallmentLabel.Location = new System.Drawing.Point(260, 9);
+            this.lblInstallmentLabel.Name = "lblInstallmentLabel";
+            this.lblInstallmentLabel.Size = new System.Drawing.Size(195, 25);
+            this.lblInstallmentLabel.TabIndex = 39;
+            this.lblInstallmentLabel.Text = "INSTALLMENT START";
+            this.lblInstallmentLabel.Visible = false;
+            // 
+            // monthCalendarInstallmentStart
+            // 
+            this.monthCalendarInstallmentStart.AnnuallyBoldedDates = new System.DateTime[] {
+        new System.DateTime(2019, 1, 1, 0, 0, 0, 0),
+        new System.DateTime(2019, 7, 4, 0, 0, 0, 0),
+        new System.DateTime(2019, 11, 11, 0, 0, 0, 0),
+        new System.DateTime(2019, 12, 24, 0, 0, 0, 0),
+        new System.DateTime(2019, 12, 25, 0, 0, 0, 0),
+        new System.DateTime(2019, 12, 31, 0, 0, 0, 0)};
+            this.monthCalendarInstallmentStart.CalendarDimensions = new System.Drawing.Size(2, 1);
+            this.monthCalendarInstallmentStart.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.monthCalendarInstallmentStart.Location = new System.Drawing.Point(244, 38);
+            this.monthCalendarInstallmentStart.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
+            this.monthCalendarInstallmentStart.MaxSelectionCount = 365;
+            this.monthCalendarInstallmentStart.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
+            this.monthCalendarInstallmentStart.Name = "monthCalendarInstallmentStart";
+            this.monthCalendarInstallmentStart.TabIndex = 38;
+            this.monthCalendarInstallmentStart.TabStop = false;
+            this.monthCalendarInstallmentStart.Visible = false;
+            // 
+            // label_downPaymentDate
+            // 
+            this.label_downPaymentDate.AutoSize = true;
+            this.label_downPaymentDate.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_downPaymentDate.Location = new System.Drawing.Point(16, 9);
+            this.label_downPaymentDate.Name = "label_downPaymentDate";
+            this.label_downPaymentDate.Size = new System.Drawing.Size(215, 25);
+            this.label_downPaymentDate.TabIndex = 37;
+            this.label_downPaymentDate.Text = "DOWN PAYMENT DATE";
+            // 
+            // btnCalculate
+            // 
+            this.btnCalculate.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCalculate.Location = new System.Drawing.Point(1139, 379);
+            this.btnCalculate.Name = "btnCalculate";
+            this.btnCalculate.Size = new System.Drawing.Size(369, 46);
+            this.btnCalculate.TabIndex = 0;
+            this.btnCalculate.Text = "Calculate";
+            this.btnCalculate.UseVisualStyleBackColor = true;
+            this.btnCalculate.Click += new System.EventHandler(this.BtnCalculate_Click);
+            // 
+            // dataGridPPA
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridPPA.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridPPA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridPPA.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.pmtDate,
+            this.pmtAmount});
+            this.dataGridPPA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridPPA.Location = new System.Drawing.Point(0, 0);
+            this.dataGridPPA.Name = "dataGridPPA";
+            this.dataGridPPA.Size = new System.Drawing.Size(369, 341);
+            this.dataGridPPA.TabIndex = 0;
+            this.dataGridPPA.TabStop = false;
+            this.dataGridPPA.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DataGridPPA_RowsRemoved);
+            // 
+            // pmtDate
+            // 
+            this.pmtDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pmtDate.HeaderText = "Date";
+            this.pmtDate.Name = "pmtDate";
+            // 
+            // pmtAmount
+            // 
+            this.pmtAmount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.pmtAmount.HeaderText = "Amount";
+            this.pmtAmount.Name = "pmtAmount";
+            // 
+            // pnlPaymentPlan
+            // 
+            this.pnlPaymentPlan.Controls.Add(this.dataGridPPA);
+            this.pnlPaymentPlan.Location = new System.Drawing.Point(1139, 28);
+            this.pnlPaymentPlan.Name = "pnlPaymentPlan";
+            this.pnlPaymentPlan.Size = new System.Drawing.Size(369, 341);
+            this.pnlPaymentPlan.TabIndex = 37;
+            // 
+            // btnNotateToLog
+            // 
+            this.btnNotateToLog.Enabled = false;
+            this.btnNotateToLog.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNotateToLog.Location = new System.Drawing.Point(1139, 431);
+            this.btnNotateToLog.Name = "btnNotateToLog";
+            this.btnNotateToLog.Size = new System.Drawing.Size(369, 46);
+            this.btnNotateToLog.TabIndex = 38;
+            this.btnNotateToLog.Text = "Add Payments to Notation";
+            this.btnNotateToLog.UseVisualStyleBackColor = true;
+            this.btnNotateToLog.Click += new System.EventHandler(this.BtnNotateToLog_Click);
+            // 
+            // lblBIN
+            // 
+            this.lblBIN.AutoSize = true;
+            this.lblBIN.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblBIN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblBIN.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBIN.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lblBIN.Location = new System.Drawing.Point(1139, 487);
+            this.lblBIN.Name = "lblBIN";
+            this.lblBIN.Size = new System.Drawing.Size(101, 21);
+            this.lblBIN.TabIndex = 39;
+            this.lblBIN.Text = "BIN Number";
+            this.lblBIN.Click += new System.EventHandler(this.LblDebug_Click);
+            // 
+            // lblDebug2
+            // 
+            this.lblDebug2.AutoSize = true;
+            this.lblDebug2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblDebug2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDebug2.Location = new System.Drawing.Point(1139, 510);
+            this.lblDebug2.Name = "lblDebug2";
+            this.lblDebug2.Size = new System.Drawing.Size(164, 21);
+            this.lblDebug2.TabIndex = 40;
+            this.lblDebug2.Text = "Card Number Format";
+            // 
+            // lblNinety
+            // 
+            this.lblNinety.AutoSize = true;
+            this.lblNinety.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblNinety.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblNinety.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblNinety.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNinety.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblNinety.Location = new System.Drawing.Point(311, 70);
+            this.lblNinety.Name = "lblNinety";
+            this.lblNinety.Size = new System.Drawing.Size(43, 23);
+            this.lblNinety.TabIndex = 42;
+            this.lblNinety.Text = "90%";
+            this.lblNinety.Click += new System.EventHandler(this.LblNinety_Click);
+            // 
+            // lblEightyFive
+            // 
+            this.lblEightyFive.AutoSize = true;
+            this.lblEightyFive.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblEightyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblEightyFive.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblEightyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEightyFive.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lblEightyFive.Location = new System.Drawing.Point(311, 93);
+            this.lblEightyFive.Name = "lblEightyFive";
+            this.lblEightyFive.Size = new System.Drawing.Size(43, 23);
+            this.lblEightyFive.TabIndex = 43;
+            this.lblEightyFive.Text = "85%";
+            this.lblEightyFive.Click += new System.EventHandler(this.LblEightyFive_Click);
+            // 
+            // lblEighty
+            // 
+            this.lblEighty.AutoSize = true;
+            this.lblEighty.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblEighty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblEighty.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblEighty.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEighty.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblEighty.Location = new System.Drawing.Point(311, 116);
+            this.lblEighty.Name = "lblEighty";
+            this.lblEighty.Size = new System.Drawing.Size(43, 23);
+            this.lblEighty.TabIndex = 44;
+            this.lblEighty.Text = "80%";
+            this.lblEighty.Click += new System.EventHandler(this.LblEighty_Click);
+            // 
+            // lblNinetyFive
+            // 
+            this.lblNinetyFive.AutoSize = true;
+            this.lblNinetyFive.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblNinetyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblNinetyFive.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblNinetyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNinetyFive.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lblNinetyFive.Location = new System.Drawing.Point(311, 47);
+            this.lblNinetyFive.Name = "lblNinetyFive";
+            this.lblNinetyFive.Size = new System.Drawing.Size(43, 23);
+            this.lblNinetyFive.TabIndex = 45;
+            this.lblNinetyFive.Text = "95%";
+            this.lblNinetyFive.Click += new System.EventHandler(this.LblNinetyFive_Click);
+            // 
+            // lblSeventy
+            // 
+            this.lblSeventy.AutoSize = true;
+            this.lblSeventy.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblSeventy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSeventy.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSeventy.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeventy.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblSeventy.Location = new System.Drawing.Point(311, 162);
+            this.lblSeventy.Name = "lblSeventy";
+            this.lblSeventy.Size = new System.Drawing.Size(43, 23);
+            this.lblSeventy.TabIndex = 49;
+            this.lblSeventy.Text = "70%";
+            this.lblSeventy.Click += new System.EventHandler(this.LblSeventy_Click);
+            // 
+            // lblFiftyFive
+            // 
+            this.lblFiftyFive.AutoSize = true;
+            this.lblFiftyFive.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblFiftyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblFiftyFive.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblFiftyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFiftyFive.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lblFiftyFive.Location = new System.Drawing.Point(311, 231);
+            this.lblFiftyFive.Name = "lblFiftyFive";
+            this.lblFiftyFive.Size = new System.Drawing.Size(43, 23);
+            this.lblFiftyFive.TabIndex = 48;
+            this.lblFiftyFive.Text = "55%";
+            this.lblFiftyFive.Click += new System.EventHandler(this.LblFiftyFive_Click);
+            // 
+            // lblSixty
+            // 
+            this.lblSixty.AutoSize = true;
+            this.lblSixty.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblSixty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSixty.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSixty.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSixty.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblSixty.Location = new System.Drawing.Point(311, 208);
+            this.lblSixty.Name = "lblSixty";
+            this.lblSixty.Size = new System.Drawing.Size(43, 23);
+            this.lblSixty.TabIndex = 47;
+            this.lblSixty.Text = "60%";
+            this.lblSixty.Click += new System.EventHandler(this.LblSixty_Click);
+            // 
+            // lblSixtyFive
+            // 
+            this.lblSixtyFive.AutoSize = true;
+            this.lblSixtyFive.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblSixtyFive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSixtyFive.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSixtyFive.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSixtyFive.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lblSixtyFive.Location = new System.Drawing.Point(311, 185);
+            this.lblSixtyFive.Name = "lblSixtyFive";
+            this.lblSixtyFive.Size = new System.Drawing.Size(43, 23);
+            this.lblSixtyFive.TabIndex = 46;
+            this.lblSixtyFive.Text = "65%";
+            this.lblSixtyFive.Click += new System.EventHandler(this.LblSixtyFive_Click);
             // 
             // paymentPlanCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1302, 544);
+            this.ClientSize = new System.Drawing.Size(1520, 544);
+            this.Controls.Add(this.lblDebug2);
+            this.Controls.Add(this.lblBIN);
+            this.Controls.Add(this.btnNotateToLog);
+            this.Controls.Add(this.pnlPaymentPlan);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlDataEntry);
+            this.Controls.Add(this.btnCalculate);
             this.Controls.Add(this.toolStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -708,35 +1041,18 @@
             this.pnlPPA.ResumeLayout(false);
             this.pnlPPA.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridPPA)).EndInit();
+            this.pnlPaymentPlan.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ToolStrip toolStrip;
-        private System.Windows.Forms.Panel pnlDataEntry;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         public System.Windows.Forms.TrackBar slideSIFpercentage;
-        private System.Windows.Forms.Label lblPercentSymbol;
-        private System.Windows.Forms.Label lblTtlPay;
-        private System.Windows.Forms.Label lblRemainingBalanceNotification;
-        private System.Windows.Forms.Label lblPCR;
-        private System.Windows.Forms.Label lblRemBal;
-        private System.Windows.Forms.Label lblDownPmt;
-        private System.Windows.Forms.Label lblSettlementRate;
-        private System.Windows.Forms.Label lblCurrentBal;
         public System.Windows.Forms.TextBox txtBalanceInput;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblOneHundo;
         public System.Windows.Forms.TextBox txtDownPayment;
-        private System.Windows.Forms.Label lblDollarSign;
         public System.Windows.Forms.Label lblRemainingPmtCount;
         public System.Windows.Forms.Label lblRMG;
         public System.Windows.Forms.TrackBar sliderRemainingPmtCount;
@@ -748,22 +1064,63 @@
         public System.Windows.Forms.Label lblSIFpercent;
         public System.Windows.Forms.CheckBox chkSettlement;
         public System.Windows.Forms.CheckBox chkPPA;
-        private System.Windows.Forms.Label lblDollarSign5;
-        private System.Windows.Forms.Label lblDollarSign4;
         public System.Windows.Forms.ComboBox dropDownPayCycle;
-        public System.Windows.Forms.MonthCalendar monthCalendar1;
-        private System.Windows.Forms.RichTextBox rtxtNotate;
+        public System.Windows.Forms.MonthCalendar monthCalendarDP;
         public System.Windows.Forms.TextBox txtCreditCardNumber;
         public System.Windows.Forms.Label lblCreditCardNumber;
-        private System.Windows.Forms.Button btnValidate;
         public System.Windows.Forms.Label lblCardValid;
         public System.Windows.Forms.Label lblCardType;
-        private System.Windows.Forms.Panel pnlPPA;
         public System.Windows.Forms.Label lblPMTSREM;
-        private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.TextBox txtCVV;
         public System.Windows.Forms.ComboBox cboxExpMonth;
         public System.Windows.Forms.ComboBox cboxExpYear;
+        public System.Windows.Forms.MonthCalendar monthCalendarInstallmentStart;
+        public System.Windows.Forms.Label lblTwentyFive;
+        public System.Windows.Forms.Label lblSeventyFive;
+        public System.Windows.Forms.Label lblFifty;
+        public System.Windows.Forms.Label lblOneHundo;
+        public System.Windows.Forms.ToolStrip toolStrip;
+        public System.Windows.Forms.Panel pnlDataEntry;
+        public System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        public System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        public System.Windows.Forms.Label lblPercentSymbol;
+        public System.Windows.Forms.Label lblTtlPay;
+        public System.Windows.Forms.Label lblRemainingBalanceNotification;
+        public System.Windows.Forms.Label lblPCR;
+        public System.Windows.Forms.Label lblRemBal;
+        public System.Windows.Forms.Label lblDownPmt;
+        public System.Windows.Forms.Label lblSettlementRate;
+        public System.Windows.Forms.Label lblCurrentBal;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label lblDollarSign;
+        public System.Windows.Forms.Label lblDollarSign5;
+        public System.Windows.Forms.Label lblDollarSign4;
+        public System.Windows.Forms.RichTextBox rtxtNotate;
+        public System.Windows.Forms.Button btnValidate;
+        public System.Windows.Forms.Panel pnlPPA;
+        public System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.DataGridView dataGridPPA;
+        public System.Windows.Forms.DataGridViewTextBoxColumn pmtDate;
+        public System.Windows.Forms.DataGridViewTextBoxColumn pmtAmount;
+        public System.Windows.Forms.Panel pnlPaymentPlan;
+        public System.Windows.Forms.Button btnCalculate;
+        public System.Windows.Forms.Label label_downPaymentDate;
+        public System.Windows.Forms.Label lblInstallmentLabel;
+        public System.Windows.Forms.ToolStripSeparator toolStripButton1;
+        public System.Windows.Forms.ToolStripDropDownButton toolStripExport;
+        public System.Windows.Forms.ToolStripMenuItem apSheetExportButton;
+        public System.Windows.Forms.Button btnNotateToLog;
+        public System.Windows.Forms.Label lblBIN;
+        public System.Windows.Forms.Label lblDebug2;
+        public System.Windows.Forms.Label lblSeventy;
+        public System.Windows.Forms.Label lblFiftyFive;
+        public System.Windows.Forms.Label lblSixty;
+        public System.Windows.Forms.Label lblSixtyFive;
+        public System.Windows.Forms.Label lblNinetyFive;
+        public System.Windows.Forms.Label lblEighty;
+        public System.Windows.Forms.Label lblEightyFive;
+        public System.Windows.Forms.Label lblNinety;
     }
 }
 

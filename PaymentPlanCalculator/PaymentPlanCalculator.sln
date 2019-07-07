@@ -9,6 +9,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Description = Debt Collection Negotiation Calculator Accessory
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{80768611-289F-4698-96F0-02EAADA91D32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
