@@ -687,7 +687,8 @@ namespace PaymentPlanCalculator
                 decimal downPayment = Convert.ToDecimal(txtDownPayment.Text);
                 decimal settlementAmount = Convert.ToDecimal(txtBalanceInput.Text) * ((Convert.ToDecimal(slideSIFpercentage.Value) / 100));
                 decimal sifAfterDownPayment = settlementAmount - downPayment;
-                decimal pmtAfterDownPayent = currentBalance - downPayment;
+                //decimal pmtAfterDownPayent = currentBalance - downPayment;
+                decimal pmtAfterDownPayent = settlementAmount - downPayment; // Redundant to fix code where SIF is not calculated
                 // These statements are mostly for error handling for checkboxes
                 if (chkSettlement.Checked == true)
                 {
@@ -853,11 +854,36 @@ namespace PaymentPlanCalculator
             CalculatePaymentDates(); // Call to calculate dates
             int numberOfPayments = Convert.ToInt16(lblTotalPaymentCount.Text);
 
+
+           /* ************************* *
+            * With Down Payment and PPA *
+            * DP and PPA W/  SIF  *
+            * ************************* */
+            if (txtDownPayment.Text != "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value > 1 && slideSIFpercentage.Value != 100) // If PPA has down payment and PPA
+            {
+                dataGridPPA.Rows.Add(); // Add row
+                dataGridPPA["pmtDate", 0].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // Which date is selected (set it to a string)
+                dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text); // Take payment amount in Down Payment and add to grid
+                // FILL THE INSTALLMENT PAYMENTS
+                for (int ppaRow = 1; ppaRow < (numberOfPayments - 1); ppaRow++) // Select second row
+                {
+                    dataGridPPA.Rows.Add(); // Add row
+                    dataGridPPA["pmtDate", ppaRow].Value = PPADates[ppaRow].ToShortDateString(); // Select Date from PPA Dates Array
+                    dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text; // Set installment amount to sting
+                }
+                // FILL THE FINAL INSTALLMENT PAYMENT
+                dataGridPPA.Rows.Add(); // Add final row // Error when not set to schedule - Likely Fixed
+                dataGridPPA["pmtDate", numberOfPayments - 1].Value = PPADates[numberOfPayments - 1].ToShortDateString(); // Select Final Date from PPA Date Array
+                dataGridPPA["pmtAmount", numberOfPayments - 1].Value = lblRemainder.Text; // Adds remainder amount (after date in previous row)
+            }
+
+
+
             /* ************************* *
              * With Down Payment and PPA *
-             * DP and PPA W/ or W/O SIF  *
-             * ************************* */ 
-            if (txtDownPayment.Text != "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value > 1) // If PPA has down payment and PPA
+             * DP and PPA W/O SIF  *
+             * ************************* */
+            if (txtDownPayment.Text != "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value > 1 && slideSIFpercentage.Value == 100) // If PPA has down payment and PPA
             {
                 dataGridPPA.Rows.Add(); // Add row
                 dataGridPPA["pmtDate", 0].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // Which date is selected (set it to a string)
@@ -912,7 +938,25 @@ namespace PaymentPlanCalculator
             /* *********************************** *
              *      No Down Payment, yes PPA       *
              * *********************************** */
-            else if (txtDownPayment.Text == "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value != 0) // If PPA has down payment and PPA
+            else if (txtDownPayment.Text == "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value != 0 && slideSIFpercentage.Value == 100) // If PPA has down payment and PPA
+            {
+                // FILL THE INSTALLMENT PAYMENTS
+                for (int ppaRow = 0; ppaRow < (numberOfPayments - 1); ppaRow++) // Select second row
+                {
+                    dataGridPPA.Rows.Add(); // Add row
+                    dataGridPPA["pmtDate", ppaRow].Value = PPADates[ppaRow].ToShortDateString(); // Select Date from PPA Dates Array
+                    dataGridPPA["pmtAmount", ppaRow].Value = lblInstallmentAmt.Text; // Set installment amount to sting
+                }
+                // FILL THE FINAL INSTALLMENT PAYMENT
+                dataGridPPA.Rows.Add(); // Add final row
+                dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = PPADates[(numberOfPayments - 1)].ToShortDateString(); // Select Date from PPA Dates Array
+                dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text; // Adds remainder amount (after date in previous row)
+            }
+
+            /* **************************************** * // Added during troubleshooting a bug, seems to have fixed calculating BIF when SIF involved
+             *      No Down Payment, yes PPA, yes SIF   *
+             * **************************************** */
+            else if (txtDownPayment.Text == "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value != 0 && slideSIFpercentage.Value != 100) // If PPA has down payment and PPA
             {
                 // FILL THE INSTALLMENT PAYMENTS
                 for (int ppaRow = 0; ppaRow < (numberOfPayments - 1); ppaRow++) // Select second row
@@ -928,7 +972,7 @@ namespace PaymentPlanCalculator
             }
 
             /* *********************************** *
-             *  Down Payment, Ramaining as Final   *
+             *  Down Payment, Remaining as Final   *
              * *********************************** */
             else if (sliderRemainingPmtCount.Value == 1 && ((Convert.ToDouble(txtDownPayment.Text)) < (Convert.ToDouble(txtBalanceInput.Text))))
             {
@@ -1500,6 +1544,100 @@ namespace PaymentPlanCalculator
 
 
 
+    //    // Popup Text box for SIF Percent
 
+    //    public void LblSIFpercent_Click(object sender, EventArgs e)
+    //    {
+    //        txtSifPercentOverwrite.Visible = true;
+    //    }
+
+    //    /* ************************** *
+    //     * Overwriting SIF Percentage *
+    //     * ************************** */
+    //    public void TxtSifPercentOverwrite_KeyPress(object sender, KeyPressEventArgs e)
+    //    {
+    //        // Enter Out
+    //        if (e.KeyChar == (char)Keys.Return)
+    //            if (Convert.ToDouble(txtSifPercentOverwrite.Text) > 0 && Convert.ToDouble(txtSifPercentOverwrite.Text) < 101)
+    //            {
+    //                {
+    //                    lblSIFpercent.Text = txtSifPercentOverwrite.Text;
+    //                    slideSIFpercentage.Value = Convert.ToInt16(lblSIFpercent.Text);
+    //                    txtSifPercentOverwrite.Visible = false;
+    //                    UpdateAll();
+    //                }
+    //            }
+    //            else
+    //            {
+    //                txtSifPercentOverwrite.Visible = false;
+    //            }
+    //        // Tab Out
+    //        if (e.KeyChar == (char)Keys.Tab)
+    //            if (Convert.ToDouble(txtSifPercentOverwrite.Text) > 0 && Convert.ToDouble(txtSifPercentOverwrite.Text) < 101)
+    //            {
+    //                {
+    //                    lblSIFpercent.Text = txtSifPercentOverwrite.Text;
+    //                    slideSIFpercentage.Value = Convert.ToInt16(lblSIFpercent.Text);
+    //                    txtSifPercentOverwrite.Visible = false;
+    //                    UpdateAll();
+    //                }
+    //            }
+    //            else
+    //            {
+    //                txtSifPercentOverwrite.Visible = false;
+    //            }
+
+    //    }
+
+    //    // Make SIF Overwrite Textbox Visible
+    //    public void LblSifBalance_Click(object sender, EventArgs e)
+    //    {
+    //        txtSIFAmountOverwrite.Visible = true;
+    //    }
+
+
+
+    //    /* ************************** *
+    //     * Overwriting SIF Amount     *
+    //     * ************************** */
+    //    public void TxtSIFAmountOverwrite_KeyPress_1(object sender, KeyPressEventArgs e)
+    //    {
+    //            // Enter Out
+    //            if (e.KeyChar == (char)Keys.Return)
+    //                if (Convert.ToDecimal(txtSIFAmountOverwrite.Text) > 0 && Convert.ToDecimal(txtSIFAmountOverwrite.Text) < Convert.ToDecimal(txtBalanceInput.Text))
+    //                {
+    //                    {
+    //                    lblSifBalance.Text = txtSIFAmountOverwrite.Text;
+    //                    string sifOverwritePercentage = Convert.ToString(Convert.ToDecimal(txtSIFAmountOverwrite.Text) / (Convert.ToDecimal(txtBalanceInput.Text)) * 100);
+    //                    lblSIFpercent.Text = sifOverwritePercentage;
+    //                    lblSifBalance.Text = txtSIFAmountOverwrite.Text;
+    //                    //slideSIFpercentage.Value = Convert.ToInt16((Convert.ToDecimal(lblSIFpercent.Text)));
+    //                    //slideSIFpercentage.Value = Convert.ToInt16(sifOverwritePercentage);
+    //                    txtSIFAmountOverwrite.Visible = false;
+    //                    UpdateAll();
+    //                    }
+    //                }
+    //                else
+    //                {
+    //                    txtSIFAmountOverwrite.Visible = false;
+    //                }
+    //            // Tab Out
+    //            else if (e.KeyChar == (char)Keys.Tab)
+    //                if (Convert.ToDecimal(txtSIFAmountOverwrite.Text) > 0 && Convert.ToDecimal(txtSIFAmountOverwrite.Text) < Convert.ToDecimal(txtBalanceInput.Text))
+    //                {
+    //                    {
+    //                        lblSifBalance.Text = txtSIFAmountOverwrite.Text;
+    //                        string sifOverwritePercentage = Convert.ToString(Convert.ToDecimal(lblSifBalance.Text) / (Convert.ToDecimal(txtBalanceInput.Text)));
+    //                        lblSIFpercent.Text = sifOverwritePercentage;
+    //                        slideSIFpercentage.Value = Convert.ToInt16(lblSIFpercent.Text);
+    //                        txtSIFAmountOverwrite.Visible = false;
+    //                        UpdateAll();
+    //                    }
+    //                }
+    //                else
+    //                {
+    //                    txtSIFAmountOverwrite.Visible = false;
+    //                }
+    //    }
     }
 }
