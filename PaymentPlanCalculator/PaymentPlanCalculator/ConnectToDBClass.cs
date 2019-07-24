@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace PaymentPlanCalculator
 {
     class ConnectToDBClass
-    {
-        static void Main(string[] args)
+    {/*
+         static void Main(string[] args)
         {
             //Console .NET FRAMEWORK App
             //Added MySqlConnector NuGet Package
@@ -29,8 +29,8 @@ namespace PaymentPlanCalculator
 
 
             dbTables.Run();
-
-        }
+            
+        } */
     }
     class GenerateTables
     {
