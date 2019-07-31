@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Drawing.Printing;
 using System.IO;
+using System.Windows.Forms;
 
 namespace PaymentPlanCalculator
 
