@@ -845,19 +845,22 @@ namespace PaymentPlanCalculator
             
         }
 
+        
+        private bool dataGridMethodSelected = false; // Only 1 of the below methods can be used. The below code uses this bool to determine if a method has been selected to prevent more than 1
         public void PopulateDataGrid() // THESE ALL NEED THE ADDRESSES TO ADD
         {
             dataGridPPA.Rows.Clear();
             CalculatePaymentDates(); // Call to calculate dates
             int numberOfPayments = Convert.ToInt16(lblTotalPaymentCount.Text);
 
-
-           /* ************************* *
-            * With Down Payment and PPA *
-            * DP and PPA W/  SIF  *
-            * ************************* */
-            if (txtDownPayment.Text != "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value > 1 && slideSIFpercentage.Value != 100) // If PPA has down payment and PPA
+            // #1
+            /* ************************* *
+             * With Down Payment and PPA *
+             * DP and PPA W/  SIF  *
+             * ************************* */
+            if (txtDownPayment.Text != "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value > 1 && slideSIFpercentage.Value != 100 && dataGridMethodSelected == false) // If PPA has down payment and PPA
             {
+                dataGridMethodSelected = true;
                 dataGridPPA.Rows.Add(); // Add row
                 dataGridPPA["pmtDate", 0].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // Which date is selected (set it to a string)
                 dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text); // Take payment amount in Down Payment and add to grid
@@ -875,13 +878,14 @@ namespace PaymentPlanCalculator
             }
 
 
-
+            // #2
             /* ************************* *
              * With Down Payment and PPA *
              * DP and PPA W/O SIF  *
              * ************************* */
-            if (txtDownPayment.Text != "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value > 1 && slideSIFpercentage.Value == 100) // If PPA has down payment and PPA
+            if (txtDownPayment.Text != "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value > 1 && slideSIFpercentage.Value == 100 && dataGridMethodSelected == false) // If PPA has down payment and PPA
             {
+                dataGridMethodSelected = true;
                 dataGridPPA.Rows.Add(); // Add row
                 dataGridPPA["pmtDate", 0].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // Which date is selected (set it to a string)
                 dataGridPPA["pmtAmount", 0].Value = String.Format("${0:00}", txtDownPayment.Text); // Take payment amount in Down Payment and add to grid
@@ -898,11 +902,19 @@ namespace PaymentPlanCalculator
                 dataGridPPA["pmtAmount", numberOfPayments - 1].Value = lblRemainder.Text; // Adds remainder amount (after date in previous row)
             }
 
+            // #3
             /* *********************************** *
              * Down Payment and then Final Payment *
              * *********************************** */
-            else if (txtDownPayment.Text != "0.00" && sliderRemainingPmtCount.Value == 1) // If PPA has down payment and no PPA - DOWN PAYMENT and FINAL PAYMENT
+            else if (txtDownPayment.Text != "0.00" && sliderRemainingPmtCount.Value == 1 && dataGridMethodSelected == false) // If PPA has down payment and no PPA - DOWN PAYMENT and FINAL PAYMENT
             {
+                // The following is a patch for a bug that should be refactored but probably won't be... it works
+                decimal originalBalance = (Convert.ToDecimal(txtBalanceInput.Text));
+                double sifPercentageDbl = slideSIFpercentage.Value * 0.01;
+                decimal sifPercentage = Convert.ToDecimal(sifPercentageDbl);
+                decimal downPayment = Convert.ToDecimal(txtDownPayment.Text);
+                decimal sifFinalPayment = ((originalBalance * sifPercentage) - downPayment);
+                dataGridMethodSelected = true;
                 // ADD DOWN PAYMENT
                 dataGridPPA.Rows.Add(); // Add row
                 dataGridPPA["pmtDate", 0].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // Set row 1 as first selection
@@ -911,15 +923,17 @@ namespace PaymentPlanCalculator
                 // FILL THE FINAL INSTALLMENT PAYMENT
                 dataGridPPA.Rows.Add(); // Add final row
                 dataGridPPA["pmtDate", (numberOfPayments - 1)].Value = monthCalendarInstallmentStart.SelectionStart.ToShortDateString(); // numberOfPayments - 1 sets final row
-                dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = (Convert.ToDecimal(txtBalanceInput.Text) - Convert.ToDecimal(txtDownPayment.Text)).ToString("C");
+                dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = sifFinalPayment.ToString("C");
             }
 
+            // #4
             /* *********************************** *
              * Down Payment and then Final Payment *
              *           Slider at Zeros           *
              * *********************************** */
-            else if (txtDownPayment.Text != "0.00" && sliderRemainingPmtCount.Value == 0) // If PPA With Slider of Zero
+            else if (txtDownPayment.Text != "0.00" && sliderRemainingPmtCount.Value == 0 && dataGridMethodSelected == false) // If PPA With Slider of Zero
             {
+                dataGridMethodSelected = true;
                 // ADD DOWN PAYMENT
                 dataGridPPA.Rows.Add(); // Add row
                 dataGridPPA["pmtDate", 0].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // Set row 1 as first selection
@@ -932,11 +946,13 @@ namespace PaymentPlanCalculator
                     - Convert.ToDecimal(txtDownPayment.Text)).ToString("C"); //THROWS ERROR
             }
 
+            // #5
             /* *********************************** *
              *      No Down Payment, yes PPA       *
              * *********************************** */
-            else if (txtDownPayment.Text == "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value != 0 && slideSIFpercentage.Value == 100) // If PPA has down payment and PPA
+            else if (txtDownPayment.Text == "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value != 0 && slideSIFpercentage.Value == 100 && dataGridMethodSelected == false) // If PPA has down payment and PPA
             {
+                dataGridMethodSelected = true;
                 // FILL THE INSTALLMENT PAYMENTS
                 for (int ppaRow = 0; ppaRow < (numberOfPayments - 1); ppaRow++) // Select second row
                 {
@@ -950,11 +966,13 @@ namespace PaymentPlanCalculator
                 dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text; // Adds remainder amount (after date in previous row)
             }
 
+            // #6
             /* **************************************** * // Added during troubleshooting a bug, seems to have fixed calculating BIF when SIF involved
              *      No Down Payment, yes PPA, yes SIF   *
              * **************************************** */
-            else if (txtDownPayment.Text == "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value != 0 && slideSIFpercentage.Value != 100) // If PPA has down payment and PPA
+            else if (txtDownPayment.Text == "0.00" && lblInstallmentAmt.Text != "0.00" && sliderRemainingPmtCount.Value != 0 && slideSIFpercentage.Value != 100 && dataGridMethodSelected == false) // If PPA has down payment and PPA
             {
+                dataGridMethodSelected = true;
                 // FILL THE INSTALLMENT PAYMENTS
                 for (int ppaRow = 0; ppaRow < (numberOfPayments - 1); ppaRow++) // Select second row
                 {
@@ -968,11 +986,13 @@ namespace PaymentPlanCalculator
                 dataGridPPA["pmtAmount", (numberOfPayments - 1)].Value = lblRemainder.Text; // Adds remainder amount (after date in previous row)
             }
 
+            // #7
             /* *********************************** *
              *  Down Payment, Remaining as Final   *
              * *********************************** */
-            else if (sliderRemainingPmtCount.Value == 1 && ((Convert.ToDouble(txtDownPayment.Text)) < (Convert.ToDouble(txtBalanceInput.Text))))
+            else if (sliderRemainingPmtCount.Value == 1 && ((Convert.ToDouble(txtDownPayment.Text)) < (Convert.ToDouble(txtBalanceInput.Text))) && dataGridMethodSelected == false)
             {
+                dataGridMethodSelected = true;
                 // ADD DOWN PAYMENT
                 dataGridPPA.Rows.Add(); // Add row
                 dataGridPPA["pmtDate", 0].Value = monthCalendarDP.SelectionStart.ToShortDateString(); // Set row 1 as first selection
@@ -1226,6 +1246,7 @@ namespace PaymentPlanCalculator
          * *********************** */
         public void BtnCalculate_Click(object sender, EventArgs e)
         {
+            dataGridMethodSelected = false;
             /* ***************************************** *
              *            CHECK FOR PAY CYCLE            *
              *   CHECK TO MAKE SURE DATES ARE IN ORDER   *
