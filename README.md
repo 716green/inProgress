@@ -5,4 +5,4 @@
 This project was abandoned quite some time ago
 
 ## Known Bugs:
-#### Addiing data frameworks caused a private key to be generated. This project can only be worked on with the original PC without removing all NuGet packages.
+#### Adding data frameworks caused a private key to be generated. This project can only be worked on with the original PC without removing all NuGet packages.
